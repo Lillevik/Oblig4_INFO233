@@ -1,8 +1,13 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection;
 
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Gui;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 /**
@@ -10,7 +15,7 @@ import java.util.Properties;
  */
 public class ConnectionHandling {
 
-    public void connectToDatabase() {
+    public Connection getDbConnection() {
         try {
             Class.forName(("com.mysql.jdbc.Driver"));
         } catch (ClassNotFoundException cnfe) {
@@ -19,9 +24,9 @@ public class ConnectionHandling {
 
 
         String host = "bigfoot.uib.no";
-        String dbName = "gr9_16";
+        String dbName = "i233_16_gr9";//"gr9_16";
         int port = 3306;
-        String mySqlUrl = "jdbc:mysql://" + host + ":" + port;// + "/" + dbName;
+        String mySqlUrl = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
         System.out.println(mySqlUrl);
 
         Properties userInfo = new Properties();
@@ -41,12 +46,68 @@ public class ConnectionHandling {
         } else {
             System.out.println("Kunne ikke koble opp mot databasen.");
         }
-
+        return conn;
     }
+
+
+    private void insertRecordIntoDbUserTable(String grade, String name) {
+
+        Connection dbConnection = null;
+        Statement statement = null;
+
+        try {
+
+
+            dbConnection = getDbConnection();
+            statement = dbConnection.createStatement();
+
+            statement.executeUpdate("INSERT INTO Course (name, grade)" + "VALUES " +
+                    "('" + name + "', '" + grade + "')");
+
+
+            System.out.println("A course is inserted into the Course table!");
+
+
+
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+
+        }
+    }
+
+
+
+
+
 
     public static void main(String[] args){
         ConnectionHandling ch = new ConnectionHandling();
-        ch.connectToDatabase();
+        Gui g = new Gui();
+
+        g.getCreateButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ch.insertRecordIntoDbUserTable(
+                        g.getGradeChooser().getSelectedItem().toString(),
+                        g.getLocationText().getText());
+            }
+        });
+
+        g.getBackButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.closeWindow();
+            }
+        });
     }
 
 
