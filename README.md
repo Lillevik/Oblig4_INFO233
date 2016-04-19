@@ -70,7 +70,7 @@ Når dere skal levere, må hele prosjektmappen arkiveres i en .zip fil. Oppgaven
 på MiSide i den relevante mappen.
 Obligatoriske oppgaver 2-4 skal løses i grupper på 2.
 
-Oppgaven
+#Oppgaven
 I denne oppgaven skal dere utvikle en applikasjon som opererer på en ekstern database
 som ligger på serveren bigfoot.uib.no. For å få tilgang til databasen må dere sende en
 epost med navn på begge gruppemedlemmene til enten Sigve eller Ole Andreas som så
