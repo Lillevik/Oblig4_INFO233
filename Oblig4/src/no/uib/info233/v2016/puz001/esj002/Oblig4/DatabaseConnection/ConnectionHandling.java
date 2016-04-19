@@ -24,7 +24,7 @@ public class ConnectionHandling {
 
 
         String host = "bigfoot.uib.no";
-        String dbName = "i233_16_gr9";//"gr9_16";
+        String dbName = "gr9_16";
         int port = 3306;
         String mySqlUrl = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
         System.out.println(mySqlUrl);
@@ -61,7 +61,7 @@ public class ConnectionHandling {
             dbConnection = getDbConnection();
             statement = dbConnection.createStatement();
 
-            statement.executeUpdate("INSERT INTO Course (name, grade)" + "VALUES " +
+            statement.executeUpdate("INSERT INTO Course (navn, grade)" + "VALUES " +
                     "('" + name + "', '" + grade + "')");
 
 

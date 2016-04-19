@@ -8,58 +8,6 @@ Filnavn: brukernavn1_brukernavn2_oblig4.zip
 Prosjektnavn: no.uib.info233.v2016.<brukernavn1_brukernavn2>.oblig4
 Om obligatoriske oppgaver
 
-1. Kursansvarlig skal kunne legge inn navn på kurs, hvilke deler kurset skal bestå av
-(disse skal kunne gis navn), og hvordan de ulike delene av kurset skal vektes for
-karaktersetting (vekting kan være fra 20% av totalkarakteren og oppover).
-Summen av vektinger må være 100%. Disse verdiene skal brukes senere når
-karakterene beregnes.
-
-2. Det skal kunne legges inn en liste over studenter. Dette kan enten gjøres av
-brukeren via brukergrensesnittet eller ved å importere en sql-fil som inneholder
-alle kursdeltakerne.
-
-3. Når kurset (eller en del av kurset) skal karaktersettes, skal en kunne legge inn
-delkarakterer for en del av kurset, f.eks. Prosjektarbeid. Dette kan gjøres enten
-ved at du velger en enkelt student om gangen, eller ved at du har en liste over
-studenter og kan legge karakterene direkte inn i relevante celler i en tabell.
-
-4. Det skal brukes bokstavkarakterer: A - F.
-
-5. Det er ønskelig at det blir indikert hvilke karakterer som mangler, og/eller hvor
-stor andel av delkarakterene som er satt.
-
-6. Når alle karakterene for en student er lagt inn, skal det regnes ut en endelig
-karakter for vedkommende.
-
-7. Det er ønskelig at kursansvarlig skal kunne sortere studentene på bakgrunn av
-navn, delkarakter på en enkel kursdel eller totalkarakter.
-
-8. Siden det potensielt skal kunne være mange studenter som tar et kurs, skal en
-også kunne søke etter en bestemt student basert på navn.
-
-9. Som en ekstraoppgave kan dere lage en tabell som viser karakterfordelingen.
-
-10. Dere skal også lage noen enhetstester. Dette kan f.eks. være:
-a. Test for oppkobling mot databasetjeneren.
-b. Et sett av tester for beregning av endelig karakter. Husk
-avrundingsproblematikken.
-c. Testing på innsetting av verdier som er feil. (Bokstaver utenfor
-karakterskala eller navn bestående av nummer eller ugyldige tegn)
-
-Tips​: Det kan være lurt å begynne med å lage et utkast til databasestruktur slik at en ser
-at en får med seg alle detaljene. Hvilke tabeller trenges og hva slags datatyper skal en
-bruke til de ulike kolonnene.
-
-Når en utvikler et program iterativt, er det lurt å implementere deler av programmet og
-kun legge inn den delen av databasen som er nødvendig til akkurat disse delene av
-programmet. Dette for at en ikke skal måtte gjøre arbeid om igjen hvis en gjør en feil i
-design.
-
-Databasen kan designes via https://bigfoot.uib.no/phpMyAdmin/. Oppgi det
-brukernavn/passord dere fikk oppgitt til databasen. Herfra kan tabellene legges inn via
-grensesnittet, eller en sql-fil som inneholder spesifikasjonen for tabellene kan lastes
-opp.
-
 I de obligatoriske oppgavene stilles det en rekke krav. Disse må tilfredsstilles for å få
 godkjent oppgaven. Les oppgaven nøye.
 Hvis teksten er uklar eller du mener det finnes flere tolkninger av et krav, vennligst
@@ -70,7 +18,7 @@ Når dere skal levere, må hele prosjektmappen arkiveres i en .zip fil. Oppgaven
 på MiSide i den relevante mappen.
 Obligatoriske oppgaver 2-4 skal løses i grupper på 2.
 
-#Oppgaven
+Oppgaven
 I denne oppgaven skal dere utvikle en applikasjon som opererer på en ekstern database
 som ligger på serveren bigfoot.uib.no. For å få tilgang til databasen må dere sende en
 epost med navn på begge gruppemedlemmene til enten Sigve eller Ole Andreas som så
@@ -93,7 +41,45 @@ Dere skal lage en prototype som lager en løsning for ett kurs, hvor den kursans
 må definere hvilke deler av kurset som skal karaktersettes, og hvordan vektleggingen av
 de ulike delene skal være.
 Krav
-
+1. Kursansvarlig skal kunne legge inn navn på kurs, hvilke deler kurset skal bestå av
+(disse skal kunne gis navn), og hvordan de ulike delene av kurset skal vektes for
+karaktersetting (vekting kan være fra 20% av totalkarakteren og oppover).
+Summen av vektinger må være 100%. Disse verdiene skal brukes senere når
+karakterene beregnes.
+2. Det skal kunne legges inn en liste over studenter. Dette kan enten gjøres av
+brukeren via brukergrensesnittet eller ved å importere en sql-fil som inneholder
+alle kursdeltakerne.
+3. Når kurset (eller en del av kurset) skal karaktersettes, skal en kunne legge inn
+delkarakterer for en del av kurset, f.eks. Prosjektarbeid. Dette kan gjøres enten
+ved at du velger en enkelt student om gangen, eller ved at du har en liste over
+studenter og kan legge karakterene direkte inn i relevante celler i en tabell.
+4. Det skal brukes bokstavkarakterer: A - F.
+5. Det er ønskelig at det blir indikert hvilke karakterer som mangler, og/eller hvor
+stor andel av delkarakterene som er satt.
+6. Når alle karakterene for en student er lagt inn, skal det regnes ut en endelig
+karakter for vedkommende.
+7. Det er ønskelig at kursansvarlig skal kunne sortere studentene på bakgrunn av
+navn, delkarakter på en enkel kursdel eller totalkarakter.
+8. Siden det potensielt skal kunne være mange studenter som tar et kurs, skal en
+også kunne søke etter en bestemt student basert på navn.
+9. Som en ekstraoppgave kan dere lage en tabell som viser karakterfordelingen.
+10. Dere skal også lage noen enhetstester. Dette kan f.eks. være:
+a. Test for oppkobling mot databasetjeneren.
+b. Et sett av tester for beregning av endelig karakter. Husk
+avrundingsproblematikken.
+c. Testing på innsetting av verdier som er feil. (Bokstaver utenfor
+karakterskala eller navn bestående av nummer eller ugyldige tegn)
+Tips​: Det kan være lurt å begynne med å lage et utkast til databasestruktur slik at en ser
+at en får med seg alle detaljene. Hvilke tabeller trenges og hva slags datatyper skal en
+bruke til de ulike kolonnene.
+Når en utvikler et program iterativt, er det lurt å implementere deler av programmet og
+kun legge inn den delen av databasen som er nødvendig til akkurat disse delene av
+programmet. Dette for at en ikke skal måtte gjøre arbeid om igjen hvis en gjør en feil i
+design.
+Databasen kan designes via https://bigfoot.uib.no/phpMyAdmin/. Oppgi det
+brukernavn/passord dere fikk oppgitt til databasen. Herfra kan tabellene legges inn via
+grensesnittet, eller en sql-fil som inneholder spesifikasjonen for tabellene kan lastes
+opp.
 Som i de foregående obligatoriske oppgavene så skal alle klasser og metoder være godt
 kommenterte og i henhold til Javadoc, dvs. klassekommentarer skal ha forfatternavn for
 alle gruppedeltagerne.
