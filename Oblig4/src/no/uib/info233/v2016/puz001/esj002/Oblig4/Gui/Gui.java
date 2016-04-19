@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by marius on 18.04.2016.
+ * Created 18.04.2016.
  */
 public class Gui extends JFrame {
 

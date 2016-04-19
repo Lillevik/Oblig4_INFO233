@@ -1,9 +1,5 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection;
 
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Gui;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,7 +7,8 @@ import java.sql.Statement;
 import java.util.Properties;
 
 /**
- * Created by marius on 16.04.2016.
+ * Created 16.04.2016.
+ * Class for importing database data.
  */
 public class ConnectionHandling {
 
@@ -48,9 +45,9 @@ public class ConnectionHandling {
         }
         return conn;
     }
+        
 
-
-    private void insertRecordIntoDbUserTable(String grade, String name) {
+    public void insertRecordIntoDbUserTable(String grade, String name) {
 
         Connection dbConnection = null;
         Statement statement = null;
@@ -83,32 +80,4 @@ public class ConnectionHandling {
 
         }
     }
-
-
-
-
-
-
-    public static void main(String[] args){
-        ConnectionHandling ch = new ConnectionHandling();
-        Gui g = new Gui();
-
-        g.getCreateButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ch.insertRecordIntoDbUserTable(
-                        g.getGradeChooser().getSelectedItem().toString(),
-                        g.getLocationText().getText());
-            }
-        });
-
-        g.getBackButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                g.closeWindow();
-            }
-        });
-    }
-
-
 }
