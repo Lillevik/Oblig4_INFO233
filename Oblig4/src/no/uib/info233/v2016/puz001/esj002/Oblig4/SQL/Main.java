@@ -14,6 +14,7 @@ public class Main {
     public static void main(String[] args){
         ConnectionHandling ch = new ConnectionHandling();
         Gui g = new Gui();
+        ch.listCourses(g);
 
         g.getCreateButton().addActionListener(new ActionListener() {
             @Override
@@ -22,6 +23,7 @@ public class Main {
                         g.getDescriptionField().getText(),
                         g.getCourseNameField().getText(),
                         g.getProfessorField().getText());
+                ch.listCourses(g);
             }
         });
 
@@ -29,6 +31,13 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 g.closeWindow();
+            }
+        });
+
+        g.getListCourses().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ch.listCourses(g);
             }
         });
     }
