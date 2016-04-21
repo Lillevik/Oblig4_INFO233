@@ -1,4 +1,4 @@
-package no.uib.info233.v2016.puz001.esj002.Oblig4;
+package no.uib.info233.v2016.puz001.esj002.Oblig4.SQL;
 
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.ConnectionHandling;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Gui;
@@ -11,10 +11,6 @@ import java.awt.event.ActionListener;
  */
 public class Main {
 
-    private static ConnectionHandling ch = new ConnectionHandling();
-    private static Gui gui = new Gui();
-
-
     public static void main(String[] args){
         ConnectionHandling ch = new ConnectionHandling();
         Gui g = new Gui();
@@ -23,8 +19,9 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ch.insertRecordIntoDbUserTable(
-                        g.getGradeChooser().getSelectedItem().toString(),
-                        g.getLocationText().getText());
+                        g.getDescriptionField().getText(),
+                        g.getCourseNameField().getText(),
+                        g.getProfessorField().getText());
             }
         });
 

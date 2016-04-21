@@ -47,7 +47,7 @@ public class ConnectionHandling {
     }
         
 
-    public void insertRecordIntoDbUserTable(String grade, String name) {
+    public void insertRecordIntoDbUserTable(String desc, String name, String professor) {
 
         Connection dbConnection = null;
         Statement statement = null;
@@ -58,11 +58,11 @@ public class ConnectionHandling {
             dbConnection = getDbConnection();
             statement = dbConnection.createStatement();
 
-            statement.executeUpdate("INSERT INTO Course (navn, grade)" + "VALUES " +
-                    "('" + name + "', '" + grade + "')");
+            statement.executeUpdate("INSERT INTO Course (name, description, professor) " + "VALUES " +
+                    "('" + name + "', '" + desc + "', '" + professor + "')");
 
 
-            System.out.println("A course is inserted into the Course table!");
+            System.out.println("A course is sucsessfully inserted into the Course table!");
 
 
 

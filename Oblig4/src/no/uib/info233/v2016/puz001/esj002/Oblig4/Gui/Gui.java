@@ -2,6 +2,7 @@ package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.UUID;
 
 /**
  * Created 18.04.2016.
@@ -11,22 +12,47 @@ public class Gui extends JFrame {
 
     //These are the fields of the IssuePanel class.
     private static final long serialVersionUID = 4161520540703687836L;
-    private JLabel priority = new JLabel("Grade:");
-    private JLabel locationField = new JLabel("Course:");
-    private JTextField locationText = new JTextField();
+    private LayoutManager layout = new BorderLayout(1, 1);
+
+    private JLabel descriptionLabel = new JLabel("Description:");
+    private JLabel courseNameLabel = new JLabel("Course:");
+    private JLabel professorLabel = new JLabel("Professor:");
+
+    private JTextField courseNameField = new JTextField();
+    private JTextField descriptionField = new JTextField();
+    private JTextField professorField = new JTextField();
+
     private JButton createButton = new JButton("Create");
     private JButton backButton = new JButton("Cancel");
+
     private String[] grades = {"A", "B", "C", "D", "E", "F"};
-    private JComboBox gradeChooser = new JComboBox(grades);
-    private JPanel spine = new JPanel(new BorderLayout(1, 1));
+
+
+    private JPanel controls = new JPanel(new GridBagLayout());
+    private JPanel spine = new JPanel(layout);
+
+
+    private TableModel model = new TableModel();
+    private JTable table = new JTable(model);
+    private JScrollPane tablePane;
+    private TablePanel tp;
+
+
 
     public Gui(){
         super("Course planner");
+        tableRows();
+        tablePane = new JScrollPane(table);
+        tp = new TablePanel(tablePane);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(1000, 650));
         setResizable(true);
-        placeComponents(spine);
+        this.setLayout(layout);
+        setupComponents();
+        spine.add(controls, BorderLayout.WEST);
+        spine.add(tp, BorderLayout.CENTER);
         setContentPane(spine);
+
         pack();
         setVisible(true);
     }
@@ -39,27 +65,50 @@ public class Gui extends JFrame {
      * components to the panel.
      * @param panel
      */
-    private void placeComponents(JPanel panel) {
-        panel.setLayout(null);
+    private void placeComponentsGridBag(JPanel panel) {
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.anchor = GridBagConstraints.LINE_START;
 
+        gc.gridx = 0;
+        gc.gridy = 0;
+        panel.add(courseNameLabel, gc);
 
-        priority.setBounds(200, 240, 80, 25);
-        panel.add(priority);
+        gc.gridx = 1;
+        gc.gridy = 0;
+        panel.add(courseNameField, gc);
 
-        gradeChooser.setBounds(290, 240, 160, 25);
-        panel.add(gradeChooser);
+        gc.gridx = 0;
+        gc.gridy = 1;
+        panel.add(descriptionLabel, gc);
 
-        locationField.setBounds(200, 280, 80, 25);
-        panel.add(locationField);
+        gc.gridx = 1;
+        gc.gridy = 1;
+        panel.add(descriptionField, gc);
 
-        locationText.setBounds(290, 280, 160, 25);
-        panel.add(locationText);
+        gc.gridx = 0;
+        gc.gridy = 2;
+        panel.add(professorLabel, gc);
 
-        createButton.setBounds(275, 480, 80, 25);
-        panel.add(createButton);
+        gc.gridx = 1;
+        gc.gridy = 2;
+        panel.add(professorField, gc);
 
-        backButton.setBounds(390, 480, 80, 25);
-        panel.add(backButton);
+        gc.gridx = 0;
+        gc.gridy = 3;
+        panel.add(createButton, gc);
+
+        gc.gridx = 1;
+        gc.gridy = 3;
+        panel.add(backButton, gc);
+    }
+
+    public void setupComponents(){
+        courseNameField.setPreferredSize(new Dimension(150, 24));
+        descriptionField.setPreferredSize(new Dimension(150, 24));
+        professorField.setPreferredSize(new Dimension(150, 24));
+
+        placeComponentsGridBag(controls);
+
     }
 
     /**
@@ -68,7 +117,7 @@ public class Gui extends JFrame {
      * @return the locationText
      */
     public JTextField getLocationText() {
-        return locationText;
+        return courseNameField;
     }
 
 
@@ -88,20 +137,35 @@ public class Gui extends JFrame {
         return backButton;
     }
 
-    /**
-     * @param backButton the backButton to set
-     */
-    public void setBackButton(JButton backButton) {
-        this.backButton = backButton;
+    public JTextField getCourseNameField() {
+        return courseNameField;
     }
 
+    public JTextField getDescriptionField(){
+        return this.descriptionField;
+    }
 
-    public JComboBox getGradeChooser(){
-        return this.gradeChooser;
+    public JTextField getProfessorField() {
+        return professorField;
     }
 
     public void closeWindow(){
         System.exit(0);
+    }
+
+    /**
+     * This method clears the model and readds the rows
+     * and columns again.
+     * It was primarily made to reduce code duplication
+     * by reusing some code where possible.
+     */
+    public void tableRows(){
+        model.setRowCount(0);
+        model.setColumnCount(0);
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Description");
+        model.addColumn("Admin");
     }
 
 }
