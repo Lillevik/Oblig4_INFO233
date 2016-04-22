@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * Created by goat on 22.04.16.
  */
-public class LoginPanel extends JPanel {
+public class RegisterPanel extends JPanel {
 
     //JLabels
     private JLabel userLabel= new JLabel("Username: ");
@@ -17,11 +17,10 @@ public class LoginPanel extends JPanel {
     private JPasswordField passwordField = new JPasswordField();
 
     //JButtons
-    private JButton loginButton = new JButton("Login");
-    private JButton registerButton = new JButton("Register");
+    private JButton registerButton = new JButton("Register new user");
 
 
-    public LoginPanel(){
+    public RegisterPanel(){
         this.setLayout(new GridBagLayout());
         setupComponents();
         setVisible(true);
@@ -50,10 +49,6 @@ public class LoginPanel extends JPanel {
         gc.gridy = 1;
         this.add(passwordField, gc);
 
-        gc.gridx = 0;
-        gc.gridy = 2;
-        this.add(loginButton, gc);
-
         gc.gridx = 1;
         gc.gridy = 2;
         this.add(registerButton, gc);
@@ -67,10 +62,6 @@ public class LoginPanel extends JPanel {
 
     public JTextField getUserField() {
         return userField;
-    }
-
-    public JButton getLoginButton() {
-        return loginButton;
     }
 
     public JButton getRegisterButton() {

@@ -10,11 +10,11 @@ import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.PartCourseFrame;
 public class Main {
 
     public static void main(String[] args){
-
         Gui g = new Gui();
         ConnectionHandling ch = new ConnectionHandling();
         Controls controls = new Controls(g, ch);
 
+        ch.listCourses(g);
         controls.controlActions();
     }
 }

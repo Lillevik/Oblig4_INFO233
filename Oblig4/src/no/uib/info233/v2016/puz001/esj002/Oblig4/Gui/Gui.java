@@ -1,5 +1,7 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui;
 
+import sun.rmi.runtime.Log;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.UUID;
@@ -32,12 +34,15 @@ public class Gui extends JFrame {
 
     private JPanel controls = new JPanel(new GridBagLayout());
     private JPanel spine = new JPanel(layout);
+    private LoginPanel lp = new LoginPanel();
+    private RegisterPanel rp = new RegisterPanel();
 
 
     private TableModel model = new TableModel();
     private JTable table = new JTable(model);
     private JScrollPane tablePane;
     private TablePanel tp;
+
 
 
 
@@ -53,7 +58,7 @@ public class Gui extends JFrame {
         setupComponents();
         spine.add(controls, BorderLayout.WEST);
         spine.add(tp, BorderLayout.CENTER);
-        setContentPane(spine);
+        setContentPane(lp);
 
         pack();
         setVisible(true);
@@ -190,5 +195,17 @@ public class Gui extends JFrame {
 
     public JButton getPartButton() {
         return partButton;
+    }
+
+    public LoginPanel getLp() {
+        return lp;
+    }
+
+    public JPanel getSpine() {
+        return spine;
+    }
+
+    public RegisterPanel getRp() {
+        return rp;
     }
 }

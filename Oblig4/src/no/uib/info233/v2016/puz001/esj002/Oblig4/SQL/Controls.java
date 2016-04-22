@@ -15,15 +15,19 @@ public class Controls {
     private Gui g;
     private ConnectionHandling ch;
 
-    public Controls(Gui g, ConnectionHandling ch){
+    public Controls(Gui g, ConnectionHandling ch) {
         this.g = g;
         this.ch = ch;
     }
 
-    public void controlActions(){
+    public void controlActions() {
         createCourse();
         listCourses();
         cancelButton();
+        addNewPart();
+        login();
+        changeToRegisterPanel();
+        registerNewUser();
     }
 
 
@@ -61,13 +65,48 @@ public class Controls {
         });
     }
 
-    public void addNewPart(){
+    public void addNewPart() {
         g.getPartButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new PartCourseFrame();
             }
         });
+
+
     }
 
+    public void login() {
+        g.getLp().getLoginButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ch.authenticateLogin(g.getLp().getUserField().getText(),
+                        g.getLp().getPasswordField().getText(),
+                        g);
+            }
+        });
+
+    }
+
+    public void changeToRegisterPanel(){
+        g.getLp().getRegisterButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.setContentPane(g.getRp());
+                g.pack();
+            }
+        });
+    }
+
+    public void registerNewUser(){
+        g.getRp().getRegisterButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ch.insertNewEmployee(g.getRp().getUserField().getText(),
+                                     g.getRp().getPasswordField().getText());
+                g.setContentPane(g.getLp());
+                g.pack();
+            }
+        });
+    }
 }

@@ -117,4 +117,67 @@ public class ConnectionHandling{
             System.out.println(s.getMessage());
         }
     }
+
+    public void authenticateLogin(String name, String pass, Gui g) {
+
+        Connection dbConnection = null;
+        Statement statement = null;
+        try {
+
+
+            dbConnection = getDbConnection();
+            statement = dbConnection.createStatement();
+
+            //String sql1 = ("SELECT * FROM  `Course`  WHERE name = 'INFO233' ORDER BY c_id DESC LIMIT 100;");
+            String sql = ("SELECT * FROM  `Employee`  WHERE name = '" + name + "' AND password = '" + pass + "' LIMIT 1;");
+            ResultSet rs = statement.executeQuery(sql);
+
+            if (rs.next()) {
+                g.setContentPane(g.getSpine());
+                g.pack();
+            }
+
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
+    }
+
+    public void insertNewEmployee(String name, String pass) {
+
+        Connection dbConnection = null;
+        Statement statement = null;
+
+
+        if (name.equals("") && pass.equals("")) {
+            System.out.println("Please enter values for name and description.");
+        }else if(name.equals("")) {
+            System.out.println("Please enter a name");
+        } else if(pass.equals("")){
+            System.out.println("Please enter a description.");
+        } else {
+            try {
+                dbConnection = getDbConnection();
+                statement = dbConnection.createStatement();
+                statement.executeUpdate("INSERT INTO Employee (name, password) " + "VALUES " +
+                        "('" + name + "', '" + pass + "')");
+
+
+
+                if (statement != null) {
+                    statement.close();
+                }
+
+                if (dbConnection != null) {
+                    dbConnection.close();
+                }
+
+            } catch (SQLException e) {
+
+                System.out.println(e.getMessage());
+
+            }
+        }
+    }
+
+
 }
