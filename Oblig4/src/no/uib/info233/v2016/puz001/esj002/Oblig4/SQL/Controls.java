@@ -2,6 +2,7 @@ package no.uib.info233.v2016.puz001.esj002.Oblig4.SQL;
 
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.ConnectionHandling;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Gui;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.PartCourseFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,6 +57,15 @@ public class Controls {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ch.listCourses(g);
+            }
+        });
+    }
+
+    public void addNewPart(){
+        g.getPartButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PartCourseFrame();
             }
         });
     }

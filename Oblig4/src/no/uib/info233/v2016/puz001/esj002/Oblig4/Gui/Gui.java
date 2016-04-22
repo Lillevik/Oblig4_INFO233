@@ -25,6 +25,7 @@ public class Gui extends JFrame {
     private JButton createButton = new JButton("Create");
     private JButton backButton = new JButton("Cancel");
     private JButton listCourses = new JButton("Update");
+    private JButton partButton = new JButton(("New part"));
 
     private String[] grades = {"A", "B", "C", "D", "E", "F"};
 
@@ -102,10 +103,14 @@ public class Gui extends JFrame {
         gc.gridy = 3;
         panel.add(backButton, gc);
 
-        gc.gridx = 1;
+        gc.gridx = 0;
         gc.gridy = 4;
         gc.weighty = 10;
         panel.add(listCourses, gc);
+
+        gc.gridx = 1;
+        gc.gridy = 4;
+        panel.add(partButton, gc);
     }
 
     public void setupComponents(){
@@ -115,6 +120,22 @@ public class Gui extends JFrame {
 
         placeComponentsGridBag(controls);
 
+    }
+
+
+    /**
+     * This method clears the model and readds the rows
+     * and columns again.
+     * It was primarily made to reduce code duplication
+     * by reusing some code where possible.
+     */
+    public void tableRows(){
+        model.setRowCount(0);
+        model.setColumnCount(0);
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Description");
+        model.addColumn("Admin");
     }
 
     /**
@@ -167,19 +188,7 @@ public class Gui extends JFrame {
         return listCourses;
     }
 
-    /**
-     * This method clears the model and readds the rows
-     * and columns again.
-     * It was primarily made to reduce code duplication
-     * by reusing some code where possible.
-     */
-    public void tableRows(){
-        model.setRowCount(0);
-        model.setColumnCount(0);
-        model.addColumn("ID");
-        model.addColumn("Name");
-        model.addColumn("Description");
-        model.addColumn("Admin");
+    public JButton getPartButton() {
+        return partButton;
     }
-
 }
