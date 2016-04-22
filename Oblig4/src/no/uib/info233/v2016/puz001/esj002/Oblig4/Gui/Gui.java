@@ -1,5 +1,7 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui;
 
+import sun.rmi.runtime.Log;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.UUID;
@@ -17,6 +19,7 @@ public class Gui extends JFrame {
     private JLabel descriptionLabel = new JLabel("Description:");
     private JLabel courseNameLabel = new JLabel("Course:");
     private JLabel professorLabel = new JLabel("Professor:");
+    private JLabel loggedInLabel = new JLabel("Not logged in");
 
     private JTextField courseNameField = new JTextField();
     private JTextField descriptionField = new JTextField();
@@ -26,18 +29,23 @@ public class Gui extends JFrame {
     private JButton backButton = new JButton("Cancel");
     private JButton listCourses = new JButton("Update");
     private JButton partButton = new JButton(("New part"));
+    private JButton switchUser = new JButton("Switch user");
 
     private String[] grades = {"A", "B", "C", "D", "E", "F"};
 
 
     private JPanel controls = new JPanel(new GridBagLayout());
     private JPanel spine = new JPanel(layout);
+    private LoginPanel lp = new LoginPanel();
+    private RegisterPanel rp = new RegisterPanel();
 
 
     private TableModel model = new TableModel();
     private JTable table = new JTable(model);
     private JScrollPane tablePane;
     private TablePanel tp;
+    private String currentUser;
+
 
 
 
@@ -53,7 +61,7 @@ public class Gui extends JFrame {
         setupComponents();
         spine.add(controls, BorderLayout.WEST);
         spine.add(tp, BorderLayout.CENTER);
-        setContentPane(spine);
+        setContentPane(lp);
 
         pack();
         setVisible(true);
@@ -111,6 +119,14 @@ public class Gui extends JFrame {
         gc.gridx = 1;
         gc.gridy = 4;
         panel.add(partButton, gc);
+
+        gc.gridx = 0;
+        gc.gridy = 5;
+        panel.add(loggedInLabel, gc);
+
+        gc.gridx = 1;
+        gc.gridy = 5;
+        panel.add(switchUser, gc);
     }
 
     public void setupComponents(){
@@ -190,5 +206,33 @@ public class Gui extends JFrame {
 
     public JButton getPartButton() {
         return partButton;
+    }
+
+    public LoginPanel getLp() {
+        return lp;
+    }
+
+    public JPanel getSpine() {
+        return spine;
+    }
+
+    public RegisterPanel getRp() {
+        return rp;
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public JLabel getLoggedInLabel() {
+        return loggedInLabel;
+    }
+
+    public JButton getSwitchUser() {
+        return switchUser;
     }
 }
