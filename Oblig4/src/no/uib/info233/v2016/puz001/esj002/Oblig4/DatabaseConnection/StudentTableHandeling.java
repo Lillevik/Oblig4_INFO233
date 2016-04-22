@@ -49,7 +49,7 @@ public class StudentTableHandeling {
             dbConnection = ch.getDbConnection();
             statement = dbConnection.createStatement();
 
-            if (!g.getSf().getStudentName().equals(null)){
+            if (!g.getSf().getStudentName().equals("")){
                 g.getSf().getHeader().setText("ERROR: Name cant be null");
 
             } else {
