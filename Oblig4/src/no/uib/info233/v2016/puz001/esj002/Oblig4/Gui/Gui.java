@@ -10,6 +10,7 @@ import java.util.UUID;
 public class Gui extends JFrame {
 
 
+
     //These are the fields of the IssuePanel class.
     private static final long serialVersionUID = 4161520540703687836L;
     private LayoutManager layout = new BorderLayout(1, 1);
@@ -24,13 +25,16 @@ public class Gui extends JFrame {
 
     private JButton createButton = new JButton("Create");
     private JButton backButton = new JButton("Cancel");
-    private JButton listCourses = new JButton("Update");
+    private JButton listCourses = new JButton("Courses");
+    private JButton listStudents = new JButton("Students");
+    private JButton addStudents = new JButton("Add students");
 
     private String[] grades = {"A", "B", "C", "D", "E", "F"};
 
 
     private JPanel controls = new JPanel(new GridBagLayout());
     private JPanel spine = new JPanel(layout);
+    private StudentFrame sf = (StudentFrame) new StudentFrame();
 
 
     private TableModel model = new TableModel();
@@ -98,6 +102,10 @@ public class Gui extends JFrame {
         gc.gridy = 3;
         panel.add(createButton, gc);
 
+        gc.gridx = 2;
+        gc.gridy = 3;
+        panel.add(addStudents, gc);
+
         gc.gridx = 1;
         gc.gridy = 3;
         panel.add(backButton, gc);
@@ -106,6 +114,14 @@ public class Gui extends JFrame {
         gc.gridy = 4;
         gc.weighty = 10;
         panel.add(listCourses, gc);
+
+        gc.gridx = 0;
+        gc.gridy = 4;
+        gc.weighty = 10;
+        panel.add(listStudents, gc);
+
+
+
     }
 
     public void setupComponents(){
@@ -165,6 +181,22 @@ public class Gui extends JFrame {
 
     public JButton getListCourses() {
         return listCourses;
+    }
+
+    public JButton getListStudents() {
+        return listStudents;
+    }
+
+    public JButton getAddStudents() {
+        return addStudents;
+    }
+
+    public StudentFrame getSf() {
+        return sf;
+    }
+
+    public JPanel getSpine() {
+        return spine;
     }
 
     /**
