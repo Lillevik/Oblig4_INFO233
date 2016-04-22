@@ -27,8 +27,6 @@ public class Gui extends JFrame {
     private JButton backButton = new JButton("Cancel");
     private JButton listCourses = new JButton("Courses");
     private JButton listStudents = new JButton("Students");
-    private JButton addStudents = new JButton("Add students");
-
     private String[] grades = {"A", "B", "C", "D", "E", "F"};
 
 
@@ -101,10 +99,6 @@ public class Gui extends JFrame {
         gc.gridx = 0;
         gc.gridy = 3;
         panel.add(createButton, gc);
-
-        gc.gridx = 2;
-        gc.gridy = 3;
-        panel.add(addStudents, gc);
 
         gc.gridx = 1;
         gc.gridy = 3;
@@ -185,10 +179,6 @@ public class Gui extends JFrame {
 
     public JButton getListStudents() {
         return listStudents;
-    }
-
-    public JButton getAddStudents() {
-        return addStudents;
     }
 
     public StudentFrame getSf() {

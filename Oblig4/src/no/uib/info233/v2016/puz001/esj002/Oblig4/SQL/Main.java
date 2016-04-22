@@ -14,7 +14,7 @@ public class Main {
 
         Gui g = new Gui();
         ConnectionHandling ch = new ConnectionHandling();
-        StudentTableHandeling sth = new StudentTableHandeling(ch);
+        StudentTableHandeling sth = new StudentTableHandeling(ch, g);
 
 
         Controls controls = new Controls(g, ch, sth);

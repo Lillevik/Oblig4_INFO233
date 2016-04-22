@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TableModelStudent extends DefaultTableModel {
 
-    final Class<?>[] columnClasses = new Class<?>[] {Integer.class, String.class};
+    final Class<?>[] columnClasses = new Class<?>[] {Integer.class, String.class, String.class};
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {

@@ -4,12 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by svimanet on 22/04/16.
+ * Created 22/04/16.
+ *
+ * This class makes a new contentPane to
+ * show a new table and add rows to that new table.
+ * The Student table is the table imported and edited.
+ * The class contains new buttons and fields and lets the user
+ * return to the original contentPane when done
+ * editing this one.
  */
 public class StudentFrame extends JPanel {
 
-
-    //These are the fields of the IssuePanel class.
     private static final long serialVersionUID = 4161520540703687836L;
     private LayoutManager layout = new BorderLayout(1, 1);
     private String[] grades = {"A", "B", "C", "D", "E", "F"};
@@ -21,7 +26,8 @@ public class StudentFrame extends JPanel {
     private JTextField studentID = new JTextField();
 
     private JLabel nameLabel = new JLabel("Student name");
-    private JLabel IDlabel = new JLabel("Student ID");
+    private JLabel header = new JLabel("View and add students here.");
+    private JLabel desc = new JLabel("Syntax: 'Firstname Lastname'. " + "\n");
 
     private JButton addStudent = new JButton("Add student");
     private JButton exit = new JButton("Back");
@@ -31,6 +37,10 @@ public class StudentFrame extends JPanel {
     private JScrollPane tablePane;
     private TablePanel tp;
 
+    /**
+     * The constructor initiates all the components
+     * and makes it visible.
+     */
     public StudentFrame(){
 
         tableRows();
@@ -55,32 +65,30 @@ public class StudentFrame extends JPanel {
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.LINE_START;
 
-        studentName.setPreferredSize(new Dimension(100, 20));
-        studentID.setPreferredSize(new Dimension(100, 20));
+        studentName.setPreferredSize(new Dimension(150, 20));
 
         gc.gridx = 0;
-        gc.gridy = 0;
+        gc.gridy = 2;
         panel.add(nameLabel, gc);
 
         gc.gridx = 1;
-        gc.gridy = 0;
+        gc.gridy = 2;
         panel.add(studentName, gc);
 
-
         gc.gridx = 0;
-        gc.gridy = 1;
+        gc.gridy = 3;
         panel.add(addStudent, gc);
 
         gc.gridx = 1;
-        gc.gridy = 1;
+        gc.gridy = 3;
         panel.add(exit, gc);
 
     }
 
-    public void exitWindow(){
-        System.exit(0);
-    }
-
+    /**
+     * The setupComponents sets the specified components
+     * and lets the constructor get ahold of them with less code.
+     */
     public void setupComponents(){
 
         placeComponentsGridBag(controls);
@@ -98,6 +106,7 @@ public class StudentFrame extends JPanel {
         studentModel.setColumnCount(0);
         studentModel.addColumn("ID");
         studentModel.addColumn("Name");
+        studentModel.addColumn("Course");
     }
 
     @Override
@@ -117,11 +126,11 @@ public class StudentFrame extends JPanel {
         return studentName;
     }
 
-    public JTextField getStudentID() {
-        return studentID;
-    }
-
     public TableModelStudent getStudentModel() {
         return studentModel;
+    }
+
+    public JLabel getHeader() {
+        return header;
     }
 }

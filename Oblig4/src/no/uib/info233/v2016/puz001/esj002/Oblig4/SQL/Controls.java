@@ -3,13 +3,18 @@ package no.uib.info233.v2016.puz001.esj002.Oblig4.SQL;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.ConnectionHandling;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.StudentTableHandeling;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Gui;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.StudentFrame;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by goat on 21.04.16.
+ * Esj002 && Puz001
+ * Created 21.04.16.
+ *
+ * The Controls class is a class for all action events
+ * and listeners. It takes buttons from all GUI related
+ * classes and connects them with a method.
+ * The methods and buttons are then initiated in the Main class.
+ *
  */
 public class Controls {
 
@@ -23,6 +28,9 @@ public class Controls {
         this.sth = sth;
     }
 
+    /**
+     * This method initioates all the possible methods in this class.
+     */
     public void controlActions(){
         createCourse();
         listCourses();
@@ -33,8 +41,13 @@ public class Controls {
     }
 
 
+    /**
+     * This method lets the user add new courses
+     * to the 'Course' table in the database.
+     * The user HAS to input name and desc, but the ADMIN row is auto
+     * implemented by who is logged inn.
+     */
     public void createCourse() {
-
         g.getCreateButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,8 +60,10 @@ public class Controls {
         });
     }
 
+    /**
+     * This button is for exiting the program.
+     */
     public void cancelButton() {
-
         g.getBackButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,8 +72,11 @@ public class Controls {
         });
     }
 
+    /**
+     * This method lets the user update the 'Course' table from the database.
+     *
+     */
     public void listCourses() {
-
         g.getListCourses().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,9 +85,13 @@ public class Controls {
         });
     }
 
+    /**
+     * This method sends the user to a new panel where
+     * the table is altered to show the 'Student' table from the database.
+     * Here the user can view and add new students to the table.
+     * The user can return to the original pane.
+     */
     public void listStudents() {
-
-
         g.getListStudents().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,17 +102,29 @@ public class Controls {
         });
     }
 
+    /**
+     * This method lets the user add students to the 'Student'
+     * table in the database. The user only inputs name since
+     * the ID is auto implemented in the table.
+     * After adding it refills the table so that the new
+     * Student(s) is shown.
+     */
     public void addStudents(){
         g.getSf().getAddStudent().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sth.insertRecordIntoDbUserTable(
-                        g.getSf().getStudentName().getText());
+                            g.getSf().getStudentName().getText());
                 sth.listStudents(g.getSf());
+
             }
         });
     }
 
+    /**
+     * This method makes the "Back" button in the StudentFrame return the user
+     * to the original pane and fills the table accordingly.
+     */
     public void exitStudentFrame(){
         g.getSf().getExit().addActionListener(new ActionListener() {
             @Override
