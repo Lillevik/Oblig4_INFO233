@@ -133,6 +133,7 @@ public class ConnectionHandling{
             ResultSet rs = statement.executeQuery(sql);
 
             if (rs.next()) {
+                g.getLoggedInLabel().setText("Logged in as : " + g.getLp().getUserField().getText());
                 g.setContentPane(g.getSpine());
                 g.pack();
             }

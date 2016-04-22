@@ -28,6 +28,7 @@ public class Controls {
         login();
         changeToRegisterPanel();
         registerNewUser();
+        switchUser();
     }
 
 
@@ -83,6 +84,7 @@ public class Controls {
                 ch.authenticateLogin(g.getLp().getUserField().getText(),
                         g.getLp().getPasswordField().getText(),
                         g);
+
             }
         });
 
@@ -106,6 +108,15 @@ public class Controls {
                                      g.getRp().getPasswordField().getText());
                 g.setContentPane(g.getLp());
                 g.pack();
+            }
+        });
+    }
+
+    public void switchUser(){
+        g.getSwitchUser().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.setContentPane(g.getLp());
             }
         });
     }
