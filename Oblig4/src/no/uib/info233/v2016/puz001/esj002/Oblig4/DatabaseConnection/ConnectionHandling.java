@@ -61,7 +61,7 @@ public class ConnectionHandling {
                     "('" + name + "', '" + desc + "', '" + professor + "')");
 
 
-            System.out.println("A course is sucsessfully inserted into the Course table!");
+            System.out.println("A course was sucsessfully inserted into the Course table!");
 
 
             if (statement != null) {
@@ -90,7 +90,7 @@ public class ConnectionHandling {
             dbConnection = getDbConnection();
             statement = dbConnection.createStatement();
 
-            String sql = ("SELECT * FROM  `Course`  ORDER BY c_id DESC LIMIT 100;");// ORDER BY c_id DESC;");
+            String sql = ("SELECT * FROM  `Course` ORDER BY c_id DESC LIMIT 100;");// ORDER BY c_id DESC;");
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
