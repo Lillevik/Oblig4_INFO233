@@ -11,6 +11,7 @@ public class LoginPanel extends JPanel {
     //JLabels
     private JLabel userLabel= new JLabel("Username: ");
     private JLabel passwordLabel= new JLabel("Password: ");
+    private JLabel loggedInLabel = new JLabel(("Not logged in."));
 
     //JTextfields
     private JTextField userField = new JTextField();
@@ -58,6 +59,10 @@ public class LoginPanel extends JPanel {
         gc.gridy = 2;
         this.add(registerButton, gc);
 
+        gc.gridx = 0;
+        gc.gridy = 3;
+        this.add(loggedInLabel, gc);
+
 
     }
 
@@ -75,5 +80,9 @@ public class LoginPanel extends JPanel {
 
     public JButton getRegisterButton() {
         return registerButton;
+    }
+
+    public JLabel getLoggedInLabel() {
+        return loggedInLabel;
     }
 }

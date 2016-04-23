@@ -47,7 +47,7 @@ public class ConnectionHandling{
     }
 
 
-    public void insertRecordIntoDbUserTable(String desc, String name, String professor) {
+    public void insertRecordIntoDbUserTable(String desc, String name, Gui g) {
 
         Connection dbConnection = null;
         Statement statement = null;
@@ -64,7 +64,7 @@ public class ConnectionHandling{
                 dbConnection = getDbConnection();
                 statement = dbConnection.createStatement();
                 statement.executeUpdate("INSERT INTO Course (name, description, professor) " + "VALUES " +
-                        "('" + name + "', '" + desc + "', '" + professor + "')");
+                        "('" + name + "', '" + desc + "', '" + g.getCurrentUser() + "')");
 
             System.out.println("A course was sucsessfully inserted into the Course table!");
 
@@ -133,9 +133,13 @@ public class ConnectionHandling{
             ResultSet rs = statement.executeQuery(sql);
 
             if (rs.next()) {
-                g.getLoggedInLabel().setText("Logged in as : " + g.getLp().getUserField().getText());
+                String userName = g.getLp().getUserField().getText();
+                g.getCp().getLoggedInAs().setText("Currently logged in as : " + userName);
+                g.setCurrentUser(userName);
                 g.setContentPane(g.getSpine());
                 g.pack();
+            } else {
+                g.getLp().getLoggedInLabel().setText("Wrong username or password, try again.");
             }
 
         } catch (SQLException s) {

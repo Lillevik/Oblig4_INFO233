@@ -23,42 +23,32 @@ public class Controls {
     public void controlActions() {
         createCourse();
         listCourses();
-        cancelButton();
         addNewPart();
         login();
         changeToRegisterPanel();
         registerNewUser();
         switchUser();
+        cancelRegistration();
     }
 
 
     public void createCourse() {
 
-        g.getCreateButton().addActionListener(new ActionListener() {
+        g.getCp().getAddCourseButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ch.insertRecordIntoDbUserTable(
-                        g.getDescriptionField().getText(),
-                        g.getCourseNameField().getText(),
-                        g.getProfessorField().getText());
+                        g.getCp().getDescriptionField().getText(),
+                        g.getCp().getTitleField().getText(),
+                        g);
                 ch.listCourses(g);
-            }
-        });
-    }
-
-    public void cancelButton() {
-
-        g.getBackButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                g.closeWindow();
             }
         });
     }
 
     public void listCourses() {
 
-        g.getListCourses().addActionListener(new ActionListener() {
+        g.getCp().getUpdateButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ch.listCourses(g);
@@ -73,8 +63,6 @@ public class Controls {
                 new PartCourseFrame();
             }
         });
-
-
     }
 
     public void login() {
@@ -113,10 +101,21 @@ public class Controls {
     }
 
     public void switchUser(){
-        g.getSwitchUser().addActionListener(new ActionListener() {
+        g.getLogout().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 g.setContentPane(g.getLp());
+                g.pack();
+            }
+        });
+    }
+
+    public void cancelRegistration(){
+        g.getRp().getCancelButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.setContentPane(g.getLp());
+                g.pack();
             }
         });
     }
