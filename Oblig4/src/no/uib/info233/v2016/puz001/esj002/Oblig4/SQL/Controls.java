@@ -3,6 +3,7 @@ package no.uib.info233.v2016.puz001.esj002.Oblig4.SQL;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.ConnectionHandling;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.StudentTableHandeling;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Gui;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.PartCourseFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -32,12 +33,18 @@ public class Controls {
      * This method initioates all the possible methods in this class.
      */
     public void controlActions(){
+
         createCourse();
         listCourses();
         cancelButton();
         listStudents();
         addStudents();
         exitStudentFrame();
+        addNewPart();
+        login();
+        changeToRegisterPanel();
+        registerNewUser();
+        switchUser();
     }
 
 
@@ -84,6 +91,7 @@ public class Controls {
             }
         });
     }
+
 
     /**
      * This method sends the user to a new panel where
@@ -132,6 +140,63 @@ public class Controls {
                 g.setContentPane(g.getSpine());
                 g.pack();
                 ch.listCourses(g);
+            }
+        });
+    }
+
+
+    public void addNewPart() {
+        g.getPartButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PartCourseFrame();
+            }
+        });
+
+
+    }
+
+    public void login() {
+        g.getLp().getLoginButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ch.authenticateLogin(g.getLp().getUserField().getText(),
+                        g.getLp().getPasswordField().getText(),
+                        g);
+
+            }
+        });
+
+    }
+
+    public void changeToRegisterPanel(){
+        g.getLp().getRegisterButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.setContentPane(g.getRp());
+                g.pack();
+            }
+        });
+    }
+
+    public void registerNewUser(){
+        g.getRp().getRegisterButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ch.insertNewEmployee(g.getRp().getUserField().getText(),
+                                     g.getRp().getPasswordField().getText());
+                g.setContentPane(g.getLp());
+                g.pack();
+            }
+        });
+    }
+
+    public void switchUser(){
+        g.getSwitchUser().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.setContentPane(g.getLp());
+
             }
         });
     }

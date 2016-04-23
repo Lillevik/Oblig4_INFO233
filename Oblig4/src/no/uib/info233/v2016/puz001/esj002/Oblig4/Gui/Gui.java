@@ -1,5 +1,7 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui;
 
+import sun.rmi.runtime.Log;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.UUID;
@@ -18,6 +20,7 @@ public class Gui extends JFrame {
     private JLabel descriptionLabel = new JLabel("Description:");
     private JLabel courseNameLabel = new JLabel("Course:");
     private JLabel professorLabel = new JLabel("Professor:");
+    private JLabel loggedInLabel = new JLabel("Not logged in");
 
     private JTextField courseNameField = new JTextField();
     private JTextField descriptionField = new JTextField();
@@ -25,20 +28,26 @@ public class Gui extends JFrame {
 
     private JButton createButton = new JButton("Create");
     private JButton backButton = new JButton("Cancel");
-    private JButton listCourses = new JButton("Courses");
     private JButton listStudents = new JButton("Students");
-    private String[] grades = {"A", "B", "C", "D", "E", "F"};
+    private JButton listCourses = new JButton("Courses");
+    private JButton partButton = new JButton(("New part"));
+    private JButton switchUser = new JButton("Switch user");
 
+    private String[] grades = {"A", "B", "C", "D", "E", "F"};
 
     private JPanel controls = new JPanel(new GridBagLayout());
     private JPanel spine = new JPanel(layout);
+
     private StudentFrame sf = (StudentFrame) new StudentFrame();
 
+    private LoginPanel lp = new LoginPanel();
+    private RegisterPanel rp = new RegisterPanel();
 
     private TableModel model = new TableModel();
     private JTable table = new JTable(model);
     private JScrollPane tablePane;
     private TablePanel tp;
+    private String currentUser;
 
 
 
@@ -54,12 +63,11 @@ public class Gui extends JFrame {
         setupComponents();
         spine.add(controls, BorderLayout.WEST);
         spine.add(tp, BorderLayout.CENTER);
-        setContentPane(spine);
+        setContentPane(lp);
 
         pack();
         setVisible(true);
     }
-
 
 
 
@@ -104,18 +112,27 @@ public class Gui extends JFrame {
         gc.gridy = 3;
         panel.add(backButton, gc);
 
-        gc.gridx = 1;
+        gc.gridx = 0;
         gc.gridy = 4;
         gc.weighty = 10;
         panel.add(listCourses, gc);
 
-        gc.gridx = 0;
+        gc.gridx = 1;
         gc.gridy = 4;
         gc.weighty = 10;
         panel.add(listStudents, gc);
 
+        gc.gridx = 2;
+        gc.gridy = 4;
+        panel.add(partButton, gc);
 
+        gc.gridx = 0;
+        gc.gridy = 5;
+        panel.add(loggedInLabel, gc);
 
+        gc.gridx = 1;
+        gc.gridy = 5;
+        panel.add(switchUser, gc);
     }
 
     public void setupComponents(){
@@ -125,6 +142,22 @@ public class Gui extends JFrame {
 
         placeComponentsGridBag(controls);
 
+    }
+
+
+    /**
+     * This method clears the model and readds the rows
+     * and columns again.
+     * It was primarily made to reduce code duplication
+     * by reusing some code where possible.
+     */
+    public void tableRows(){
+        model.setRowCount(0);
+        model.setColumnCount(0);
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Description");
+        model.addColumn("Admin");
     }
 
     /**
@@ -185,23 +218,36 @@ public class Gui extends JFrame {
         return sf;
     }
 
+
+    public JButton getPartButton() {
+        return partButton;
+    }
+
+    public LoginPanel getLp() {
+        return lp;
+    }
+
     public JPanel getSpine() {
         return spine;
     }
 
-    /**
-     * This method clears the model and readds the rows
-     * and columns again.
-     * It was primarily made to reduce code duplication
-     * by reusing some code where possible.
-     */
-    public void tableRows(){
-        model.setRowCount(0);
-        model.setColumnCount(0);
-        model.addColumn("ID");
-        model.addColumn("Name");
-        model.addColumn("Description");
-        model.addColumn("Admin");
+    public RegisterPanel getRp() {
+        return rp;
     }
 
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public JLabel getLoggedInLabel() {
+        return loggedInLabel;
+    }
+
+    public JButton getSwitchUser() {
+        return switchUser;
+    }
 }
