@@ -39,7 +39,6 @@ public class Gui extends JFrame {
     private JPanel spine = new JPanel(layout);
 
     private StudentFrame sf = (StudentFrame) new StudentFrame();
-
     private LoginPanel lp = new LoginPanel();
     private RegisterPanel rp = new RegisterPanel();
 
@@ -210,17 +209,17 @@ public class Gui extends JFrame {
         return listCourses;
     }
 
+    public JButton getPartButton() {
+        return partButton;
+    }
+
+
     public JButton getListStudents() {
         return listStudents;
     }
 
     public StudentFrame getSf() {
         return sf;
-    }
-
-
-    public JButton getPartButton() {
-        return partButton;
     }
 
     public LoginPanel getLp() {

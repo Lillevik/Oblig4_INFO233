@@ -23,6 +23,7 @@ public class Controls {
     private ConnectionHandling ch;
     private StudentTableHandeling sth;
 
+
     public Controls(Gui g, ConnectionHandling ch, StudentTableHandeling sth){
         this.g = g;
         this.ch = ch;
@@ -144,7 +145,6 @@ public class Controls {
         });
     }
 
-
     public void addNewPart() {
         g.getPartButton().addActionListener(new ActionListener() {
             @Override
@@ -196,7 +196,6 @@ public class Controls {
             @Override
             public void actionPerformed(ActionEvent e) {
                 g.setContentPane(g.getLp());
-
             }
         });
     }
