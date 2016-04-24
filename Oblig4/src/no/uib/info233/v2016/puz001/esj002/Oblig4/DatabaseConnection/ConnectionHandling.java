@@ -1,6 +1,8 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection;
 
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Gui;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.User;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
 
 import java.sql.*;
 import java.util.Properties;
@@ -84,7 +86,7 @@ public class ConnectionHandling {
                 dbConnection = getDbConnection();
                 statement = dbConnection.createStatement();
                 statement.executeUpdate("INSERT INTO Course (name, description, professor) " + "VALUES " +
-                        "('" + name + "', '" + desc + "', '" + g.getCurrentUser() + "')");
+                        "('" + name + "', '" + desc + "', '" + ds.getUser().getFullName() + "')");
 
                 System.out.println("A course was sucsessfully inserted into the Course table!");
 
@@ -121,8 +123,7 @@ public class ConnectionHandling {
             dbConnection = getDbConnection();
             statement = dbConnection.createStatement();
 
-            //String sql1 = ("SELECT * FROM  `Course`  WHERE name = 'INFO233' ORDER BY c_id DESC LIMIT 100;");
-            String sql = ("SELECT * FROM  `Course`  ORDER BY c_id DESC LIMIT 100;");// ORDER BY c_id DESC;");
+            String sql = ("SELECT * FROM  `Course`");
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
@@ -131,7 +132,6 @@ public class ConnectionHandling {
                 String description = rs.getString("description");
                 String professor = rs.getString("professor");
 
-                //System.out.println("ID: " + id + " Name: " + name + "Description: " + description + " Professor: " + professor);
                 g.getModel().addRow(new Object[]{id, name, description, professor});
             }
 
@@ -164,9 +164,13 @@ public class ConnectionHandling {
             ResultSet rs = statement.executeQuery(sql);
 
             if (rs.next()) {
-                String userName = g.getLp().getUserField().getText();
-                g.getCp().getLoggedInAs().setText("Currently logged in as : " + userName);
-                g.setCurrentUser(userName);
+                int userId = Integer.parseInt(rs.getString("employee_id"));
+                String userName = rs.getString("name");
+                String fullName = rs.getString("full_name");
+
+                ds.setUser(new User(userId, userName, fullName));
+
+                g.getCp().getLoggedInAs().setText("Logged in as : " + ds.getUser().getFullName());
                 g.setContentPane(g.getSpine());
                 g.pack();
             } else {
@@ -185,7 +189,7 @@ public class ConnectionHandling {
      * @param name
      * @param pass
      */
-    public void insertNewEmployee(String name, String pass) {
+    public void insertNewEmployee(String name, String fullname, String pass) {
 
         Connection dbConnection = null;
         Statement statement = null;
@@ -201,8 +205,8 @@ public class ConnectionHandling {
             try {
                 dbConnection = getDbConnection();
                 statement = dbConnection.createStatement();
-                statement.executeUpdate("INSERT INTO Employee (name, password) " + "VALUES " +
-                        "('" + name + "', '" + pass + "')");
+                statement.executeUpdate("INSERT INTO Employee (name, full_name, password) " + "VALUES " +
+                        "('" + name + "', '" + fullname + "', '" + pass + "')");
 
 
                 if (statement != null) {
@@ -223,7 +227,7 @@ public class ConnectionHandling {
 
     /**
      * This method fetches course part evaluations
-     * and presents these in the PartFrame table.
+     * and presents these in the PartPanel table.
      * @param course
      * @param g
      */
@@ -234,23 +238,24 @@ public class ConnectionHandling {
         ds.getWeigthList().clear();
         try {
 
-            g.getPf().tableRows();
+            g.getPp().tableRows();
             dbConnection = getDbConnection();
             statement = dbConnection.createStatement();
 
-            String sql = ("SELECT * FROM  `Part` WHERE Course_name= '" + course + "';");// ORDER BY c_id DESC;");
+            String sql = ("SELECT * FROM  `Part` WHERE Course_name= '" + course + "';");
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
+                String partId = rs.getString("part_id");
                 String courseName = rs.getString("Course_name");
                 String partName = rs.getString("Part_name");
                 String partWeigth = rs.getString("Part_weight");
 
-                g.getPf().getModel().addRow(new Object[]{courseName, partName, partWeigth});
+                g.getPp().getModel().addRow(new Object[]{partId, courseName, partName, partWeigth});
                 ds.addNumberCalcList(Integer.parseInt(partWeigth));
             }
             ds.calculateWeigth();
-            g.getPf().getCp().getCurrentWeight().setText("Totalt weight: " + ds.getCurrentValue() + "%");
+            g.getPp().getCp().getCurrentWeight().setText("Totalt weight: " + ds.getCurrentValue() + "%");
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
@@ -298,9 +303,64 @@ public class ConnectionHandling {
         }
 
         return false;
-
-
     }
+
+    public void fetchStudentPart(int partId, Gui g) {
+
+        Connection dbConnection = null;
+        Statement statement = null;
+        ds.getWeigthList().clear();
+        try {
+
+            g.getPp().setStudentTableRows();
+            dbConnection = getDbConnection();
+            statement = dbConnection.createStatement();
+
+            String sql = ("SELECT * FROM  `PartGrade` WHERE Part_id= '" + partId + "';");
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                String partID = rs.getString("part_id");
+                String student_id = rs.getString("student_id");
+                String grade = rs.getString("grade");
+
+
+                g.getPp().getStudentModel().addRow(new Object[]{partID, student_id, grade});
+            }
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
+    }
+
+    public void listStudentsNotOnCourse(int courseId, Gui g) {
+
+        Connection dbConnection = null;
+        Statement statement = null;
+        g.getAsf().tableRows();
+        try {
+
+
+            dbConnection = getDbConnection();
+            statement = dbConnection.createStatement();
+
+            String sql = ("SELECT * FROM Student WHERE student_id NOT IN (SELECT DISTINCT Student_id FROM CourseGrade WHERE CourseGrade.Course_id ="+ courseId + ")");
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("student_id");
+                String name = rs.getString("student_name");
+                Boolean b = false;
+
+                g.getAsf().getModel().addRow(new Object[]{id, name, b});
+            }
+
+
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
+    }
+
+
 }
 
 

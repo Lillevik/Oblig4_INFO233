@@ -1,12 +1,12 @@
-package no.uib.info233.v2016.puz001.esj002.Oblig4.SQL;
+package no.uib.info233.v2016.puz001.esj002.Oblig4.Main;
 
+import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Course;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.ConnectionHandling;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.DataStores;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Gui;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 /**
  * Created by goat on 21.04.16.
@@ -43,6 +43,9 @@ public class Controls {
         switchUser();
         cancelRegistration();
         addNewPart();
+        listPartEvaluationGrades();
+        backButtonPartPanel();
+        addStudents();
     }
 
     /**
@@ -73,6 +76,7 @@ public class Controls {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ch.listCourses(g);
+                g.loopOverTableTest();
             }
         });
     }
@@ -116,6 +120,7 @@ public class Controls {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ch.insertNewEmployee(g.getRp().getUserField().getText(),
+                                     g.getRp().getFullNameField().getText(),
                                      g.getRp().getPasswordField().getText());
                 g.setContentPane(g.getLp());
                 g.pack();
@@ -131,7 +136,7 @@ public class Controls {
         g.getLogout().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                g.getPf().setVisible(false);
+                g.getPp().setVisible(false);
                 g.setContentPane(g.getLp());
                 g.pack();
             }
@@ -165,15 +170,21 @@ public class Controls {
 
                 if(selectedRow == -1) {
                     System.out.println("Please select a course to add part evaluation for.");
-                } else if(g.getPf().isVisible() == false && selectedRow != -1) {
-                    String course = g.getTable().getValueAt(selectedRow, 1).toString();
-                    ds.setCurrentCourseParts(course);
-                    g.getPf().getCp().setBorder(BorderFactory.createTitledBorder(course));
-                    ch.fetchCourseParts(course, g);
-                    g.getPf().getCp().getLoggedInAs().setText("Currently logged in as: " + g.getCurrentUser());
-                    g.getPf().setVisible(true);
-                } else {
-                    System.out.println("Please close the current part window.");
+                } else if(selectedRow != -1) {
+                    g.getPp().setStudentTableRows();
+
+                    int courseId = Integer.parseInt(g.getTable().getValueAt(selectedRow, 0).toString());
+                    String courseTitle = g.getTable().getValueAt(selectedRow, 1).toString();
+                    String courseDescription = g.getTable().getValueAt(selectedRow, 2).toString();
+                    String courseProfessor = g.getTable().getValueAt(selectedRow, 3).toString();
+
+
+                    ds.setCourse(new Course(courseId, courseTitle, courseDescription, courseProfessor));
+                    g.getPp().getCp().setBorder(BorderFactory.createTitledBorder(ds.getCourse().getName()));
+                    ch.fetchCourseParts(ds.getCourse().getName(), g);
+                    g.getPp().getCp().getLoggedInAs().setText("Logged in as: " + ds.getUser().getFullName());
+                    g.setContentPane(g.getPp());
+                    g.pack();
                 }
             }
         });
@@ -184,15 +195,53 @@ public class Controls {
      * together is less than 100%.
      */
     public void addNewPart(){
-        g.getPf().getCp().getAddCourseButton().addActionListener(new ActionListener() {
+        g.getPp().getCp().getAddCourseButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String name = g.getPf().getCp().getTitleField().getText();
-                int weight = Integer.parseInt(g.getPf().getCp().getWeigth().getSelectedItem().toString());
+                String name = g.getPp().getCp().getTitleField().getText();
+                int weight = Integer.parseInt(g.getPp().getCp().getWeigth().getSelectedItem().toString());
                 ch.fetchCourseParts(ds.getCurrentCourseParts(), g);
                 ch.insertNewPart(name, weight, g);
 
             }
         });
     }
+
+    public void listPartEvaluationGrades(){
+        g.getPp().getTable().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = g.getPp().getTable().getSelectedRow();
+                ch.fetchStudentPart(Integer.parseInt(g.getPp().getTable().getValueAt(selectedRow, 0).toString()), g);
+            }
+                //);
+            });
+        }
+
+    public void backButtonPartPanel(){
+        g.getPp().getCp().getBackButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.setContentPane(g.getSpine());
+                g.pack();
+            }
+        });
+    }
+
+    public void addStudents(){
+        g.getPp().getCp().getAddStudentButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.getPp().getCp().getAddStudentButton().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ch.listStudentsNotOnCourse(6, g);
+                        g.getAsf().setVisible(true);
+                    }
+                });
+            }
+        });
+    }
+
 }
+

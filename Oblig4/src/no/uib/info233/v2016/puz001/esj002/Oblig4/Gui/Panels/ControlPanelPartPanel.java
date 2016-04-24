@@ -1,4 +1,4 @@
-package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui;
+package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by goat on 23.04.16.
  */
-public class ControlPanelPartFrame extends JPanel{
+public class ControlPanelPartPanel extends JPanel{
 
     //Panels
     private JPanel coursePanel = new JPanel(new GridBagLayout());
@@ -31,6 +31,8 @@ public class ControlPanelPartFrame extends JPanel{
     private JButton addCourseButton = new JButton("Add part");
     private JButton addStudentButton = new JButton("Add student");
     private JButton updateButton = new JButton("Update table");
+    private JButton backButton = new JButton("Back");
+
 
     //Arrays
     private ArrayList<Integer> percentage = new ArrayList<Integer>(){};
@@ -43,7 +45,7 @@ public class ControlPanelPartFrame extends JPanel{
 
 
 
-    public ControlPanelPartFrame(){
+    public ControlPanelPartPanel(){
         fillWeigthList();
         weigth = new JComboBox(percentage.toArray());
         setupComponents();
@@ -89,10 +91,6 @@ public class ControlPanelPartFrame extends JPanel{
         gc.gridx = 0;
         gc.gridy = 4;
         coursePanel.add(currentWeight, gc);
-
-
-
-
     }
 
     public void placeComponentsButtonPanel(){
@@ -106,6 +104,10 @@ public class ControlPanelPartFrame extends JPanel{
         gc.gridx = 1;
         gc.gridy = 0;
         buttonsPanel.add(addStudentButton, gc);
+
+        gc.gridx = 0;
+        gc.gridy = 1;
+        buttonsPanel.add(backButton, gc);
     }
 
     public void placeComponentsLoggedInPanel(){
@@ -150,15 +152,15 @@ public class ControlPanelPartFrame extends JPanel{
         return addStudentButton;
     }
 
-    public JButton getUpdateButton() {
-        return updateButton;
-    }
-
     public JComboBox getWeigth() {
         return weigth;
     }
 
     public JLabel getCurrentWeight() {
         return currentWeight;
+    }
+
+    public JButton getBackButton() {
+        return backButton;
     }
 }

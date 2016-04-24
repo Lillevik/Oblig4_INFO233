@@ -1,47 +1,48 @@
-package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui;
+package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by Marius on 22.04.16.
- * This class serves as a LoginPanel for the
- * program.
- * @Author Marius
+ * Created by goat on 22.04.16.
  */
-public class LoginPanel extends JPanel {
+public class RegisterPanel extends JPanel {
 
     //JLabels
     private JLabel userLabel= new JLabel("Username: ");
     private JLabel passwordLabel= new JLabel("Password: ");
-    private JLabel loggedInLabel = new JLabel(("Not logged in."));
+    private JLabel fullNameLabel= new JLabel("Full name: ");
 
     //JTextfields
     private JTextField userField = new JTextField();
     private JPasswordField passwordField = new JPasswordField();
+    private JTextField fullNameField = new JTextField();
+
+
 
     //JButtons
-    private JButton loginButton = new JButton("Login");
-    private JButton registerButton = new JButton("Register");
+    private JButton registerButton = new JButton("Register new user");
+    private JButton cancelButton = new JButton("cancel");
 
     /**
-     * Constructor for the panel
+     * The constructor of the RegisterPanel
      */
-    public LoginPanel(){
+    public RegisterPanel(){
         this.setLayout(new GridBagLayout());
         setupComponents();
         setVisible(true);
     }
 
     /**
-     * Sets up some of the components and places them all into
-     * the panel using GridBagConstraints.
+     * This method sets up the components in the
+     * RegisterPanel and places them using GridBagConstraints
      */
     public void setupComponents(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 
         userField.setPreferredSize(new Dimension(150, 24));
+        fullNameField.setPreferredSize(new Dimension(150, 24));
         passwordField.setPreferredSize(new Dimension(150, 24));
 
         gc.gridx = 0;
@@ -54,23 +55,27 @@ public class LoginPanel extends JPanel {
 
         gc.gridx = 0;
         gc.gridy = 1;
-        this.add(passwordLabel, gc);
+        this.add(fullNameLabel, gc);
 
         gc.gridx = 1;
         gc.gridy = 1;
-        this.add(passwordField, gc);
+        this.add(fullNameField, gc);
 
         gc.gridx = 0;
         gc.gridy = 2;
-        this.add(loginButton, gc);
+        this.add(passwordLabel, gc);
 
         gc.gridx = 1;
         gc.gridy = 2;
-        this.add(registerButton, gc);
+        this.add(passwordField, gc);
 
         gc.gridx = 0;
         gc.gridy = 3;
-        this.add(loggedInLabel, gc);
+        this.add(registerButton, gc);
+
+        gc.gridx = 1;
+        gc.gridy = 3;
+        this.add(cancelButton, gc);
 
 
     }
@@ -83,15 +88,15 @@ public class LoginPanel extends JPanel {
         return userField;
     }
 
-    public JButton getLoginButton() {
-        return loginButton;
-    }
-
     public JButton getRegisterButton() {
         return registerButton;
     }
 
-    public JLabel getLoggedInLabel() {
-        return loggedInLabel;
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    public JTextField getFullNameField() {
+        return fullNameField;
     }
 }

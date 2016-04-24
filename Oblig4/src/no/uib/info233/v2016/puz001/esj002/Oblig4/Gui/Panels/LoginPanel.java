@@ -1,37 +1,41 @@
-package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui;
+package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by goat on 22.04.16.
+ * Created by Marius on 22.04.16.
+ * This class serves as a LoginPanel for the
+ * program.
+ * @Author Marius
  */
-public class RegisterPanel extends JPanel {
+public class LoginPanel extends JPanel {
 
     //JLabels
     private JLabel userLabel= new JLabel("Username: ");
     private JLabel passwordLabel= new JLabel("Password: ");
+    private JLabel loggedInLabel = new JLabel(("Not logged in."));
 
     //JTextfields
     private JTextField userField = new JTextField();
     private JPasswordField passwordField = new JPasswordField();
 
     //JButtons
-    private JButton registerButton = new JButton("Register new user");
-    private JButton cancelButton = new JButton("cancel");
+    private JButton loginButton = new JButton("Login");
+    private JButton registerButton = new JButton("Register");
 
     /**
-     * The constructor of the RegisterPanel
+     * Constructor for the panel
      */
-    public RegisterPanel(){
+    public LoginPanel(){
         this.setLayout(new GridBagLayout());
         setupComponents();
         setVisible(true);
     }
 
     /**
-     * This method sets up the components in the
-     * RegisterPanel and places them using GridBagConstraints
+     * Sets up some of the components and places them all into
+     * the panel using GridBagConstraints.
      */
     public void setupComponents(){
         GridBagConstraints gc = new GridBagConstraints();
@@ -58,11 +62,15 @@ public class RegisterPanel extends JPanel {
 
         gc.gridx = 0;
         gc.gridy = 2;
-        this.add(registerButton, gc);
+        this.add(loginButton, gc);
 
         gc.gridx = 1;
         gc.gridy = 2;
-        this.add(cancelButton, gc);
+        this.add(registerButton, gc);
+
+        gc.gridx = 0;
+        gc.gridy = 3;
+        this.add(loggedInLabel, gc);
 
 
     }
@@ -75,11 +83,15 @@ public class RegisterPanel extends JPanel {
         return userField;
     }
 
+    public JButton getLoginButton() {
+        return loginButton;
+    }
+
     public JButton getRegisterButton() {
         return registerButton;
     }
 
-    public JButton getCancelButton() {
-        return cancelButton;
+    public JLabel getLoggedInLabel() {
+        return loggedInLabel;
     }
 }

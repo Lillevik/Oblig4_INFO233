@@ -1,4 +1,4 @@
-package no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection;
+package no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling;
 
 import java.util.ArrayList;
 
@@ -19,6 +19,12 @@ public class DataStores {
 
     //Integers
     private int currentValue = 0;
+
+    //Courses
+    private Course course;
+
+    //Users
+    private User user;
 
     /**
      * This is an add method for the
@@ -64,5 +70,21 @@ public class DataStores {
 
     public void setCurrentValue(int currentValue) {
         this.currentValue = currentValue;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

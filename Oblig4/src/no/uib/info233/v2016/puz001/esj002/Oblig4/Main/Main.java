@@ -1,8 +1,8 @@
-package no.uib.info233.v2016.puz001.esj002.Oblig4.SQL;
+package no.uib.info233.v2016.puz001.esj002.Oblig4.Main;
 
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.ConnectionHandling;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.DataStores;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Gui;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
 
 /**
  * Created 19/04/16.
