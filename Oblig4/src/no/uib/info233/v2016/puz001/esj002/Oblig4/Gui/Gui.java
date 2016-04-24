@@ -14,10 +14,7 @@ public class Gui extends JFrame {
     private LayoutManager layout = new BorderLayout(1, 1);
 
     //Labels
-    private JLabel descriptionLabel = new JLabel("Description:");
-    private JLabel courseNameLabel = new JLabel("Course:");
-    private JLabel professorLabel = new JLabel("Professor:");
-    private JLabel loggedInLabel = new JLabel("Not logged in");
+
 
     //TextFields
     private JTextField courseNameField = new JTextField();
@@ -25,12 +22,9 @@ public class Gui extends JFrame {
     private JTextField professorField = new JTextField();
 
     //Buttons
-    private JButton createButton = new JButton("Create");
-    private JButton backButton = new JButton("Cancel");
-    private JButton listCourses = new JButton("Update");
     private JButton partButton = new JButton(("New part"));
 
-    //Arrays for comboboxes
+    //Arrays for Combo boxes
     private String[] grades = {"A", "B", "C", "D", "E", "F"};
 
     //Panels
@@ -56,9 +50,15 @@ public class Gui extends JFrame {
     private JMenu file = new JMenu("File");
     private JMenuItem logout = new JMenuItem("Logout");
 
+    //Frames
+    private PartFrame pf = new PartFrame();
 
 
-
+    /**
+     * This is the constructor for the Gui class
+     * which is the class that basicly presents
+     * entire program.
+     */
     public Gui(){
         super("Course planner");
         tableRows();
@@ -77,6 +77,10 @@ public class Gui extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * This method sets up the size of some of the components
+     * and adds a menubar to the frame.
+     */
     public void setupComponents(){
         courseNameField.setPreferredSize(new Dimension(150, 24));
         descriptionField.setPreferredSize(new Dimension(150, 24));
@@ -87,8 +91,6 @@ public class Gui extends JFrame {
         this.menuBar.add(file);
         file.add(logout);
     }
-
-
     /**
      * This method clears the model and readds the rows
      * and columns again.
@@ -103,59 +105,8 @@ public class Gui extends JFrame {
         model.addColumn("Description");
         model.addColumn("Admin");
     }
-
-    /**
-     * This is a getter for the field locationText
-     * which is used to get location of an issue.
-     * @return the locationText
-     */
-    public JTextField getLocationText() {
-        return courseNameField;
-    }
-
-
-    /**
-     * This is the button that creates the issue
-     * and returns the user to the main window.
-     * @return the createButton
-     */
-    public JButton getCreateButton() {
-        return createButton;
-    }
-
-    /**
-     * @return the backButton
-     */
-    public JButton getBackButton() {
-        return backButton;
-    }
-
-    public JTextField getCourseNameField() {
-        return courseNameField;
-    }
-
-    public JTextField getDescriptionField(){
-        return this.descriptionField;
-    }
-
-    public JTextField getProfessorField() {
-        return professorField;
-    }
-
-    public void closeWindow(){
-        System.exit(0);
-    }
-
     public TableModel getModel() {
         return model;
-    }
-
-    public JButton getListCourses() {
-        return listCourses;
-    }
-
-    public JButton getPartButton() {
-        return partButton;
     }
 
     public LoginPanel getLp() {
@@ -183,5 +134,13 @@ public class Gui extends JFrame {
 
     public JMenuItem getLogout() {
         return logout;
+    }
+
+    public PartFrame getPf() {
+        return pf;
+    }
+
+    public JTable getTable() {
+        return table;
     }
 }

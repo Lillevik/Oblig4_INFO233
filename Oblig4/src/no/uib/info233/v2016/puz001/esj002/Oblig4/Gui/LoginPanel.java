@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by goat on 22.04.16.
+ * Created by Marius on 22.04.16.
+ * This class serves as a LoginPanel for the
+ * program.
+ * @Author Marius
  */
 public class LoginPanel extends JPanel {
 
@@ -21,13 +24,19 @@ public class LoginPanel extends JPanel {
     private JButton loginButton = new JButton("Login");
     private JButton registerButton = new JButton("Register");
 
-
+    /**
+     * Constructor for the panel
+     */
     public LoginPanel(){
         this.setLayout(new GridBagLayout());
         setupComponents();
         setVisible(true);
     }
 
+    /**
+     * Sets up some of the components and places them all into
+     * the panel using GridBagConstraints.
+     */
     public void setupComponents(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;

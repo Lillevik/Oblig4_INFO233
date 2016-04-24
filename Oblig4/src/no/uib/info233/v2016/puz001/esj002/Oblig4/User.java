@@ -7,10 +7,12 @@ public class User {
 
     private int id;
     private String name;
+    private String fullName;
 
-    public User(int id, String name){
+    public User(int id, String name, String fullName){
         this.id = id;
         this.name = name;
+        this.fullName = fullName;
     }
 
     public int getId() {
