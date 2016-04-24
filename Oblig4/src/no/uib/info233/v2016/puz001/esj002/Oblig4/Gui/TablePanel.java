@@ -52,7 +52,7 @@ public class TablePanel extends JPanel {
         PrintStream printStream = new PrintStream(new CustomOutputStream(textArea));
         standardOut = System.out;
 
-        //System.setOut(printStream);
+        System.setOut(printStream);
         //System.setErr(printStream); disabled so the users will not be confused
 
         // Put the text area into a JScrollPane so it can be scrolled

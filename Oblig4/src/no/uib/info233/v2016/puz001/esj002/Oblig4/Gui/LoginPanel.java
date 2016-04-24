@@ -4,13 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by goat on 22.04.16.
+ * Created by Marius on 22.04.16.
+ * This class serves as a LoginPanel for the
+ * program.
+ * @Author Marius
  */
 public class LoginPanel extends JPanel {
 
     //JLabels
     private JLabel userLabel= new JLabel("Username: ");
     private JLabel passwordLabel= new JLabel("Password: ");
+    private JLabel loggedInLabel = new JLabel(("Not logged in."));
 
     //JTextfields
     private JTextField userField = new JTextField();
@@ -20,13 +24,19 @@ public class LoginPanel extends JPanel {
     private JButton loginButton = new JButton("Login");
     private JButton registerButton = new JButton("Register");
 
-
+    /**
+     * Constructor for the panel
+     */
     public LoginPanel(){
         this.setLayout(new GridBagLayout());
         setupComponents();
         setVisible(true);
     }
 
+    /**
+     * Sets up some of the components and places them all into
+     * the panel using GridBagConstraints.
+     */
     public void setupComponents(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
@@ -58,6 +68,10 @@ public class LoginPanel extends JPanel {
         gc.gridy = 2;
         this.add(registerButton, gc);
 
+        gc.gridx = 0;
+        gc.gridy = 3;
+        this.add(loggedInLabel, gc);
+
 
     }
 
@@ -75,5 +89,9 @@ public class LoginPanel extends JPanel {
 
     public JButton getRegisterButton() {
         return registerButton;
+    }
+
+    public JLabel getLoggedInLabel() {
+        return loggedInLabel;
     }
 }

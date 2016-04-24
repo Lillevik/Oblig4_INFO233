@@ -18,14 +18,21 @@ public class RegisterPanel extends JPanel {
 
     //JButtons
     private JButton registerButton = new JButton("Register new user");
+    private JButton cancelButton = new JButton("cancel");
 
-
+    /**
+     * The constructor of the RegisterPanel
+     */
     public RegisterPanel(){
         this.setLayout(new GridBagLayout());
         setupComponents();
         setVisible(true);
     }
 
+    /**
+     * This method sets up the components in the
+     * RegisterPanel and places them using GridBagConstraints
+     */
     public void setupComponents(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
@@ -49,9 +56,13 @@ public class RegisterPanel extends JPanel {
         gc.gridy = 1;
         this.add(passwordField, gc);
 
-        gc.gridx = 1;
+        gc.gridx = 0;
         gc.gridy = 2;
         this.add(registerButton, gc);
+
+        gc.gridx = 1;
+        gc.gridy = 2;
+        this.add(cancelButton, gc);
 
 
     }
@@ -66,5 +77,9 @@ public class RegisterPanel extends JPanel {
 
     public JButton getRegisterButton() {
         return registerButton;
+    }
+
+    public JButton getCancelButton() {
+        return cancelButton;
     }
 }

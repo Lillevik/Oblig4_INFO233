@@ -1,10 +1,7 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui;
 
-import sun.rmi.runtime.Log;
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.UUID;
 
 /**
  * Created 18.04.2016.
@@ -16,39 +13,52 @@ public class Gui extends JFrame {
     private static final long serialVersionUID = 4161520540703687836L;
     private LayoutManager layout = new BorderLayout(1, 1);
 
-    private JLabel descriptionLabel = new JLabel("Description:");
-    private JLabel courseNameLabel = new JLabel("Course:");
-    private JLabel professorLabel = new JLabel("Professor:");
-    private JLabel loggedInLabel = new JLabel("Not logged in");
+    //Labels
 
+
+    //TextFields
     private JTextField courseNameField = new JTextField();
     private JTextField descriptionField = new JTextField();
     private JTextField professorField = new JTextField();
 
-    private JButton createButton = new JButton("Create");
-    private JButton backButton = new JButton("Cancel");
-    private JButton listCourses = new JButton("Update");
+    //Buttons
     private JButton partButton = new JButton(("New part"));
-    private JButton switchUser = new JButton("Switch user");
 
+    //Arrays for Combo boxes
     private String[] grades = {"A", "B", "C", "D", "E", "F"};
 
-
+    //Panels
     private JPanel controls = new JPanel(new GridBagLayout());
     private JPanel spine = new JPanel(layout);
     private LoginPanel lp = new LoginPanel();
     private RegisterPanel rp = new RegisterPanel();
+    private TablePanel tp;
+    private ControlPanel cp = new ControlPanel();
 
 
+
+    //Models and tables
     private TableModel model = new TableModel();
     private JTable table = new JTable(model);
     private JScrollPane tablePane;
-    private TablePanel tp;
+
+    //Strings
     private String currentUser;
 
+    //Menu
+    private JMenuBar menuBar = new JMenuBar();
+    private JMenu file = new JMenu("File");
+    private JMenuItem logout = new JMenuItem("Logout");
+
+    //Frames
+    private PartFrame pf = new PartFrame();
 
 
-
+    /**
+     * This is the constructor for the Gui class
+     * which is the class that basicly presents
+     * entire program.
+     */
     public Gui(){
         super("Course planner");
         tableRows();
@@ -59,7 +69,7 @@ public class Gui extends JFrame {
         setResizable(true);
         this.setLayout(layout);
         setupComponents();
-        spine.add(controls, BorderLayout.WEST);
+        spine.add(cp, BorderLayout.WEST);
         spine.add(tp, BorderLayout.CENTER);
         setContentPane(lp);
 
@@ -67,78 +77,20 @@ public class Gui extends JFrame {
         setVisible(true);
     }
 
-
-
-
     /**
-     * This is the method that sets up and add all the
-     * components to the panel.
-     * @param panel
+     * This method sets up the size of some of the components
+     * and adds a menubar to the frame.
      */
-    private void placeComponentsGridBag(JPanel panel) {
-        GridBagConstraints gc = new GridBagConstraints();
-        gc.anchor = GridBagConstraints.LINE_START;
-
-        gc.gridx = 0;
-        gc.gridy = 0;
-        panel.add(courseNameLabel, gc);
-
-        gc.gridx = 1;
-        gc.gridy = 0;
-        panel.add(courseNameField, gc);
-
-        gc.gridx = 0;
-        gc.gridy = 1;
-        panel.add(descriptionLabel, gc);
-
-        gc.gridx = 1;
-        gc.gridy = 1;
-        panel.add(descriptionField, gc);
-
-        gc.gridx = 0;
-        gc.gridy = 2;
-        panel.add(professorLabel, gc);
-
-        gc.gridx = 1;
-        gc.gridy = 2;
-        panel.add(professorField, gc);
-
-        gc.gridx = 0;
-        gc.gridy = 3;
-        panel.add(createButton, gc);
-
-        gc.gridx = 1;
-        gc.gridy = 3;
-        panel.add(backButton, gc);
-
-        gc.gridx = 0;
-        gc.gridy = 4;
-        gc.weighty = 10;
-        panel.add(listCourses, gc);
-
-        gc.gridx = 1;
-        gc.gridy = 4;
-        panel.add(partButton, gc);
-
-        gc.gridx = 0;
-        gc.gridy = 5;
-        panel.add(loggedInLabel, gc);
-
-        gc.gridx = 1;
-        gc.gridy = 5;
-        panel.add(switchUser, gc);
-    }
-
     public void setupComponents(){
         courseNameField.setPreferredSize(new Dimension(150, 24));
         descriptionField.setPreferredSize(new Dimension(150, 24));
         professorField.setPreferredSize(new Dimension(150, 24));
 
-        placeComponentsGridBag(controls);
+        this.setJMenuBar(menuBar);
 
+        this.menuBar.add(file);
+        file.add(logout);
     }
-
-
     /**
      * This method clears the model and readds the rows
      * and columns again.
@@ -153,59 +105,8 @@ public class Gui extends JFrame {
         model.addColumn("Description");
         model.addColumn("Admin");
     }
-
-    /**
-     * This is a getter for the field locationText
-     * which is used to get location of an issue.
-     * @return the locationText
-     */
-    public JTextField getLocationText() {
-        return courseNameField;
-    }
-
-
-    /**
-     * This is the button that creates the issue
-     * and returns the user to the main window.
-     * @return the createButton
-     */
-    public JButton getCreateButton() {
-        return createButton;
-    }
-
-    /**
-     * @return the backButton
-     */
-    public JButton getBackButton() {
-        return backButton;
-    }
-
-    public JTextField getCourseNameField() {
-        return courseNameField;
-    }
-
-    public JTextField getDescriptionField(){
-        return this.descriptionField;
-    }
-
-    public JTextField getProfessorField() {
-        return professorField;
-    }
-
-    public void closeWindow(){
-        System.exit(0);
-    }
-
     public TableModel getModel() {
         return model;
-    }
-
-    public JButton getListCourses() {
-        return listCourses;
-    }
-
-    public JButton getPartButton() {
-        return partButton;
     }
 
     public LoginPanel getLp() {
@@ -227,12 +128,19 @@ public class Gui extends JFrame {
     public void setCurrentUser(String currentUser) {
         this.currentUser = currentUser;
     }
-
-    public JLabel getLoggedInLabel() {
-        return loggedInLabel;
+    public ControlPanel getCp() {
+        return cp;
     }
 
-    public JButton getSwitchUser() {
-        return switchUser;
+    public JMenuItem getLogout() {
+        return logout;
+    }
+
+    public PartFrame getPf() {
+        return pf;
+    }
+
+    public JTable getTable() {
+        return table;
     }
 }
