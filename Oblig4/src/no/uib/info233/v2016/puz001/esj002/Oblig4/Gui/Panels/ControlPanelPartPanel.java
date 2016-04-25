@@ -29,8 +29,7 @@ public class ControlPanelPartPanel extends JPanel{
 
     //JButtons
     private JButton addCourseButton = new JButton("Add part");
-    private JButton addStudentButton = new JButton("Add student");
-    private JButton updateButton = new JButton("Update table");
+    private JButton addStudentButton = new JButton("Add students");
     private JButton backButton = new JButton("Back");
 
 
@@ -99,10 +98,6 @@ public class ControlPanelPartPanel extends JPanel{
 
         gc.gridx = 0;
         gc.gridy = 0;
-        buttonsPanel.add(updateButton, gc);
-
-        gc.gridx = 1;
-        gc.gridy = 0;
         buttonsPanel.add(addStudentButton, gc);
 
         gc.gridx = 0;
@@ -124,6 +119,8 @@ public class ControlPanelPartPanel extends JPanel{
         this.descriptionField.setPreferredSize(new Dimension(150, 24));
         this.weigth.setPreferredSize(new Dimension(150, 24));
 
+
+
         coursePanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("New Part")));
         buttonsPanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Buttons")));
         loggedInPanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -144,7 +141,7 @@ public class ControlPanelPartPanel extends JPanel{
         return titleField;
     }
 
-    public JButton getAddCourseButton() {
+    public JButton getAddPartButton() {
         return addCourseButton;
     }
 

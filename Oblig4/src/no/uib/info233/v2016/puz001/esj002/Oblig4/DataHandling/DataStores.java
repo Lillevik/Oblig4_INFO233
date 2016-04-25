@@ -11,9 +11,6 @@ import java.util.ArrayList;
  */
 public class DataStores {
 
-    //Strings
-    private String currentCourseParts = new String();
-
     //Lists
     private ArrayList<Integer> weigthList = new ArrayList<Integer>();
 
@@ -48,16 +45,6 @@ public class DataStores {
                 currentValue = currentValue + number;
         }
         return currentValue;
-    }
-
-
-
-    public String getCurrentCourseParts() {
-        return currentCourseParts;
-    }
-
-    public void setCurrentCourseParts(String currentCourseParts) {
-        this.currentCourseParts = currentCourseParts;
     }
 
     public ArrayList<Integer> getWeigthList() {

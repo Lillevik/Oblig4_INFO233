@@ -1,13 +1,14 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames;
 
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.ControlPanel;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Models.ModelFactory;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.LoginPanel;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.PartPanel;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.RegisterPanel;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Models.TableModel;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.TablePanel;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 /**
@@ -31,9 +32,6 @@ public class Gui extends JFrame {
     //Buttons
     private JButton partButton = new JButton(("New part"));
 
-    //Arrays for Combo boxes
-    private String[] grades = {"A", "B", "C", "D", "E", "F"};
-
     //Panels
     private JPanel spine = new JPanel(layout);
     private LoginPanel lp = new LoginPanel();
@@ -45,7 +43,7 @@ public class Gui extends JFrame {
 
 
     //Models and tables
-    private TableModel model = new TableModel();
+    private DefaultTableModel model = ModelFactory.createCourseModel();
     private JTable table = new JTable(model);
     private JScrollPane tablePane;
 
@@ -120,7 +118,7 @@ public class Gui extends JFrame {
         }
     }
 
-    public TableModel getModel() {
+    public DefaultTableModel getModel() {
         return model;
     }
 

@@ -1,9 +1,10 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels;
 
 
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Models.TableModel;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Models.ModelFactory;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 /**
@@ -26,16 +27,14 @@ public class PartPanel extends JPanel {
 
 
     //Panels
-    private JPanel spine = new JPanel(layout);
-    //private TablePanel tp;
     private ControlPanelPartPanel cppf = new ControlPanelPartPanel();
     private TablePanelPF tp;
 
 
 
     //Models and tables
-    private TableModel model = new TableModel();
-    private TableModel studentModel = new TableModel();
+    private DefaultTableModel model = ModelFactory.createPartModel();
+    private DefaultTableModel studentModel = ModelFactory.createPartEvaluationModel();
     private JTable table = new JTable(model);
     private JTable studentTable = new JTable(studentModel);
     private JScrollPane tablePane;
@@ -54,7 +53,6 @@ public class PartPanel extends JPanel {
         tablePane = new JScrollPane(table);
         studentPane = new JScrollPane(studentTable);
         tp = new TablePanelPF(tablePane, studentPane);
-        //setPreferredSize(new Dimension(1000, 650));
         this.setLayout(layout);
         setupComponents();
         this.add(cppf, BorderLayout.WEST);
@@ -69,9 +67,6 @@ public class PartPanel extends JPanel {
     public void setupComponents(){
         courseNameField.setPreferredSize(new Dimension(150, 24));
         descriptionField.setPreferredSize(new Dimension(150, 24));
-
-
-
     }
     /**
      * This method clears the model and reads the rows
@@ -96,7 +91,7 @@ public class PartPanel extends JPanel {
         this.studentModel.addColumn("Grade");
     }
 
-    public TableModel getModel() {
+    public DefaultTableModel getModel() {
         return model;
     }
 
@@ -104,7 +99,7 @@ public class PartPanel extends JPanel {
         return cppf;
     }
 
-    public TableModel getStudentModel() {
+    public DefaultTableModel getStudentModel() {
         return studentModel;
     }
 

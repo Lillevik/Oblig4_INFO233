@@ -281,8 +281,8 @@ public class ConnectionHandling {
                 dbConnection = getDbConnection();
                 statement = dbConnection.createStatement();
                 statement.executeUpdate("INSERT INTO Part (Course_name, Part_name, Part_weight) " + "VALUES " +
-                        "('" + ds.getCurrentCourseParts() + "', '" + name + "','" + weigth + "')");
-                fetchCourseParts(ds.getCurrentCourseParts(), g);
+                        "('" + ds.getCourse().getName() + "', '" + name + "','" + weigth + "')");
+                fetchCourseParts(ds.getCourse().getName(), g);
             } else {
                 System.out.println("Max weight is 100%.");
                 System.out.println("Current total weight is " + ds.getCurrentValue() + ".");
@@ -349,9 +349,8 @@ public class ConnectionHandling {
             while (rs.next()) {
                 int id = rs.getInt("student_id");
                 String name = rs.getString("student_name");
-                Boolean b = false;
 
-                g.getAsf().getModel().addRow(new Object[]{id, name, b});
+                g.getAsf().getModel().addRow(new Object[]{id, name});
             }
 
 
@@ -360,7 +359,90 @@ public class ConnectionHandling {
         }
     }
 
+    public void addStudentsToCourse(Gui g) {
 
-}
+        Connection dbConnection = null;
+        Statement statement = null;
+        try {
+
+
+            dbConnection = getDbConnection();
+            statement = dbConnection.createStatement();
+
+            for(int i = 0; i < g.getAsf().getTable().getRowCount(); i++) {
+                Object row2 = g.getAsf().getTable().getValueAt(i, 2);
+                boolean checked = false;
+                if(row2 instanceof  Boolean){
+                   checked = true;
+                }
+
+                if(checked) {
+                    int id = Integer.parseInt(g.getAsf().getTable().getValueAt(i, 0).toString());
+                    statement.executeUpdate("INSERT INTO CourseGrade (student_id, course_id) " + "VALUES " +
+                            "('" + id + "', '" + ds.getCourse().getId() + "')");
+
+                     for(Integer partId : ds.getCourse().getPartIds()) {
+                        statement.executeUpdate("INSERT INTO PartGrade (student_id, part_id, course_id) VALUES" +
+                                "('" + id + "', '" + partId + "', '"+ ds.getCourse().getId() + "')");
+                    }
+
+                }
+            }
+            g.getAsf().tableRows();
+            listStudentsNotOnCourse(ds.getCourse().getId(), g);
+
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
+    }
+
+    public void studentSearch(String name, String id, Gui g){
+
+        Connection dbConnection = null;
+        Statement statement = null;
+
+        g.getAsf().tableRows();
+        try {
+            dbConnection = getDbConnection();
+            statement = dbConnection.createStatement();
+
+            String query = ("SELECT * FROM `Student`" +
+                    " WHERE student_name LIKE '%" + name + "%' AND student_id LIKE '" + id + "';");
+
+            ResultSet rs = statement.executeQuery(query);
+
+            while(rs.next()){
+                String studentId = rs.getString("student_id");
+                String studentName = rs.getString("student_name");
+
+                g.getAsf().getModel().addRow(new Object[]{studentId, studentName, false});
+            }
+
+        } catch (SQLException s){
+            System.out.println(s.getMessage());
+        }
+    }
+
+    public void updateCourseTable(String description, int id, Gui g){
+
+        Connection dbConnection = null;
+        Statement statement = null;
+
+        g.getAsf().tableRows();
+        try {
+            dbConnection = getDbConnection();
+            statement = dbConnection.createStatement();
+
+            String query = ("UPDATE  `gr9_16`.`Course` SET  `description` =  '"+ description + "' WHERE  `Course`.`course_id` = " + id + ";");
+            statement.executeUpdate(query);
+
+        } catch (SQLException s){
+            System.out.println(s.getMessage());
+        }
+    }
+    }
+
+
+
 
 

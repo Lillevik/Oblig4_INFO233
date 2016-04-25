@@ -1,12 +1,17 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.Main;
 
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Course;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Student;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.ConnectionHandling;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
 
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by goat on 21.04.16.
@@ -46,6 +51,9 @@ public class Controls {
         listPartEvaluationGrades();
         backButtonPartPanel();
         addStudents();
+        addStudentsToCourse();
+        studentSearch();
+        updateTableInDatabase();
     }
 
     /**
@@ -182,6 +190,9 @@ public class Controls {
                     ds.setCourse(new Course(courseId, courseTitle, courseDescription, courseProfessor));
                     g.getPp().getCp().setBorder(BorderFactory.createTitledBorder(ds.getCourse().getName()));
                     ch.fetchCourseParts(ds.getCourse().getName(), g);
+                    for(int i = 0; i < g.getPp().getTable().getRowCount(); i++){
+                        ds.getCourse().addPartId(Integer.parseInt(g.getPp().getTable().getValueAt(i, 0).toString()));
+                    }
                     g.getPp().getCp().getLoggedInAs().setText("Logged in as: " + ds.getUser().getFullName());
                     g.setContentPane(g.getPp());
                     g.pack();
@@ -195,13 +206,15 @@ public class Controls {
      * together is less than 100%.
      */
     public void addNewPart(){
-        g.getPp().getCp().getAddCourseButton().addActionListener(new ActionListener() {
+        g.getPp().getCp().getAddPartButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = g.getPp().getCp().getTitleField().getText();
                 int weight = Integer.parseInt(g.getPp().getCp().getWeigth().getSelectedItem().toString());
-                ch.fetchCourseParts(ds.getCurrentCourseParts(), g);
+
+                ch.fetchCourseParts(ds.getCourse().getName(), g);
                 ch.insertNewPart(name, weight, g);
+
 
             }
         });
@@ -214,7 +227,7 @@ public class Controls {
                 int selectedRow = g.getPp().getTable().getSelectedRow();
                 ch.fetchStudentPart(Integer.parseInt(g.getPp().getTable().getValueAt(selectedRow, 0).toString()), g);
             }
-                //);
+
             });
         }
 
@@ -235,10 +248,71 @@ public class Controls {
                 g.getPp().getCp().getAddStudentButton().addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ch.listStudentsNotOnCourse(6, g);
-                        g.getAsf().setVisible(true);
+                        if(ds.getCurrentValue() != 100){
+                            System.out.println("All parts need to be 100% before adding students to the course.");
+                        } else {
+                            g.getAsf().getCp().setBorder(BorderFactory.createTitledBorder
+                                    ("Add students to: " + ds.getCourse().getName()));
+                            g.getAsf().getCp().getLoggedInAs().setText("Logged in as: "+ ds.getUser().getFullName());
+                            ch.listStudentsNotOnCourse(ds.getCourse().getId(), g);
+                            g.getAsf().setVisible(true);
+                        }
                     }
                 });
+            }
+        });
+    }
+
+    public void addStudentsToCourse(){
+        g.getAsf().getCp().getAddStudentsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ch.addStudentsToCourse(g);
+            }
+        });
+    }
+
+    public void fillPartIdList(){
+
+    }
+
+    public void studentSearch(){
+
+        g.getAsf().getCp().getSearchButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              /*  ch.studentSearch(g.getAsf().getCp().getNameField().getText(),
+                        g.getAsf().getCp().getIdField().getText(), g);*/
+                ArrayList<Student> students = new ArrayList<Student>();
+                ch.listStudentsNotOnCourse(ds.getCourse().getId(), g);
+                int rows = g.getAsf().getTable().getRowCount();
+                for(int i = 0; i < rows; i++){
+                    int studentId = Integer.parseInt(g.getAsf().getTable().getValueAt(i, 0).toString());
+                    String studentName = g.getAsf().getTable().getValueAt(i, 1).toString().toLowerCase();
+                    String searchWord = g.getAsf().getCp().getNameField().getText();
+                    if((studentName.toLowerCase().indexOf(searchWord)) != -1){
+                        students.add(new Student(studentId, studentName));
+                    }
+                }
+                g.getAsf().tableRows();
+                for(Student s : students){
+                    g.getAsf().getModel().addRow(new Object[]{s.getId(), s.getName()});
+                }
+
+                g.getAsf().getCp().getResults().setText("Found " + students.size() + " students.");
+            }
+        });
+    }
+
+
+
+    public void updateTableInDatabase(){
+        g.getTable().getModel().addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                int selectedRow = g.getTable().getSelectedRow();
+                int id = Integer.parseInt(g.getTable().getValueAt(selectedRow, 2).toString());
+                ch.updateCourseTable("Description", id, g);
             }
         });
     }
