@@ -1,4 +1,6 @@
-package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui;
+package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels;
+
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.CustomOutputStream;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,7 +54,7 @@ public class TablePanel extends JPanel {
         PrintStream printStream = new PrintStream(new CustomOutputStream(textArea));
         standardOut = System.out;
 
-        System.setOut(printStream);
+        //System.setOut(printStream);
         //System.setErr(printStream); disabled so the users will not be confused
 
         // Put the text area into a JScrollPane so it can be scrolled

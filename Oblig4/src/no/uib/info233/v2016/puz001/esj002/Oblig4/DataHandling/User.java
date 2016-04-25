@@ -1,4 +1,4 @@
-package no.uib.info233.v2016.puz001.esj002.Oblig4;
+package no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling;
 
 /**
  * Created by marius on 22.04.2016.
@@ -21,5 +21,21 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }
