@@ -16,6 +16,8 @@ public class Main {
 
         Controls controls = new Controls(g, ch, ds);
         ch.listCourses(g);
+
+        g.getModel().addTableModelListener(new TableControls(ch,g));
         controls.controlActions();
     }
 }

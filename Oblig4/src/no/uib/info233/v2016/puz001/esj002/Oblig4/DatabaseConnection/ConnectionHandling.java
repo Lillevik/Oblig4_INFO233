@@ -433,9 +433,9 @@ public class ConnectionHandling {
             dbConnection = getDbConnection();
             statement = dbConnection.createStatement();
 
-            String query = ("UPDATE  `gr9_16`.`Course` SET  `description` =  '"+ description + "' WHERE  `Course`.`course_id` = " + id + ";");
+            String query = ("UPDATE  `gr9_16`.`Part` SET  `Part_name` =  '" + description + "' WHERE  `Part`.`part_id` = " + id + ";");
             statement.executeUpdate(query);
-
+            fetchCourseParts(ds.getCourse().getName(), g);
         } catch (SQLException s){
             System.out.println(s.getMessage());
         }

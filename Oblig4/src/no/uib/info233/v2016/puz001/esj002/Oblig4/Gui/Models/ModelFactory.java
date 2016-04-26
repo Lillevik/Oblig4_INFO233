@@ -10,6 +10,7 @@ public class ModelFactory {
     private static DefaultTableModel courseModel = new DefaultTableModel(){
 
 
+
         final Class<?>[] columnClasses = new Class<?>[]{Integer.class, String.class, String.class, String.class};
 
         @Override
@@ -29,9 +30,11 @@ public class ModelFactory {
 
         @Override
         public void setValueAt(Object value, int row, int col) {
-            //rowData[row][col] = value;
+
+            //rowData [row][col] = value;
             fireTableCellUpdated(row, col);
         }
+
     };
 
     private static DefaultTableModel partModel = new DefaultTableModel(){
@@ -46,10 +49,9 @@ public class ModelFactory {
 
         @Override
         public boolean isCellEditable(int row, int column){
-            if(column == 1 || column == 2 || column == 3){
+            if(column == 2 || column == 3){
                 return true;
             } else {
-
                 return false;
             }
         }
@@ -78,7 +80,6 @@ public class ModelFactory {
     };
 
     private static DefaultTableModel studentModel = new DefaultTableModel(){
-
 
         final Class<?>[] columnClasses = new Class<?>[]{Integer.class, String.class, Boolean.class};
 

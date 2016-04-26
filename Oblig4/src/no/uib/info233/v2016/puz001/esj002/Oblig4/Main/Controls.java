@@ -54,6 +54,7 @@ public class Controls {
         addStudentsToCourse();
         studentSearch();
         updateTableInDatabase();
+        updatePart();
     }
 
     /**
@@ -84,7 +85,7 @@ public class Controls {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ch.listCourses(g);
-                g.loopOverTableTest();
+
             }
         });
     }
@@ -225,6 +226,12 @@ public class Controls {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int selectedRow = g.getPp().getTable().getSelectedRow();
+
+                String title = g.getPp().getTable().getValueAt(selectedRow, 2).toString();
+                String weight = g.getPp().getTable().getValueAt(selectedRow, 3).toString();
+
+                g.getPp().getCp().getUpdateTitleField().setText(title);
+                g.getPp().getCp().getUpdateWeightField().setText(weight);
                 ch.fetchStudentPart(Integer.parseInt(g.getPp().getTable().getValueAt(selectedRow, 0).toString()), g);
             }
 
@@ -310,9 +317,19 @@ public class Controls {
         g.getTable().getModel().addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
-                int selectedRow = g.getTable().getSelectedRow();
-                int id = Integer.parseInt(g.getTable().getValueAt(selectedRow, 2).toString());
-                ch.updateCourseTable("Description", id, g);
+
+            }
+        });
+    }
+
+    public void updatePart(){
+        g.getPp().getCp().getUpdatePart().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = g.getPp().getTable().getSelectedRow();
+                int id = Integer.parseInt(g.getPp().getTable().getValueAt(selectedRow, 0).toString());
+                String desc = g.getPp().getCp().getUpdateTitleField().getText();
+                ch.updateCourseTable(desc, id, g);
             }
         });
     }

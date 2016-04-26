@@ -89,6 +89,8 @@ public class Gui extends JFrame {
         descriptionField.setPreferredSize(new Dimension(150, 24));
         professorField.setPreferredSize(new Dimension(150, 24));
 
+
+
         this.setJMenuBar(menuBar);
 
         this.menuBar.add(file);
@@ -107,15 +109,6 @@ public class Gui extends JFrame {
         model.addColumn("Title");
         model.addColumn("Description");
         model.addColumn("Professor");
-    }
-
-    public void loopOverTableTest(){
-        for(int i = 0; i < table.getRowCount(); i++){
-            Boolean checked = ((Boolean) table.getValueAt(i, 4));
-            if(checked == true) {
-                System.out.println(table.getValueAt(i, 3).toString());
-            }
-        }
     }
 
     public DefaultTableModel getModel() {
