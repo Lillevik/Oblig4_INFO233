@@ -12,9 +12,10 @@ public class ControlPanelPartPanel extends JPanel{
 
     //Panels
     private JPanel coursePanel = new JPanel(new GridBagLayout());
-    private JPanel buttonsPanel = new JPanel(new BorderLayout(1, 1));
+    private JPanel updatingPanel = new JPanel(new BorderLayout(1, 1));
     private JPanel loggedInPanel = new JPanel(new GridBagLayout());
     private JPanel updatePartPanel = new JPanel(new GridBagLayout());
+    private JPanel buttonPanel = new JPanel(new GridBagLayout());
 
     //Labels
     private JLabel titleLabel = new JLabel("Part name: ");
@@ -57,12 +58,13 @@ public class ControlPanelPartPanel extends JPanel{
         weigth = new JComboBox(percentage.toArray());
         setupComponents();
         placeComponentsCoursePanel();
+        placeComponentsUpdatingPanel();
         placeComponentsButtonPanel();
         placeComponentsLoggedInPanel();
         this.setLayout(new BorderLayout(2, 2));
         this.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Add part")));
         this.add(coursePanel, BorderLayout.NORTH);
-        this.add(buttonsPanel, BorderLayout.CENTER);
+        this.add(updatingPanel, BorderLayout.CENTER);
         this.add(loggedInPanel, BorderLayout.SOUTH);
         this.setVisible(true);
     }
@@ -100,7 +102,7 @@ public class ControlPanelPartPanel extends JPanel{
         coursePanel.add(currentWeight, gc);
     }
 
-    public void placeComponentsButtonPanel(){
+    public void placeComponentsUpdatingPanel(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 
@@ -128,9 +130,8 @@ public class ControlPanelPartPanel extends JPanel{
 
         updatePartPanel.setBorder(BorderFactory.createTitledBorder("Update part"));
 
-        buttonsPanel.add(this.updatePartPanel, BorderLayout.NORTH);
-        buttonsPanel.add(addStudentButton, BorderLayout.CENTER);
-        buttonsPanel.add(backButton, BorderLayout.SOUTH);
+        updatingPanel.add(this.updatePartPanel, BorderLayout.NORTH);
+        updatingPanel.add(this.buttonPanel, BorderLayout.CENTER);
 
 
 
@@ -145,6 +146,23 @@ public class ControlPanelPartPanel extends JPanel{
         loggedInPanel.add(loggedInAs, gc);
     }
 
+    public void placeComponentsButtonPanel(){
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.anchor = GridBagConstraints.BASELINE;
+
+        gc.gridx = 0;
+        gc.gridy = 0;
+        buttonPanel.add(addStudentButton, gc);
+
+        gc.gridx = 0;
+        gc.gridy = 1;
+        buttonPanel.add(backButton, gc);
+
+        buttonPanel.setBorder(BorderFactory.createTitledBorder("Buttons"));
+
+
+    }
+
     public void setupComponents(){
         this.titleField.setPreferredSize(new Dimension(150, 24));
         this.weightField.setPreferredSize(new Dimension(150, 24));
@@ -155,7 +173,7 @@ public class ControlPanelPartPanel extends JPanel{
 
 
         coursePanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("New Part")));
-        buttonsPanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Updating")));
+        updatingPanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Updating")));
         loggedInPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     }
 

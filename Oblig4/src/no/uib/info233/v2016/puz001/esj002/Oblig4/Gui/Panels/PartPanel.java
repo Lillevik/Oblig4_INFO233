@@ -88,7 +88,7 @@ public class PartPanel extends JPanel {
         this.studentModel.setColumnCount(0);
         this.studentModel.addColumn("Course Part ID");
         this.studentModel.addColumn("Student ID");
-        this.studentModel.addColumn("Grade");
+        this.studentModel.addColumn("Part Grade");
     }
 
     public DefaultTableModel getModel() {

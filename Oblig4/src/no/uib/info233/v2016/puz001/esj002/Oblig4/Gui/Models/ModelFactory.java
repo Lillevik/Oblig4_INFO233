@@ -20,19 +20,12 @@ public class ModelFactory {
 
         @Override
         public boolean isCellEditable(int row, int column){
-            if(column == 1 || column == 2 || column == 3){
+            if(column == 2 || column == 3){
                 return true;
             } else {
 
                 return false;
             }
-        }
-
-        @Override
-        public void setValueAt(Object value, int row, int col) {
-
-            //rowData [row][col] = value;
-            fireTableCellUpdated(row, col);
         }
 
     };
@@ -90,8 +83,13 @@ public class ModelFactory {
 
         @Override
         public boolean isCellEditable(int row, int column){
+            if(column == 2){
+                return true;
+            } else {
                 return false;
             }
+        }
+
     };
 
     public static DefaultTableModel createCourseModel(){
