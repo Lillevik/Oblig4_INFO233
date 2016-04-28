@@ -4,6 +4,7 @@ import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Course;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Student;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.ConnectionHandling;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.ConfirmationFrame;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
 
 import javax.swing.*;
@@ -53,7 +54,8 @@ public class Controls {
         addStudents();
         addStudentsToCourse();
         studentSearch();
-        updatePart();
+        updatePartCourseWeight();
+        deleteCourse();
     }
 
     /**
@@ -120,7 +122,7 @@ public class Controls {
 
     /**
      * This is the button that checks the server if a user
-     * allready exists and adds a new Employee if it doesnt.
+     * allready exists and adds a new Employee if it doesnt exist.
      */
     public void registerNewUser(){
         g.getRp().getRegisterButton().addActionListener(new ActionListener() {
@@ -191,7 +193,7 @@ public class Controls {
                     ds.setCourse(new Course(courseId, courseTitle, courseDescription, courseProfessor));
                     g.getPp().getCp().setBorder(BorderFactory.createTitledBorder(ds.getCourse().getName()));
                     ch.fetchCourseParts(ds.getCourse().getName());
-                    addPartsToList();
+                    ds.addPartsToList();
                     g.getPp().getCp().getLoggedInAs().setText("Logged in as: " + ds.getUser().getFullName());
                     g.setContentPane(g.getPp());
                     g.pack();
@@ -209,11 +211,12 @@ public class Controls {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = g.getPp().getCp().getTitleField().getText();
-                int weight = Integer.parseInt(g.getPp().getCp().getWeigth().getSelectedItem().toString());
+                int weight = Integer.parseInt(g.getPp().getCp().getWeigth()
+                        .getSelectedItem().toString().replaceAll("%", ""));
 
                 ch.fetchCourseParts(ds.getCourse().getName());
                 ch.insertNewPart(name, weight);
-                addPartsToList();
+                ds.addPartsToList();
 
 
             }
@@ -231,7 +234,6 @@ public class Controls {
 
                 ds.getCourse().setCurrentPartId(Integer.parseInt(g.getPp().getModel().getValueAt(selectedRow, 0).toString()));
 
-                g.getPp().getCp().getUpdateTitleField().setText(title);
                 g.getPp().getCp().getUpdateWeightField().setText(weight);
                 ch.fetchStudentPart(Integer.parseInt(g.getPp().getTable().getValueAt(selectedRow, 0).toString()));
             }
@@ -259,7 +261,7 @@ public class Controls {
                         if(ds.getCurrentValue() != 100){
                             System.out.println("All parts need to be 100% before adding students to the course.");
                         } else {
-                            addPartsToList();
+                            ds.addPartsToList();
                             g.getAsf().getCp().setBorder(BorderFactory.createTitledBorder
                                     ("Add students to: " + ds.getCourse().getName()));
                             g.getAsf().getCp().getLoggedInAs().setText("Logged in as: "+ ds.getUser().getFullName());
@@ -309,26 +311,34 @@ public class Controls {
         });
     }
 
-    public void updatePart(){
+    public void updatePartCourseWeight(){
         g.getPp().getCp().getUpdatePart().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int selectedRow = g.getPp().getTable().getSelectedRow();
-                int id = Integer.parseInt(g.getPp().getTable().getValueAt(selectedRow, 0).toString());
-                String desc = g.getPp().getCp().getUpdateTitleField().getText();
-                //ch.updateCourseTable(desc, id, g);
+                int weight = Integer.parseInt(g.getPp().getCp().getUpdateWeightField().getText());
+                int id = Integer.parseInt(g.getPp().getTable().getValueAt(g.getPp().getTable().getSelectedRow(), 0).toString());
+                int previousWeight = Integer.parseInt(g.getPp().getTable().getValueAt(g.getPp().getTable().getSelectedRow(), 3).toString());
+
+                ch.fetchCourseParts(ds.getCourse().getName());
+                ds.addPartsToList();
+                ch.updatePart("Part", "Part_weight", weight, "part_id", id, previousWeight);
+                ch.fetchCourseParts(ds.getCourse().getName());
+            }
+        });
 
 
+    }
+
+    public void deleteCourse(){
+        g.getCp().getDeleteCourseButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+        new ConfirmationFrame(ch, g);
             }
         });
     }
 
-    public void addPartsToList(){
-        ds.getCourse().getPartIds().clear();
-        for(int i = 0; i < g.getPp().getTable().getRowCount(); i++){
-            ds.getCourse().addPartId(Integer.parseInt(g.getPp().getTable().getValueAt(i, 0).toString()));
-        }
-    }
+
 
 }
 

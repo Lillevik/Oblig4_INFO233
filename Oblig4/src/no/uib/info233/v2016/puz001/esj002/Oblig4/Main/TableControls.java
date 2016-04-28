@@ -55,9 +55,10 @@ public class TableControls implements TableModelListener {
             int id = Integer.parseInt(model.getValueAt(row, 0).toString());
             ch.updateCourseTable("Part", "Part_name", data.toString(), "part_id", id);
             JOptionPane.showMessageDialog(new JOptionPane(), "Successfully updated the Part Name in the database.", "Info", JOptionPane.INFORMATION_MESSAGE);
+        }
 
 
-        } else if(columnName.equals("Part Grade")){
+        else if(columnName.equals("Part Grade")){
             Object data = model.getValueAt(row, column);
             if(data.toString().equals("a") || data.toString().equals("A") ||
                     data.toString().equals("b") || data.toString().equals("B")||

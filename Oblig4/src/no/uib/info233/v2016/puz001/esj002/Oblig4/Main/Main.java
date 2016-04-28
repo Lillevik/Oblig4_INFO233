@@ -11,15 +11,17 @@ public class Main {
 
     public static void main(String[] args){
         Gui g = new Gui();
-        DataStores ds = new DataStores();
+        DataStores ds = new DataStores(g);
         ConnectionHandling ch = new ConnectionHandling(ds, g);
 
         Controls controls = new Controls(g, ch, ds);
         ch.listCourses();
 
-        g.getModel().addTableModelListener(new TableControls(ch, g, ds));
-        g.getPp().getModel().addTableModelListener(new TableControls(ch, g, ds));
-        g.getPp().getStudentModel().addTableModelListener(new TableControls(ch, g, ds));
+
+        TableControls tc = new TableControls(ch, g, ds);
+        g.getModel().addTableModelListener(tc);
+        g.getPp().getModel().addTableModelListener(tc);
+        g.getPp().getStudentModel().addTableModelListener(tc);
         controls.controlActions();
     }
 }

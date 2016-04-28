@@ -1,5 +1,6 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Models;
 
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,6 +28,7 @@ public class ModelFactory {
                 return false;
             }
         }
+
 
     };
 
@@ -92,6 +94,18 @@ public class ModelFactory {
 
     };
 
+
+    public static DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer()
+
+    {
+
+        @Override
+        public void setValue(Object value) {
+            int value1 = Integer.parseInt(value.toString());
+            String percentage = Integer.toString(value1);
+            setText(value1 + "%");
+    }
+    };
     public static DefaultTableModel createCourseModel(){
         return courseModel;
     }
@@ -106,6 +120,10 @@ public class ModelFactory {
 
     public static DefaultTableModel createStudentModel(){
         return studentModel;
+    }
+
+    public static DefaultTableCellRenderer createCellRenderer(){
+        return cellRenderer;
     }
 
 

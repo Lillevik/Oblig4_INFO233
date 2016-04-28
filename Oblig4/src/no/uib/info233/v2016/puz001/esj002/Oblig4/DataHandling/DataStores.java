@@ -1,5 +1,7 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling;
 
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
+
 import java.util.ArrayList;
 
 /**
@@ -10,6 +12,14 @@ import java.util.ArrayList;
  * @Author Marius
  */
 public class DataStores {
+
+
+    public DataStores(Gui g){
+        this.g = g;
+    }
+
+
+    private Gui g;
 
     //Lists
     private ArrayList<Integer> weigthList = new ArrayList<Integer>();
@@ -47,6 +57,13 @@ public class DataStores {
                 currentValue = currentValue + number;
         }
         return currentValue;
+    }
+
+    public void addPartsToList(){
+        getCourse().getPartIds().clear();
+        for(int i = 0; i < g.getPp().getTable().getRowCount(); i++){
+            getCourse().addPartId(Integer.parseInt(g.getPp().getTable().getValueAt(i, 0).toString()));
+        }
     }
 
     public ArrayList<Integer> getWeigthList() {

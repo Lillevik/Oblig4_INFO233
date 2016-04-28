@@ -49,6 +49,7 @@ public class PartPanel extends JPanel {
     public PartPanel(){
         setStudentTableRows();
         tableRows();
+        table.getColumnModel().getColumn(3).setCellRenderer(ModelFactory.createCellRenderer());
         setLayout(layout);
         tablePane = new JScrollPane(table);
         studentPane = new JScrollPane(studentTable);
@@ -80,7 +81,8 @@ public class PartPanel extends JPanel {
         model.addColumn("Part Id");
         model.addColumn("Course Name");
         model.addColumn("Part Name");
-        model.addColumn("Weigth in %");
+        model.addColumn("Weight in %");
+        table.getColumnModel().getColumn(3).setCellRenderer(ModelFactory.createCellRenderer());
     }
 
     public void setStudentTableRows(){

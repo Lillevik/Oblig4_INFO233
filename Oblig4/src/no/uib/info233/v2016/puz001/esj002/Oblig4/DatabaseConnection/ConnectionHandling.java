@@ -3,6 +3,7 @@ package no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Student;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.User;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.ConfirmationFrame;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Main.TableControls;
 
@@ -103,7 +104,6 @@ public class ConnectionHandling {
                 if (dbConnection != null) {
                     dbConnection.close();
                 }
-
             } catch (SQLException e) {
 
                 System.out.println(e.getMessage());
@@ -142,6 +142,13 @@ public class ConnectionHandling {
             }
 
 
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
@@ -183,6 +190,13 @@ public class ConnectionHandling {
                 g.getLp().getLoggedInLabel().setText("Wrong username or password, try again.");
             }
 
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
@@ -263,6 +277,14 @@ public class ConnectionHandling {
             }
             ds.calculateWeigth();
             g.getPp().getCp().getCurrentWeight().setText("Totalt weight: " + ds.getCurrentValue() + "%");
+
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
@@ -282,7 +304,7 @@ public class ConnectionHandling {
         Statement statement = null;
 
         try {
-            if (ds.getCurrentValue() + weigth <= 100) {
+            if (ds.getCurrentValue() + weigth < 100) {
 
                 dbConnection = getDbConnection();
                 statement = dbConnection.createStatement();
@@ -336,6 +358,14 @@ public class ConnectionHandling {
 
 
                 g.getPp().getStudentModel().addRow(new Object[]{partID, student_id, grade});
+
+                if (statement != null) {
+                    statement.close();
+                }
+
+                if (dbConnection != null) {
+                    dbConnection.close();
+                }
             }
         } catch (SQLException s) {
             System.out.println(s.getMessage());
@@ -363,7 +393,13 @@ public class ConnectionHandling {
                 g.getAsf().getModel().addRow(new Object[]{id, name});
             }
 
+            if (statement != null) {
+                statement.close();
+            }
 
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
@@ -406,6 +442,14 @@ public class ConnectionHandling {
             g.getAsf().tableRows();
             listStudentsNotOnCourse(ds.getCourse().getId());
 
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
@@ -447,7 +491,82 @@ public class ConnectionHandling {
                     "WHERE  `PartGrade`.`student_id` = " + StudentId + " AND `PartGrade`.part_id = " + partId + ";");
             statement.executeUpdate(query);
             fetchCourseParts(ds.getCourse().getName());
+
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
         } catch (SQLException s){
+            System.out.println(s.getMessage());
+        }
+    }
+
+    public void updatePart(String table, String tableColumn, int weight, String idColumn, int id, int previousWeight) {
+
+        Connection dbConnection = null;
+        Statement statement = null;
+
+        ds.getWeigthList().clear();
+        try {
+
+            if(ds.getCurrentValue() + weight - previousWeight <= 100) {
+                dbConnection = getDbConnection();
+                statement = dbConnection.createStatement();
+
+                String query = ("UPDATE  `gr9_16`.`" + table + "` " +
+                        "SET  `" + tableColumn + "` =  '" + weight + "' " +
+                        "WHERE  `" + table + "`.`" + idColumn + "` = " + id + ";");
+                statement.executeUpdate(query);
+                System.out.println("Updated");
+                JOptionPane.showMessageDialog(new JOptionPane(), "Sucessfully updated the weight.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                System.out.println(ds.getCurrentValue());
+                JOptionPane.showMessageDialog(new JOptionPane(), "The max weight may not be higher than 100%." +
+                        "\n Try lowering other weights and try again.", "Info", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
+    }
+
+    public void deleteCourse(int CourseId, String courseName) {
+
+        Connection dbConnection = null;
+        Statement statement = null;
+
+        try {
+
+
+                dbConnection = getDbConnection();
+                statement = dbConnection.createStatement();
+
+                String query1 = "Delete from Course where c_id = "+ CourseId + ";";
+
+                String query2 = "Delete from Part where Course_name = \"" + courseName + "\";";
+            String query3 = "Delete from PartGrade where course_id = " + CourseId + ";";
+                statement.executeUpdate(query1);
+            statement.executeUpdate(query2);
+            statement.executeUpdate(query3);
+            listCourses();
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+        } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
     }
@@ -455,7 +574,8 @@ public class ConnectionHandling {
 
 
 
-    }
+
+}
 
 
 

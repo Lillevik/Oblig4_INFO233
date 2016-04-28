@@ -23,7 +23,6 @@ public class ControlPanelPartPanel extends JPanel{
     private JLabel loggedInAs = new JLabel("Not logged in: ");
     private JLabel currentWeight = new JLabel("Total weight: ");
     private JLabel spaceLabel = new JLabel("");
-    private JLabel updateTitleLabel = new JLabel("Part name: ");
     private JLabel updateWeightLabel = new JLabel("Weight: ");
 
 
@@ -31,7 +30,6 @@ public class ControlPanelPartPanel extends JPanel{
     //TextFields
     private JTextField titleField = new JTextField();
     private JTextField weightField = new JTextField();
-    private JTextField updateTitleField = new JTextField();
     private JTextField updateWeightField = new JTextField();
 
 
@@ -45,7 +43,7 @@ public class ControlPanelPartPanel extends JPanel{
 
 
     //Arrays
-    private ArrayList<Integer> percentage = new ArrayList<Integer>(){};
+    private ArrayList<String> percentage = new ArrayList<String>(){};
 
     //Combobox
     private JComboBox weigth;
@@ -107,14 +105,6 @@ public class ControlPanelPartPanel extends JPanel{
         gc.anchor = GridBagConstraints.BASELINE;
 
         gc.gridx = 0;
-        gc.gridy = 0;
-        updatePartPanel.add(updateTitleLabel, gc);
-
-        gc.gridx = 1;
-        gc.gridy = 0;
-        updatePartPanel.add(updateTitleField, gc);
-
-        gc.gridx = 0;
         gc.gridy = 1;
         updatePartPanel.add(updateWeightLabel, gc);
 
@@ -167,7 +157,6 @@ public class ControlPanelPartPanel extends JPanel{
         this.titleField.setPreferredSize(new Dimension(150, 24));
         this.weightField.setPreferredSize(new Dimension(150, 24));
         this.weigth.setPreferredSize(new Dimension(150, 24));
-        this.updateTitleField.setPreferredSize(new Dimension(150, 24));
         this.updateWeightField.setPreferredSize(new Dimension(150, 24));
 
 
@@ -179,7 +168,7 @@ public class ControlPanelPartPanel extends JPanel{
 
     public void fillWeigthList(){
         for(int i = 20; i  < 101; i++){
-            percentage.add(i);
+            percentage.add(i + "%");
         }
     }
 
@@ -210,10 +199,6 @@ public class ControlPanelPartPanel extends JPanel{
 
     public JButton getBackButton() {
         return backButton;
-    }
-
-    public JTextField getUpdateTitleField() {
-        return updateTitleField;
     }
 
     public JTextField getUpdateWeightField() {
