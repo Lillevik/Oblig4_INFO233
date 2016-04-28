@@ -4,6 +4,7 @@ import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Course;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Student;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.ConnectionHandling;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.ConfirmationFrame;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
 
 import javax.swing.*;
@@ -53,7 +54,8 @@ public class Controls {
         addStudents();
         addStudentsToCourse();
         studentSearch();
-        updateTableInDatabase();
+        updatePartCourseWeight();
+        deleteCourse();
     }
 
     /**
@@ -67,9 +69,8 @@ public class Controls {
             public void actionPerformed(ActionEvent e) {
                 ch.insertNewCourse(
                         g.getCp().getDescriptionField().getText(),
-                        g.getCp().getTitleField().getText(),
-                        g);
-                ch.listCourses(g);
+                        g.getCp().getTitleField().getText());
+                ch.listCourses();
             }
         });
     }
@@ -83,8 +84,8 @@ public class Controls {
         g.getCp().getUpdateButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ch.listCourses(g);
-                g.loopOverTableTest();
+                ch.listCourses();
+
             }
         });
     }
@@ -97,9 +98,9 @@ public class Controls {
         g.getLp().getLoginButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("Working");
                 ch.authenticateLogin(g.getLp().getUserField().getText(),
-                        g.getLp().getPasswordField().getText(),
-                        g);
+                        g.getLp().getPasswordField().getText());
 
             }
         });
@@ -121,7 +122,7 @@ public class Controls {
 
     /**
      * This is the button that checks the server if a user
-     * allready exists and adds a new Employee if it doesnt.
+     * allready exists and adds a new Employee if it doesnt exist.
      */
     public void registerNewUser(){
         g.getRp().getRegisterButton().addActionListener(new ActionListener() {
@@ -130,6 +131,8 @@ public class Controls {
                 ch.insertNewEmployee(g.getRp().getUserField().getText(),
                                      g.getRp().getFullNameField().getText(),
                                      g.getRp().getPasswordField().getText());
+
+
                 g.setContentPane(g.getLp());
                 g.pack();
             }
@@ -189,10 +192,8 @@ public class Controls {
 
                     ds.setCourse(new Course(courseId, courseTitle, courseDescription, courseProfessor));
                     g.getPp().getCp().setBorder(BorderFactory.createTitledBorder(ds.getCourse().getName()));
-                    ch.fetchCourseParts(ds.getCourse().getName(), g);
-                    for(int i = 0; i < g.getPp().getTable().getRowCount(); i++){
-                        ds.getCourse().addPartId(Integer.parseInt(g.getPp().getTable().getValueAt(i, 0).toString()));
-                    }
+                    ch.fetchCourseParts(ds.getCourse().getName());
+                    ds.addPartsToList();
                     g.getPp().getCp().getLoggedInAs().setText("Logged in as: " + ds.getUser().getFullName());
                     g.setContentPane(g.getPp());
                     g.pack();
@@ -210,10 +211,12 @@ public class Controls {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = g.getPp().getCp().getTitleField().getText();
-                int weight = Integer.parseInt(g.getPp().getCp().getWeigth().getSelectedItem().toString());
+                int weight = Integer.parseInt(g.getPp().getCp().getWeigth()
+                        .getSelectedItem().toString().replaceAll("%", ""));
 
-                ch.fetchCourseParts(ds.getCourse().getName(), g);
-                ch.insertNewPart(name, weight, g);
+                ch.fetchCourseParts(ds.getCourse().getName());
+                ch.insertNewPart(name, weight);
+                ds.addPartsToList();
 
 
             }
@@ -225,7 +228,14 @@ public class Controls {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int selectedRow = g.getPp().getTable().getSelectedRow();
-                ch.fetchStudentPart(Integer.parseInt(g.getPp().getTable().getValueAt(selectedRow, 0).toString()), g);
+
+                String title = g.getPp().getTable().getValueAt(selectedRow, 2).toString();
+                String weight = g.getPp().getTable().getValueAt(selectedRow, 3).toString();
+
+                ds.getCourse().setCurrentPartId(Integer.parseInt(g.getPp().getModel().getValueAt(selectedRow, 0).toString()));
+
+                g.getPp().getCp().getUpdateWeightField().setText(weight);
+                ch.fetchStudentPart(Integer.parseInt(g.getPp().getTable().getValueAt(selectedRow, 0).toString()));
             }
 
             });
@@ -251,10 +261,11 @@ public class Controls {
                         if(ds.getCurrentValue() != 100){
                             System.out.println("All parts need to be 100% before adding students to the course.");
                         } else {
+                            ds.addPartsToList();
                             g.getAsf().getCp().setBorder(BorderFactory.createTitledBorder
                                     ("Add students to: " + ds.getCourse().getName()));
                             g.getAsf().getCp().getLoggedInAs().setText("Logged in as: "+ ds.getUser().getFullName());
-                            ch.listStudentsNotOnCourse(ds.getCourse().getId(), g);
+                            ch.listStudentsNotOnCourse(ds.getCourse().getId());
                             g.getAsf().setVisible(true);
                         }
                     }
@@ -267,13 +278,10 @@ public class Controls {
         g.getAsf().getCp().getAddStudentsButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ch.addStudentsToCourse(g);
+                g.getAsf().getTable().setRowSelectionInterval(0, 0);
+                ch.addStudentsToCourse();
             }
         });
-    }
-
-    public void fillPartIdList(){
-
     }
 
     public void studentSearch(){
@@ -281,10 +289,9 @@ public class Controls {
         g.getAsf().getCp().getSearchButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              /*  ch.studentSearch(g.getAsf().getCp().getNameField().getText(),
-                        g.getAsf().getCp().getIdField().getText(), g);*/
+
                 ArrayList<Student> students = new ArrayList<Student>();
-                ch.listStudentsNotOnCourse(ds.getCourse().getId(), g);
+                ch.listStudentsNotOnCourse(ds.getCourse().getId());
                 int rows = g.getAsf().getTable().getRowCount();
                 for(int i = 0; i < rows; i++){
                     int studentId = Integer.parseInt(g.getAsf().getTable().getValueAt(i, 0).toString());
@@ -304,18 +311,34 @@ public class Controls {
         });
     }
 
-
-
-    public void updateTableInDatabase(){
-        g.getTable().getModel().addTableModelListener(new TableModelListener() {
+    public void updatePartCourseWeight(){
+        g.getPp().getCp().getUpdatePart().addActionListener(new ActionListener() {
             @Override
-            public void tableChanged(TableModelEvent e) {
-                int selectedRow = g.getTable().getSelectedRow();
-                int id = Integer.parseInt(g.getTable().getValueAt(selectedRow, 2).toString());
-                ch.updateCourseTable("Description", id, g);
+            public void actionPerformed(ActionEvent e) {
+                int weight = Integer.parseInt(g.getPp().getCp().getUpdateWeightField().getText());
+                int id = Integer.parseInt(g.getPp().getTable().getValueAt(g.getPp().getTable().getSelectedRow(), 0).toString());
+                int previousWeight = Integer.parseInt(g.getPp().getTable().getValueAt(g.getPp().getTable().getSelectedRow(), 3).toString());
+
+                ch.fetchCourseParts(ds.getCourse().getName());
+                ds.addPartsToList();
+                ch.updatePart("Part", "Part_weight", weight, "part_id", id, previousWeight);
+                ch.fetchCourseParts(ds.getCourse().getName());
+            }
+        });
+
+
+    }
+
+    public void deleteCourse(){
+        g.getCp().getDeleteCourseButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+        new ConfirmationFrame(ch, g);
             }
         });
     }
+
+
 
 }
 

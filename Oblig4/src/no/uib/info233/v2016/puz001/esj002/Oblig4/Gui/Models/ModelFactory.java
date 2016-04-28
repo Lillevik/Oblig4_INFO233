@@ -1,5 +1,6 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Models;
 
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -8,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 public class ModelFactory {
 
     private static DefaultTableModel courseModel = new DefaultTableModel(){
+
 
 
         final Class<?>[] columnClasses = new Class<?>[]{Integer.class, String.class, String.class, String.class};
@@ -19,7 +21,7 @@ public class ModelFactory {
 
         @Override
         public boolean isCellEditable(int row, int column){
-            if(column == 1 || column == 2 || column == 3){
+            if(column == 2 || column == 3){
                 return true;
             } else {
 
@@ -27,11 +29,7 @@ public class ModelFactory {
             }
         }
 
-        @Override
-        public void setValueAt(Object value, int row, int col) {
-            //rowData[row][col] = value;
-            fireTableCellUpdated(row, col);
-        }
+
     };
 
     private static DefaultTableModel partModel = new DefaultTableModel(){
@@ -46,10 +44,9 @@ public class ModelFactory {
 
         @Override
         public boolean isCellEditable(int row, int column){
-            if(column == 1 || column == 2 || column == 3){
+            if(column == 2 || column == 3){
                 return true;
             } else {
-
                 return false;
             }
         }
@@ -79,7 +76,6 @@ public class ModelFactory {
 
     private static DefaultTableModel studentModel = new DefaultTableModel(){
 
-
         final Class<?>[] columnClasses = new Class<?>[]{Integer.class, String.class, Boolean.class};
 
         @Override
@@ -89,10 +85,27 @@ public class ModelFactory {
 
         @Override
         public boolean isCellEditable(int row, int column){
+            if(column == 2){
+                return true;
+            } else {
                 return false;
             }
+        }
+
     };
 
+
+    public static DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer()
+
+    {
+
+        @Override
+        public void setValue(Object value) {
+            int value1 = Integer.parseInt(value.toString());
+            String percentage = Integer.toString(value1);
+            setText(value1 + "%");
+    }
+    };
     public static DefaultTableModel createCourseModel(){
         return courseModel;
     }
@@ -107,6 +120,10 @@ public class ModelFactory {
 
     public static DefaultTableModel createStudentModel(){
         return studentModel;
+    }
+
+    public static DefaultTableCellRenderer createCellRenderer(){
+        return cellRenderer;
     }
 
 

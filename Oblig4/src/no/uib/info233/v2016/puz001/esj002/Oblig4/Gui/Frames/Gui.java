@@ -89,6 +89,14 @@ public class Gui extends JFrame {
         descriptionField.setPreferredSize(new Dimension(150, 24));
         professorField.setPreferredSize(new Dimension(150, 24));
 
+
+        model.setRowCount(0);
+        model.setColumnCount(0);
+        model.addColumn("Course ID");
+        model.addColumn("Title");
+        model.addColumn("Description");
+        model.addColumn("Professor");
+
         this.setJMenuBar(menuBar);
 
         this.menuBar.add(file);
@@ -101,21 +109,24 @@ public class Gui extends JFrame {
      * by reusing some code where possible.
      */
     public void tableRows(){
+        //model.getDataVector().removeAllElements();
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
+/*
+        while(model.getRowCount() > 0)
+        {
+            model.removeRow(0);
+        }*/
+/*
+
         model.setRowCount(0);
         model.setColumnCount(0);
-        model.addColumn("ID");
+        model.addColumn("Course ID");
         model.addColumn("Title");
         model.addColumn("Description");
         model.addColumn("Professor");
-    }
+*/
 
-    public void loopOverTableTest(){
-        for(int i = 0; i < table.getRowCount(); i++){
-            Boolean checked = ((Boolean) table.getValueAt(i, 4));
-            if(checked == true) {
-                System.out.println(table.getValueAt(i, 3).toString());
-            }
-        }
     }
 
     public DefaultTableModel getModel() {

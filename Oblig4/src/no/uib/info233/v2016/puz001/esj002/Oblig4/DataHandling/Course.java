@@ -11,6 +11,7 @@ public class Course {
     private String name;
     private String description;
     private String professor;
+    private int currentPartId;
 
     private ArrayList<Integer> partIds = new ArrayList<>();
 
@@ -43,5 +44,13 @@ public class Course {
 
     public ArrayList<Integer> getPartIds() {
         return partIds;
+    }
+
+    public int getCurrentPartId() {
+        return currentPartId;
+    }
+
+    public void setCurrentPartId(int currentPartId) {
+        this.currentPartId = currentPartId;
     }
 }

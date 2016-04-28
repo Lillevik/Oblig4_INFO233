@@ -12,35 +12,42 @@ public class ControlPanelPartPanel extends JPanel{
 
     //Panels
     private JPanel coursePanel = new JPanel(new GridBagLayout());
-    private JPanel buttonsPanel = new JPanel(new GridBagLayout());
+    private JPanel updatingPanel = new JPanel(new BorderLayout(1, 1));
     private JPanel loggedInPanel = new JPanel(new GridBagLayout());
+    private JPanel updatePartPanel = new JPanel(new GridBagLayout());
+    private JPanel buttonPanel = new JPanel(new GridBagLayout());
 
     //Labels
-    private JLabel titleLabel = new JLabel("Title: ");
-    private JLabel descriptionLabel = new JLabel("Weight: ");
+    private JLabel titleLabel = new JLabel("Part name: ");
+    private JLabel weightLabel = new JLabel("Weight: ");
     private JLabel loggedInAs = new JLabel("Not logged in: ");
     private JLabel currentWeight = new JLabel("Total weight: ");
     private JLabel spaceLabel = new JLabel("");
+    private JLabel updateWeightLabel = new JLabel("Weight: ");
+
 
 
     //TextFields
     private JTextField titleField = new JTextField();
-    private JTextField descriptionField = new JTextField();
+    private JTextField weightField = new JTextField();
+    private JTextField updateWeightField = new JTextField();
+
+
+
 
     //JButtons
     private JButton addCourseButton = new JButton("Add part");
     private JButton addStudentButton = new JButton("Add students");
     private JButton backButton = new JButton("Back");
+    private JButton updatePart = new JButton("Update");
 
 
     //Arrays
-    private ArrayList<Integer> percentage = new ArrayList<Integer>(){};
+    private ArrayList<String> percentage = new ArrayList<String>(){};
 
     //Combobox
     private JComboBox weigth;
 
-    //Strings
-    private String currentCourse = new String();
 
 
 
@@ -49,12 +56,13 @@ public class ControlPanelPartPanel extends JPanel{
         weigth = new JComboBox(percentage.toArray());
         setupComponents();
         placeComponentsCoursePanel();
+        placeComponentsUpdatingPanel();
         placeComponentsButtonPanel();
         placeComponentsLoggedInPanel();
         this.setLayout(new BorderLayout(2, 2));
         this.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Add part")));
         this.add(coursePanel, BorderLayout.NORTH);
-        this.add(buttonsPanel, BorderLayout.CENTER);
+        this.add(updatingPanel, BorderLayout.CENTER);
         this.add(loggedInPanel, BorderLayout.SOUTH);
         this.setVisible(true);
     }
@@ -73,7 +81,7 @@ public class ControlPanelPartPanel extends JPanel{
 
         gc.gridx = 0;
         gc.gridy = 1;
-        coursePanel.add(descriptionLabel, gc);
+        coursePanel.add(weightLabel, gc);
 
         gc.gridx = 1;
         gc.gridy = 1;
@@ -92,17 +100,31 @@ public class ControlPanelPartPanel extends JPanel{
         coursePanel.add(currentWeight, gc);
     }
 
-    public void placeComponentsButtonPanel(){
+    public void placeComponentsUpdatingPanel(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 
         gc.gridx = 0;
-        gc.gridy = 0;
-        buttonsPanel.add(addStudentButton, gc);
+        gc.gridy = 1;
+        updatePartPanel.add(updateWeightLabel, gc);
+
+        gc.gridx = 1;
+        gc.gridy = 1;
+        updatePartPanel.add(updateWeightField, gc);
 
         gc.gridx = 0;
-        gc.gridy = 1;
-        buttonsPanel.add(backButton, gc);
+        gc.gridy = 2;
+        updatePartPanel.add(updatePart, gc);
+
+
+
+        updatePartPanel.setBorder(BorderFactory.createTitledBorder("Update part"));
+
+        updatingPanel.add(this.updatePartPanel, BorderLayout.NORTH);
+        updatingPanel.add(this.buttonPanel, BorderLayout.CENTER);
+
+
+
     }
 
     public void placeComponentsLoggedInPanel(){
@@ -114,21 +136,39 @@ public class ControlPanelPartPanel extends JPanel{
         loggedInPanel.add(loggedInAs, gc);
     }
 
+    public void placeComponentsButtonPanel(){
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.anchor = GridBagConstraints.BASELINE;
+
+        gc.gridx = 0;
+        gc.gridy = 0;
+        buttonPanel.add(addStudentButton, gc);
+
+        gc.gridx = 0;
+        gc.gridy = 1;
+        buttonPanel.add(backButton, gc);
+
+        buttonPanel.setBorder(BorderFactory.createTitledBorder("Buttons"));
+
+
+    }
+
     public void setupComponents(){
         this.titleField.setPreferredSize(new Dimension(150, 24));
-        this.descriptionField.setPreferredSize(new Dimension(150, 24));
+        this.weightField.setPreferredSize(new Dimension(150, 24));
         this.weigth.setPreferredSize(new Dimension(150, 24));
+        this.updateWeightField.setPreferredSize(new Dimension(150, 24));
 
 
 
         coursePanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("New Part")));
-        buttonsPanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Buttons")));
+        updatingPanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Updating")));
         loggedInPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
     public void fillWeigthList(){
         for(int i = 20; i  < 101; i++){
-            percentage.add(i);
+            percentage.add(i + "%");
         }
     }
 
@@ -159,5 +199,13 @@ public class ControlPanelPartPanel extends JPanel{
 
     public JButton getBackButton() {
         return backButton;
+    }
+
+    public JTextField getUpdateWeightField() {
+        return updateWeightField;
+    }
+
+    public JButton getUpdatePart() {
+        return updatePart;
     }
 }
