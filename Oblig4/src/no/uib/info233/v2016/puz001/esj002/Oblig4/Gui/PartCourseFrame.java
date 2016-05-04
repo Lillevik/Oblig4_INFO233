@@ -24,10 +24,13 @@ public class PartCourseFrame extends JFrame {
 
     //Buttons
     private JButton button = new JButton("Button");
+    private JButton backButton = new JButton("Back");
 
     //ComboBoxes
     private ArrayList weigth = new ArrayList<String>();
     private JComboBox chooseWeigth;
+    private ArrayList courses = new ArrayList<String>();
+    private JComboBox choseCourse;
 
     //TextFields
     private JTextField nameField = new JTextField();

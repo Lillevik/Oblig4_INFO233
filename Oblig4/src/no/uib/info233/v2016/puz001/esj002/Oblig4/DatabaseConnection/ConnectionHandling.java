@@ -124,11 +124,9 @@ public class ConnectionHandling{
         Statement statement = null;
         try {
 
-
             dbConnection = getDbConnection();
             statement = dbConnection.createStatement();
 
-            //String sql1 = ("SELECT * FROM  `Course`  WHERE name = 'INFO233' ORDER BY c_id DESC LIMIT 100;");
             String sql = ("SELECT * FROM  `Employee`  WHERE name = '" + name + "' AND password = '" + pass + "' LIMIT 1;");
             ResultSet rs = statement.executeQuery(sql);
 
@@ -162,8 +160,6 @@ public class ConnectionHandling{
                 statement.executeUpdate("INSERT INTO Employee (name, password) " + "VALUES " +
                         "('" + name + "', '" + pass + "')");
 
-
-
                 if (statement != null) {
                     statement.close();
                 }
@@ -173,12 +169,28 @@ public class ConnectionHandling{
                 }
 
             } catch (SQLException e) {
-
                 System.out.println(e.getMessage());
 
             }
         }
     }
+
+    public void makeCourseList(){
+
+        Connection dbConnection = null;
+        Statement statement = null;
+
+
+
+//        try{
+//            dbConnection = getDbConnection();
+//
+//
+//        } catch (SQLException f){
+//
+//        }
+    }
+
 
 
 }

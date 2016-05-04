@@ -23,7 +23,6 @@ public class StudentFrame extends JPanel {
     private JPanel spine = new JPanel(layout);
 
     private JTextField studentName = new JTextField();
-    private JTextField studentID = new JTextField();
 
     private JLabel nameLabel = new JLabel("Student name");
     private JLabel header = new JLabel("View and add students here.");

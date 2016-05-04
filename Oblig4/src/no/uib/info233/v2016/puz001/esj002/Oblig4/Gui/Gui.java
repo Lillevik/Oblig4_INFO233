@@ -11,8 +11,6 @@ import java.util.UUID;
  */
 public class Gui extends JFrame {
 
-
-
     //These are the fields of the IssuePanel class.
     private static final long serialVersionUID = 4161520540703687836L;
     private LayoutManager layout = new BorderLayout(1, 1);
@@ -232,14 +230,6 @@ public class Gui extends JFrame {
 
     public RegisterPanel getRp() {
         return rp;
-    }
-
-    public String getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(String currentUser) {
-        this.currentUser = currentUser;
     }
 
     public JLabel getLoggedInLabel() {
