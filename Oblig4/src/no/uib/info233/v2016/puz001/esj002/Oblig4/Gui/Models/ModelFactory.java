@@ -86,8 +86,28 @@ public class ModelFactory {
 
     };
 
-    //This is a cellRenderer used for custom rendering
-    public static DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer()
+    private static DefaultTableModel studentGradeModel = new DefaultTableModel(){
+
+        final Class<?>[] columnClasses = new Class<?>[]{Integer.class, String.class, String.class, Integer.class};
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return columnClasses[columnIndex];
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column){
+            if(column == 2){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    };
+
+
+   public static DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer()
 
     {
 
@@ -136,5 +156,9 @@ public class ModelFactory {
      */
     public static DefaultTableCellRenderer createCellRenderer(){
         return cellRenderer;
+    }
+
+    public static DefaultTableModel getStudentGradeModel() {
+        return studentGradeModel;
     }
 }

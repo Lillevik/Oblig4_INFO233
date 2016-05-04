@@ -8,6 +8,9 @@ import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.ConfirmationFrame;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
 
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -58,6 +61,10 @@ public class Controls {
         studentSearch();
         updatePartCourseWeight();
         deleteCourse();
+        changeToStudentGradesPanel();
+        backButtonStudentGradePanel();
+        addStudentsToTable();
+
     }
 
     /**
@@ -311,7 +318,44 @@ public class Controls {
         g.getCp().getDeleteCourseButton().addActionListener(e -> new ConfirmationFrame(ch, g));
     }
 
+    /**
+     * This method simply switches to the StudentGradesPanel.
+     */
+    public void changeToStudentGradesPanel(){
+        g.getCp().getViewStudents().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.getSgp().setVisible(true);
+                g.pack();
+                ch.listStudents(g.getSgp());
+            }
+        });
+    }
 
+    /**
+     * This method takes the user back from the StudentGradePanel
+     * to the main spine panel.
+     */
+    public void backButtonStudentGradePanel(){
+        g.getSgp().getExit().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.setContentPane(g.getSpine());
+                g.pack();
+            }
+        });
+    }
 
+    public void addStudentsToTable(){
+        g.getSgp().getAddStudent().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ch.insertStudents(
+                        g.getSgp().getStudentName().getText());
+                ch.listStudents(g.getSgp());
+
+            }
+        });
+    }
 }
 

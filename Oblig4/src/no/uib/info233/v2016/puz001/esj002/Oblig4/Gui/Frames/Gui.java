@@ -2,10 +2,7 @@ package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames;
 
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.ControlPanel;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Models.ModelFactory;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.LoginPanel;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.PartPanel;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.RegisterPanel;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.TablePanel;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -38,6 +35,7 @@ public class Gui extends JFrame {
     private TablePanel tp;
     private ControlPanel cp = new ControlPanel();
     private PartPanel pp = new PartPanel();
+    private StudentGradesPanel sgp = new StudentGradesPanel();
 
     //Models and tables
     private DefaultTableModel model = ModelFactory.createCourseModel();
@@ -180,4 +178,9 @@ public class Gui extends JFrame {
     public AddStudentsFrame getAsf() {
         return asf;
     }
+
+    public StudentGradesPanel getSgp() {
+        return sgp;
+    }
+
 }

@@ -3,7 +3,8 @@ package no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.User;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
-
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.StudentGradesPanel;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Main.TableControls;
 
 import javax.swing.*;
 import java.sql.*;
@@ -103,6 +104,101 @@ public class ConnectionHandling {
                 System.out.println(e.getMessage());
 
             }
+        }
+    }
+
+    /**
+     * This metod lets the user add new students
+     * to the "Students" table in the database.
+     * It only lets the user add a student by Name.
+     * The students ID is auto generated and
+     * the student has to manually be added to courses
+     * through the course panels.
+     *
+     * @param name
+     * @return
+     */
+    public String insertStudents(String name) {
+
+        Connection dbConnection = null;
+        Statement statement = null;
+
+        try {
+
+            dbConnection = getDbConnection();
+            statement = dbConnection.createStatement();
+
+            if (g.getSgp().getStudentName().equals("")){
+                g.getSgp().getHeader().setText("ERROR: Name cant be null");
+
+            } else {
+                statement.executeUpdate("INSERT INTO Student (student_name)  " + "VALUES " +
+                        "('" + name + "')");
+                System.out.println("A student was sucsessfully inserted into the Student table!");
+
+            }
+
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+
+        }
+        return name;
+    }
+
+    /**
+     * This method lists all the students in the table
+     * with what course they are taking and
+     * what grade they got, if they got a grade, in the course.
+     * Its use to fill the table in studentGGradePanel.
+     * @param sgp
+     */
+    public void listStudents(StudentGradesPanel sgp) {
+
+        Connection dbConnection = null;
+
+        Statement statement = null;
+        Statement statement2 = null;
+        Statement statement3 = null;
+
+        g.getSgp().tableRows();
+
+        try {
+
+            dbConnection = getDbConnection();
+
+            statement = dbConnection.createStatement();
+            statement2 = dbConnection.createStatement();
+            statement3 = dbConnection.createStatement();
+
+
+            String sql = ("SELECT * FROM  `Student` ORDER BY student_id");
+            String csql = ("SELECT * FROM `Course` ORDER BY c_id");
+            String gsql = ("SELECT * FROM `CourseGrade` ORDER BY course_id");
+
+            ResultSet rs = statement.executeQuery(sql);
+            ResultSet crs = statement2.executeQuery(csql);
+            ResultSet grs = statement3.executeQuery(gsql);
+
+            while (rs.next() && crs.next() && grs.next()) {
+                int id = rs.getInt("student_id");
+                String name = rs.getString("student_name");
+                String course = crs.getString("name");
+                String grade = grs.getString("grade");
+
+                g.getSgp().getModel().addRow(new Object[]{id, name, course, grade});
+            }
+
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
         }
     }
 
