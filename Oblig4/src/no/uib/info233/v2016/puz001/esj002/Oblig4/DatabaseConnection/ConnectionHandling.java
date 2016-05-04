@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Stack;
 
 /**
  * Created 16.04.2016.
@@ -676,6 +677,83 @@ public class ConnectionHandling {
             System.out.println(s.getMessage());
         }
     }
+
+    public void calculateCourseGrade(){
+
+        Connection dbConnection = null;
+        Statement getPart = null;
+        Statement getPartGrade = null;
+        Statement getStudent = null;
+        Statement addGrade = null;
+
+        try {
+
+            dbConnection = getDbConnection();
+            getPart = dbConnection.createStatement();
+            getPartGrade = dbConnection.createStatement();
+            getStudent = dbConnection.createStatement();
+
+            String sqlParts = ("SELECT Course_name FROM `Part` ORDER BY part_id");
+            String sqlPartGrade = ("SELECT grade FROM `PartGrade` ORDER BY part_id");
+            String sqlWeight = ("SELECT Part_weight FROM `Part` ORDER BY part_id");
+
+            ResultSet parts = getPart.executeQuery(sqlParts);
+            ResultSet partGrade = getPartGrade.executeQuery(sqlPartGrade);
+            ResultSet weight = getStudent.executeQuery(sqlWeight);
+
+            while (partGrade.next() && weight.next() && parts.next()) {
+
+                //((PartGrade % 100) * PartWeight) + ((PartGrade % 100) * PartWeight) FOR every part.
+
+                String partGradeString = partGrade.getString("grade");
+                int partWeight = weight.getInt("Part_weight");
+                String part = parts.getString("Course_name");
+                int partGradeInt = 0;
+
+                //Change grades from String to Int for meth.
+                if (partGradeString.contains("A")){
+                    partGradeInt = 6;
+                } else if(partGradeString.contains("B")){
+                    partGradeInt = 5;
+                } else if(partGradeString.contains("C")){
+                    partGradeInt = 4;
+                } else if(partGradeString.contains("D")){
+                    partGradeInt = 3;
+                } else if(partGradeString.contains("E")){
+                    partGradeInt = 2;
+                } else {
+                    partGradeInt = 1;
+                }
+
+                int partGradeWeight = (partGradeInt/100)*partWeight;
+                int courseGrade = 0;
+
+                for (part){
+                    courseGrade = courseGrade + partWeight;
+
+                }
+
+
+
+                addGrade = dbConnection.createStatement();
+                String addCourseGrade = ("INSERT INTO `CourseGrade` (grade) VALUES (" + courseGrade + ");");
+
+
+//
+//                int id = rs.getInt("student_id");
+//                String name = rs.getString("student_name");
+//                String course = crs.getString("name");
+//                String grade = grs.getString("grade");
+
+//                g.getSgp().getModel().addRow(new Object[]{id, name, course, grade});
+            }
+
+
+        } catch (Exception e){
+             System.out.print("Couldn't calculate grade");
+        }
+    }
+
 
 
 /*
