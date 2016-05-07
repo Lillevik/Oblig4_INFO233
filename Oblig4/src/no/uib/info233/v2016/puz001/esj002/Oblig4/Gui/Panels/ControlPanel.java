@@ -1,4 +1,4 @@
-package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui;
+package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -128,30 +128,58 @@ public class ControlPanel extends JPanel {
     }
 
 
+    /**
+     * This is a getter for the loggedInAs field
+     * @return - The JLabel value from the loggedInAs field
+     */
     public JLabel getLoggedInAs() {
         return loggedInAs;
     }
 
+    /**
+     * This is a getter for the titleField field
+     * @return - The JTextField value from the titleField field
+     */
     public JTextField getTitleField() {
         return titleField;
     }
 
+    /**
+     * This is a getter for the descriptionField field
+     * @return - The JTextField value from the descriptionField field
+     */
     public JTextField getDescriptionField() {
         return descriptionField;
     }
 
+    /**
+     * This is a getter for the addCourseButton field
+     * @return - The JButton value from the addCourseButton field
+     */
     public JButton getAddCourseButton() {
         return addCourseButton;
     }
 
+    /**
+     * This is a getter for the updateButton field
+     * @return - The JButton value from the updateButton field
+     */
     public JButton getUpdateButton() {
         return updateButton;
     }
 
+    /**
+     * This is a getter for the addPartsButton field
+     * @return - The JButton value from the addPartsButton field
+     */
     public JButton getAddPartsButton() {
         return addPartsButton;
     }
 
+    /**
+     * This is a getter for the deleteCourseButton field
+     * @return - The JButton value from the deleteCourseButton field
+     */
     public JButton getDeleteCourseButton() {
         return deleteCourseButton;
     }

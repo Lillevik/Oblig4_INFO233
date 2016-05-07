@@ -1,7 +1,5 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels;
 
-import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
@@ -121,22 +119,42 @@ public class ControlPanelStudentFrame extends JPanel {
         loggedInPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
+    /**
+     * This is a getter for the searchButton field
+     * @return - The JButton value from the searchButton field
+     */
     public JButton getSearchButton() {
         return searchButton;
     }
 
+    /**
+     * This is a getter for the loggedInAa field
+     * @return - The JLabel value from the loggedInAs field
+     */
     public JLabel getLoggedInAs() {
         return loggedInAs;
     }
 
+    /**
+     * This is a getter for the nameField field
+     * @return - The JTextField value from the nameField field
+     */
     public JTextField getNameField() {
         return nameField;
     }
 
+    /**
+     * This is a getter for the results field
+     * @return - The JLabel value from the results field
+     */
     public JLabel getResults() {
         return results;
     }
 
+    /**
+     * This is a getter for the addStudentsButton field
+     * @return - The JButton value from the addStudentsButton field
+     */
     public JButton getAddStudentsButton() {
         return addStudentsButton;
     }

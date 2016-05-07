@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by goat on 22.04.16.
+ * This is the registerPanel class which is used for
+ * registering new Employees.
+ *
+ * @author marius
  */
 public class RegisterPanel extends JPanel {
 
@@ -84,18 +87,34 @@ public class RegisterPanel extends JPanel {
         return passwordField;
     }
 
+    /**
+     * This is a getter for the userField field
+     * @return - The JTextField value from the userField field
+     */
     public JTextField getUserField() {
         return userField;
     }
 
+    /**
+     * This is a getter for the registerButton field
+     * @return - The JButton value from the registerButton field
+     */
     public JButton getRegisterButton() {
         return registerButton;
     }
 
+    /**
+     * This is a getter for the registerButton field
+     * @return - The JButton value from the registerButton field
+     */
     public JButton getCancelButton() {
         return cancelButton;
     }
 
+    /**
+     * This is a getter for the fullNameField field
+     * @return - The JButton value from the fullNameField field
+     */
     public JTextField getFullNameField() {
         return fullNameField;
     }

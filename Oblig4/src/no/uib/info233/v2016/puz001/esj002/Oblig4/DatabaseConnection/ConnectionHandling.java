@@ -1,11 +1,9 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection;
 
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Student;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.User;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.ConfirmationFrame;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Main.TableControls;
+
 
 import javax.swing.*;
 import java.sql.*;
@@ -30,7 +28,7 @@ public class ConnectionHandling {
 
     /**
      * This method creates a new connection to the
-     * databse and returns the connection to the system.
+     * database and returns the connection to the system.
      * @return the database connection
      */
     public Connection getDbConnection() {
@@ -72,13 +70,13 @@ public class ConnectionHandling {
      * This method inserts a new course into the database
      * table 'Course' if it does not allready exist. It
      * takes both a description and a name as a parameter.
-     * @param desc
-     * @param name
+     * @param desc - A description of the course
+     * @param name - A name of the course
      */
     public void insertNewCourse(String desc, String name) {
 
-        Connection dbConnection = null;
-        Statement statement = null;
+        Connection dbConnection;
+        Statement statement;
 
 
         if (name.equals("") && desc.equals("")) {
@@ -97,13 +95,9 @@ public class ConnectionHandling {
                 JOptionPane.showMessageDialog(new JOptionPane(), "Successfully added a new Course.", "Info", JOptionPane.INFORMATION_MESSAGE);
 
 
-                if (statement != null) {
-                    statement.close();
-                }
+                statement.close();
+                dbConnection.close();
 
-                if (dbConnection != null) {
-                    dbConnection.close();
-                }
             } catch (SQLException e) {
 
                 System.out.println(e.getMessage());
@@ -118,8 +112,8 @@ public class ConnectionHandling {
      */
     public void listCourses() {
 
-        Connection dbConnection = null;
-        Statement statement = null;
+        Connection dbConnection;
+        Statement statement;
         //g.getModel().removeTableModelListener(tc);
         g.tableRows();
 
@@ -142,13 +136,9 @@ public class ConnectionHandling {
             }
 
 
-            if (statement != null) {
-                statement.close();
-            }
+            statement.close();
+            dbConnection.close();
 
-            if (dbConnection != null) {
-                dbConnection.close();
-            }
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
@@ -160,13 +150,13 @@ public class ConnectionHandling {
      * it towards the employee table in the database. If the
      * information is correct, the user will be sent to the
      * main panel of the application.
-     * @param name
-     * @param pass
+     * @param name - The user name of the user to log in
+     * @param pass - The password of the user to log in
      */
     public void authenticateLogin(String name, String pass) {
 
-        Connection dbConnection = null;
-        Statement statement = null;
+        Connection dbConnection;
+        Statement statement;
         try {
 
 
@@ -190,13 +180,9 @@ public class ConnectionHandling {
                 g.getLp().getLoggedInLabel().setText("Wrong username or password, try again.");
             }
 
-            if (statement != null) {
-                statement.close();
-            }
+            statement.close();
+            dbConnection.close();
 
-            if (dbConnection != null) {
-                dbConnection.close();
-            }
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
@@ -206,13 +192,14 @@ public class ConnectionHandling {
      * This method inserts a new employee into the Employee
      * table if a user with the same username does not
      * allready exist.
-     * @param name
-     * @param pass
+     * @param name - The username of the new Employee
+     * @param fullName - The fullname of the new Employee
+     * @param pass - The password of the new Employee
      */
-    public void insertNewEmployee(String name, String fullname, String pass) {
+    public void insertNewEmployee(String name, String fullName, String pass) {
 
-        Connection dbConnection = null;
-        Statement statement = null;
+        Connection dbConnection;
+        Statement statement;
 
 
         if (name.equals("") && pass.equals("")) {
@@ -226,18 +213,14 @@ public class ConnectionHandling {
                 dbConnection = getDbConnection();
                 statement = dbConnection.createStatement();
                 statement.executeUpdate("INSERT INTO Employee (name, full_name, password) " + "VALUES " +
-                        "('" + name + "', '" + fullname + "', '" + pass + "')");
+                        "('" + name + "', '" + fullName + "', '" + pass + "')");
 
 
-                if (statement != null) {
-                    statement.close();
-                }
+                statement.close();
+                dbConnection.close();
 
-                if (dbConnection != null) {
-                    dbConnection.close();
-                }
                 JOptionPane.showMessageDialog(new JOptionPane(), "Successfully registered new user." +
-                        "\n Welcome " + fullname + ".", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                        "\n Welcome " + fullName + ".", "INFO", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException e) {
 
@@ -250,13 +233,13 @@ public class ConnectionHandling {
     /**
      * This method fetches course part evaluations
      * and presents these in the PartPanel table.
-     * @param course
+     * @param course - The courseName of the course to fetch parts from.
      */
     public void fetchCourseParts(String course) {
 
-        Connection dbConnection = null;
-        Statement statement = null;
-        ds.getWeigthList().clear();
+        Connection dbConnection;
+        Statement statement;
+        ds.getWeightList().clear();
         try {
 
             g.getPp().tableRows();
@@ -278,13 +261,9 @@ public class ConnectionHandling {
             ds.calculateWeigth();
             g.getPp().getCp().getCurrentWeight().setText("Totalt weight: " + ds.getCurrentValue() + "%");
 
-            if (statement != null) {
-                statement.close();
-            }
+            statement.close();
+            dbConnection.close();
 
-            if (dbConnection != null) {
-                dbConnection.close();
-            }
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
@@ -294,17 +273,16 @@ public class ConnectionHandling {
      * This method inserts a new part into the Part table
      * if the total weight will not go over 100%. If it goes
      * over 100% the user will recieve an error message.
-     * @param name
-     * @param weigth
-     * @return
+     * @param name - The name of the new part.
+     * @param weigth - The weight of the new part as an integer.
      */
-    public boolean insertNewPart(String name, int weigth) {
+    public void insertNewPart(String name, int weigth) {
 
         Connection dbConnection = null;
         Statement statement = null;
 
         try {
-            if (ds.getCurrentValue() + weigth < 100) {
+            if (ds.getCurrentValue() + weigth <= 100) {
 
                 dbConnection = getDbConnection();
                 statement = dbConnection.createStatement();
@@ -327,20 +305,24 @@ public class ConnectionHandling {
                 dbConnection.close();
             }
 
-            return true;
+            return;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
 
         }
 
-        return false;
     }
 
+    /**
+     * This method fetches all the students taking a specific
+     * part. The part is given by the partId as a parameter.
+     * @param partId - The part ti fetch students from
+     */
     public void fetchStudentPart(int partId) {
 
-        Connection dbConnection = null;
-        Statement statement = null;
-        ds.getWeigthList().clear();
+        Connection dbConnection;
+        Statement statement;
+        ds.getWeightList().clear();
         try {
 
             g.getPp().setStudentTableRows();
@@ -358,24 +340,25 @@ public class ConnectionHandling {
 
 
                 g.getPp().getStudentModel().addRow(new Object[]{partID, student_id, grade});
-
-                if (statement != null) {
-                    statement.close();
-                }
-
-                if (dbConnection != null) {
-                    dbConnection.close();
-                }
             }
+
+            statement.close();
+            dbConnection.close();
+
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
     }
 
+    /**
+     * This method fetches all the students who is not currently
+     * registered to a given course.
+     * @param courseId - The integer value Id to list students from.
+     */
     public void listStudentsNotOnCourse(int courseId) {
 
-        Connection dbConnection = null;
-        Statement statement = null;
+        Connection dbConnection;
+        Statement statement;
         g.getAsf().tableRows();
         try {
 
@@ -393,22 +376,21 @@ public class ConnectionHandling {
                 g.getAsf().getModel().addRow(new Object[]{id, name});
             }
 
-            if (statement != null) {
-                statement.close();
-            }
+            statement.close();
+            dbConnection.close();
 
-            if (dbConnection != null) {
-                dbConnection.close();
-            }
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
     }
 
+    /**
+     * This method adds a student to a course and all of its part courses.
+     */
     public void addStudentsToCourse() {
 
-        Connection dbConnection = null;
-        Statement statement = null;
+        Connection dbConnection;
+        Statement statement;
         try {
 
 
@@ -432,8 +414,6 @@ public class ConnectionHandling {
                                 "('" + id + "', '" + partId + "', '"+ ds.getCourse().getId() + "')");
                     }
                     addedStudents.add(ds.getCourse().getId());
-
-
                 }
             }
             JOptionPane.showMessageDialog(new JOptionPane(), "Successfully added " + addedStudents.size()
@@ -442,23 +422,31 @@ public class ConnectionHandling {
             g.getAsf().tableRows();
             listStudentsNotOnCourse(ds.getCourse().getId());
 
+
             if (statement != null) {
                 statement.close();
             }
-
-            if (dbConnection != null) {
-                dbConnection.close();
-            }
+            dbConnection.close();
 
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
     }
 
+    /**
+     * This method upates a table in the program and then updates the
+     * database with the same information as the one in the local table.
+     * This method is used in combination with a tableModel listener.
+     * @param table - The table from the database to update a value
+     * @param tableColumn - The column from the database to update
+     * @param updatedData - The new and updated data to replace old data
+     * @param idColumn - The column where the unique ID value is found
+     * @param id - The id from the ID column
+     */
     public void updateCourseTable(String table, String tableColumn, String updatedData, String idColumn, int id){
 
-        Connection dbConnection = null;
-        Statement statement = null;
+        Connection dbConnection;
+        Statement statement;
 
         g.getAsf().tableRows();
         try {
@@ -469,16 +457,31 @@ public class ConnectionHandling {
                     "SET  `" + tableColumn + "` =  '" + updatedData + "' " +
                     "WHERE  `"+ table + "`.`" + idColumn + "` = " + id + ";");
             statement.executeUpdate(query);
-            //fetchCourseParts(ds.getCourse().getName(), g);
+            //fetchCourseParts(ds.getCourse().getName());
+
+            statement.close();
+            dbConnection.close();
+            System.out.println(query);
         } catch (SQLException s){
             System.out.println(s.getMessage());
         }
+
+
     }
 
+    /**
+     * This method updates the PartGrade table Grade
+     * both in the local table and in the database.
+     * This method is used in combination with a
+     * tableModel listener.
+     * @param updatedData - The new data to update the database and table with
+     * @param StudentId - The studentID for the student to give a grade
+     * @param partId - The partID to for the part that is being graded
+     */
     public void updatePartCourseGrade(String updatedData, int StudentId, int partId){
 
-        Connection dbConnection = null;
-        Statement statement = null;
+        Connection dbConnection;
+        Statement statement;
 
 
         g.getAsf().tableRows();
@@ -492,40 +495,43 @@ public class ConnectionHandling {
             statement.executeUpdate(query);
             fetchCourseParts(ds.getCourse().getName());
 
-            if (statement != null) {
-                statement.close();
-            }
+            statement.close();
+            dbConnection.close();
 
-            if (dbConnection != null) {
-                dbConnection.close();
-            }
         } catch (SQLException s){
             System.out.println(s.getMessage());
         }
     }
 
-    public void updatePart(String table, String tableColumn, int weight, String idColumn, int id, int previousWeight) {
+    /**
+     * This method updates a part weight if updating does not
+     * make the weight go  over 100% in total.
+     * @param weight - The new weight to update the old with
+     * @param id - The ID of the part to update
+     * @param previousWeight - The previous to calculate the max weight
+     */
+    public void updatePart(int weight, int id, int previousWeight) {
 
         Connection dbConnection = null;
         Statement statement = null;
 
-        ds.getWeigthList().clear();
+        ds.getWeightList().clear();
         try {
 
             if(ds.getCurrentValue() + weight - previousWeight <= 100) {
                 dbConnection = getDbConnection();
                 statement = dbConnection.createStatement();
 
-                String query = ("UPDATE  `gr9_16`.`" + table + "` " +
-                        "SET  `" + tableColumn + "` =  '" + weight + "' " +
-                        "WHERE  `" + table + "`.`" + idColumn + "` = " + id + ";");
+                String query = ("UPDATE  `gr9_16`.`" + "Part" + "` " +
+                        "SET  `" + "Part_weight" + "` =  '" + weight + "' " +
+                        "WHERE  `" + "Part" + "`.`" + "part_id" + "` = " + id + ";");
                 statement.executeUpdate(query);
                 System.out.println("Updated");
-                JOptionPane.showMessageDialog(new JOptionPane(), "Sucessfully updated the weight.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(new JOptionPane(), "Sucessfully updated the weight.", "Error", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 System.out.println(ds.getCurrentValue());
                 JOptionPane.showMessageDialog(new JOptionPane(), "The max weight may not be higher than 100%." +
-                        "\n Try lowering other weights and try again.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                        "\n Try lowering other weights and try again.", "Info", JOptionPane.ERROR_MESSAGE);
             }
 
             if (statement != null) {
@@ -540,10 +546,17 @@ public class ConnectionHandling {
         }
     }
 
+    /**
+     * This method deletes a course from the dataBase with the given courseName and ID.
+     * When the course is deleted all of the courseParts and all of the grades of the
+     * students currently taking the course will also be removed.
+     * @param CourseId - The ID of the course to remove
+     * @param courseName - The name of the course to remove
+     */
     public void deleteCourse(int CourseId, String courseName) {
 
-        Connection dbConnection = null;
-        Statement statement = null;
+        Connection dbConnection;
+        Statement statement;
 
         try {
 
@@ -552,27 +565,106 @@ public class ConnectionHandling {
                 statement = dbConnection.createStatement();
 
                 String query1 = "Delete from Course where c_id = "+ CourseId + ";";
-
                 String query2 = "Delete from Part where Course_name = \"" + courseName + "\";";
-            String query3 = "Delete from PartGrade where course_id = " + CourseId + ";";
-                statement.executeUpdate(query1);
-            statement.executeUpdate(query2);
-            statement.executeUpdate(query3);
-            listCourses();
-            if (statement != null) {
-                statement.close();
-            }
+                String query3 = "Delete from PartGrade where course_id = " + CourseId + ";";
 
-            if (dbConnection != null) {
-                dbConnection.close();
-            }
+                statement.executeUpdate(query1);
+                statement.executeUpdate(query2);
+                statement.executeUpdate(query3);
+                listCourses();
+
+            statement.close();
+            dbConnection.close();
+
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
     }
 
 
+/*
 
+"This is currently under construction."
+
+
+public ArrayList<Student> getStudetsIds(int courseId){
+
+        Connection dbConnection = null;
+        Statement statement = null;
+        ArrayList<Student> students = new ArrayList<>();
+
+
+        try {
+
+            dbConnection = getDbConnection();
+
+            statement = dbConnection.createStatement();
+
+            String sqlPartGrade = ("SELECT * FROM `PartGrade` WHERE course_id = " + courseId + " ORDER BY part_id");
+
+
+
+            ResultSet partGrade = statement.executeQuery(sqlPartGrade);
+
+
+            while (partGrade.next()) {
+                int studentId = partGrade.getInt("student_id");
+                Student student = new Student(studentId, "not important");
+                students.add(student);
+            }
+
+
+        } catch (Exception e){
+            System.out.print("Couldn't calculate grade");
+        }
+        return students;
+    }
+
+
+
+    public void calculateCourseGrade(ArrayList<Student> students){
+
+        Connection dbConnection = null;
+        Statement statement = null;
+
+
+
+        try {
+            ArrayList<StudentParts> parts = new ArrayList<>();
+            dbConnection = getDbConnection();
+
+            statement = dbConnection.createStatement();
+
+
+
+            for(Student student : students){
+                String sqlPartGrade = ("SELECT * FROM `PartGrade` WHERE student_id = " + student.getId() + " ORDER BY part_id");
+                ResultSet rs = statement.executeQuery(sqlPartGrade);
+                StudentParts part = new StudentParts(student.getId(), ds);
+
+                while(rs.next()){
+                    int partId = rs.getInt("part_id");
+                    String grade = rs.getString("grade");
+                    student.getParts().put(partId, grade);
+                }
+
+                for(Entry<Integer, String> entry : student.getParts().entrySet()) {
+                    int key = entry.getKey();
+                    String value = entry.getValue();
+
+
+                }
+            }
+
+            for(StudentParts part : parts){
+
+            }
+
+
+        } catch (Exception e){
+            System.out.print("Couldn't calculate grade");
+        }
+    }*/
 
 
 }
