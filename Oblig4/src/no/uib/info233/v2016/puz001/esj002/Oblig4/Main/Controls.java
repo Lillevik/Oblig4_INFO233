@@ -192,7 +192,7 @@ public class Controls {
     public void addNewPart(){
         g.getPp().getCp().getAddPartButton().addActionListener(e -> {
             String name = g.getPp().getCp().getTitleField().getText();
-            int weight = Integer.parseInt(g.getPp().getCp().getWeigth()
+            int weight = Integer.parseInt(g.getPp().getCp().getWeight()
                     .getSelectedItem().toString().replaceAll("%", "")) + 1;
 
             ch.fetchCourseParts(ds.getCourse().getName());

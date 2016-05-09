@@ -14,7 +14,7 @@ public class Student {
     //These are the fields of the student class
     private int id;
     private String name;
-    private HashMap<Integer, String> parts = new HashMap<>();
+    private HashMap<Integer, Course> courses = new HashMap<>();
 
     /**
      * This is the constructor for the student class
@@ -63,7 +63,7 @@ public class Student {
      * This is a getter for the field parts
      * @return - The HashMap value for the field parts
      */
-    public HashMap<Integer, String> getParts() {
-        return parts;
+    public HashMap<Integer, Course> getCourses() {
+        return courses;
     }
 }

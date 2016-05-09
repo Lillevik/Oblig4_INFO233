@@ -1,6 +1,7 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection;
 
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Student;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.User;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.StudentGradesPanel;
@@ -9,6 +10,7 @@ import no.uib.info233.v2016.puz001.esj002.Oblig4.Main.TableControls;
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Stack;
 
@@ -350,10 +352,10 @@ public class ConnectionHandling {
                 String partId = rs.getString("part_id");
                 String courseName = rs.getString("Course_name");
                 String partName = rs.getString("Part_name");
-                String partWeigth = rs.getString("Part_weight");
+                String partWeight = rs.getString("Part_weight");
 
-                g.getPp().getModel().addRow(new Object[]{partId, courseName, partName, partWeigth});
-                ds.addNumberCalcList(Integer.parseInt(partWeigth));
+                g.getPp().getModel().addRow(new Object[]{partId, courseName, partName, partWeight});
+                ds.addNumberCalcList(Integer.parseInt(partWeight));
             }
             ds.calculateWeigth();
             g.getPp().getCp().getCurrentWeight().setText("Totalt weight: " + ds.getCurrentValue() + "%");
@@ -371,20 +373,20 @@ public class ConnectionHandling {
      * if the total weight will not go over 100%. If it goes
      * over 100% the user will recieve an error message.
      * @param name - The name of the new part.
-     * @param weigth - The weight of the new part as an integer.
+     * @param weight - The weight of the new part as an integer.
      */
-    public void insertNewPart(String name, int weigth) {
+    public void insertNewPart(String name, int weight) {
 
         Connection dbConnection = null;
         Statement statement = null;
 
         try {
-            if (ds.getCurrentValue() + weigth <= 100) {
+            if (ds.getCurrentValue() + weight <= 100) {
 
                 dbConnection = getDbConnection();
                 statement = dbConnection.createStatement();
                 statement.executeUpdate("INSERT INTO Part (Course_name, Part_name, Part_weight) " + "VALUES " +
-                        "('" + ds.getCourse().getName() + "', '" + name + "','" + weigth + "')");
+                        "('" + ds.getCourse().getName() + "', '" + name + "','" + weight + "')");
                 fetchCourseParts(ds.getCourse().getName());
                 JOptionPane.showMessageDialog(new JOptionPane(), "Successfully added a new part." +
                         "\n Use 'add students' button to add students.", "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -756,12 +758,8 @@ public class ConnectionHandling {
 
 
 
-/*
 
-"This is currently under construction."
-
-
-public ArrayList<Student> getStudetsIds(int courseId){
+public ArrayList<Student> getStudentsIds(int courseId){
 
         Connection dbConnection = null;
         Statement statement = null;
@@ -811,34 +809,34 @@ public ArrayList<Student> getStudetsIds(int courseId){
 
 
 
-            for(Student student : students){
+            for(Student student : students) {
                 String sqlPartGrade = ("SELECT * FROM `PartGrade` WHERE student_id = " + student.getId() + " ORDER BY part_id");
                 ResultSet rs = statement.executeQuery(sqlPartGrade);
                 StudentParts part = new StudentParts(student.getId(), ds);
 
-                while(rs.next()){
+                while (rs.next()) {
                     int partId = rs.getInt("part_id");
                     String grade = rs.getString("grade");
                     student.getParts().put(partId, grade);
                 }
 
-                for(Entry<Integer, String> entry : student.getParts().entrySet()) {
+                for (Map.Entry<Integer, String> entry : student.getParts().entrySet()) {
                     int key = entry.getKey();
                     String value = entry.getValue();
 
 
                 }
+
+
+                for (StudentParts part : parts) {
+
+                }
             }
-
-            for(StudentParts part : parts){
-
-            }
-
 
         } catch (Exception e){
             System.out.print("Couldn't calculate grade");
         }
-    }*/
+    }
 
 
 }

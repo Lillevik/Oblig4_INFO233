@@ -1,6 +1,7 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by marius on 24.04.2016.
@@ -16,8 +17,7 @@ public class Course {
     private final String name;
     private final String description;
     private final String professor;
-    private int currentPartId;
-    private final ArrayList<Integer> partIds = new ArrayList<>();
+    private final HashMap<Integer, PartEvaluation> parts = new HashMap<>();
 
     /**
      * This is the constructor for the Course class which
@@ -32,14 +32,6 @@ public class Course {
         this.name = name;
         this.description = description;
         this.professor = professor;
-    }
-
-    /**
-     * This method adds an id to the partIds list
-     * @param id - The ID integer to add
-     */
-    public void addPartId(int id){
-        this.partIds.add(id);
     }
 
     /**
@@ -72,29 +64,5 @@ public class Course {
      */
     public String getProfessor() {
         return professor;
-    }
-
-    /**
-     * This is a getter for the partIds ArrayList field
-     * @return - The ArrayList partIds field List
-     */
-    public ArrayList<Integer> getPartIds() {
-        return partIds;
-    }
-
-    /**
-     * This is a getter for the currentPartId field
-     * @return - The Integer currentPartId field value
-     */
-    public int getCurrentPartId() {
-        return currentPartId;
-    }
-
-    /**
-     * This is a setter for the currentPartId field
-     * @param currentPartId - The currentPartId to set
-     */
-    public void setCurrentPartId(int currentPartId) {
-        this.currentPartId = currentPartId;
     }
 }

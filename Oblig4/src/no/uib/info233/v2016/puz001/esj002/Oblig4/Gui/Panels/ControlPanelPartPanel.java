@@ -46,8 +46,8 @@ public class ControlPanelPartPanel extends JPanel{
     //Arrays
     private ArrayList<String> percentage = new ArrayList<String>(){};
 
-    //Combobox
-    private JComboBox weigth;
+    //J Combo box
+    private JComboBox weight;
 
 
     /**
@@ -57,7 +57,7 @@ public class ControlPanelPartPanel extends JPanel{
     public ControlPanelPartPanel(){
         fillWeigthList();
         //noinspection unchecked
-        weigth = new JComboBox(percentage.toArray());
+        weight = new JComboBox(percentage.toArray());
         setupComponents();
         placeComponentsCoursePanel();
         placeComponentsUpdatingPanel();
@@ -93,7 +93,7 @@ public class ControlPanelPartPanel extends JPanel{
 
         gc.gridx = 1;
         gc.gridy = 1;
-        coursePanel.add(weigth,gc);
+        coursePanel.add(weight,gc);
 
         gc.gridx = 0;
         gc.gridy = 2;
@@ -175,7 +175,7 @@ public class ControlPanelPartPanel extends JPanel{
     public void setupComponents(){
         this.titleField.setPreferredSize(new Dimension(150, 24));
         this.weightField.setPreferredSize(new Dimension(150, 24));
-        this.weigth.setPreferredSize(new Dimension(150, 24));
+        this.weight.setPreferredSize(new Dimension(150, 24));
         this.updateWeightField.setPreferredSize(new Dimension(150, 24));
 
         coursePanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("New Part")));
@@ -230,8 +230,8 @@ public class ControlPanelPartPanel extends JPanel{
      * This is a getter for the weight field
      * @return - The JComboBox value from the weight field
      */
-    public JComboBox getWeigth() {
-        return weigth;
+    public JComboBox getWeight() {
+        return weight;
     }
 
     /**
