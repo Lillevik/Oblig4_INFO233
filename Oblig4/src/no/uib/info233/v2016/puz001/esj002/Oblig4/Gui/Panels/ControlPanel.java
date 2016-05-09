@@ -32,6 +32,8 @@ public class ControlPanel extends JPanel {
     private JButton updateButton = new JButton("Update table");
     private JButton addPartsButton = new JButton("Add course parts");
     private JButton deleteCourseButton = new JButton("Delete");
+    private JButton viewStudents = new JButton("View Students");
+    private JButton courseGrades = new JButton("View course Grades");
 
 
     /**
@@ -99,6 +101,15 @@ public class ControlPanel extends JPanel {
         gc.gridx = 0;
         gc.gridy = 2;
         buttonsPanel.add(addPartsButton, gc);
+
+        gc.gridx = 0;
+        gc.gridy = 4;
+        buttonsPanel.add(viewStudents, gc);
+
+        gc.gridx = 0;
+        gc.gridy = 6;
+        buttonsPanel.add(courseGrades, gc);
+
     }
 
     /**
@@ -182,5 +193,13 @@ public class ControlPanel extends JPanel {
      */
     public JButton getDeleteCourseButton() {
         return deleteCourseButton;
+    }
+
+    public JButton getViewStudents() {
+        return viewStudents;
+    }
+
+    public JButton getCourseGrades() {
+        return courseGrades;
     }
 }

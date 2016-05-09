@@ -3,12 +3,14 @@ package no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.User;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
-
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.StudentGradesPanel;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Main.TableControls;
 
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Stack;
 
 /**
  * Created 16.04.2016.
@@ -103,6 +105,101 @@ public class ConnectionHandling {
                 System.out.println(e.getMessage());
 
             }
+        }
+    }
+
+    /**
+     * This metod lets the user add new students
+     * to the "Students" table in the database.
+     * It only lets the user add a student by Name.
+     * The students ID is auto generated and
+     * the student has to manually be added to courses
+     * through the course panels.
+     *
+     * @param name
+     * @return
+     */
+    public String insertStudents(String name) {
+
+        Connection dbConnection = null;
+        Statement statement = null;
+
+        try {
+
+            dbConnection = getDbConnection();
+            statement = dbConnection.createStatement();
+
+            if (g.getSgp().getStudentName().equals("")){
+                g.getSgp().getHeader().setText("ERROR: Name cant be null");
+
+            } else {
+                statement.executeUpdate("INSERT INTO Student (student_name)  " + "VALUES " +
+                        "('" + name + "')");
+                System.out.println("A student was sucsessfully inserted into the Student table!");
+
+            }
+
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+
+        }
+        return name;
+    }
+
+    /**
+     * This method lists all the students in the table
+     * with what course they are taking and
+     * what grade they got, if they got a grade, in the course.
+     * Its use to fill the table in studentGGradePanel.
+     * @param sgp
+     */
+    public void listStudents(StudentGradesPanel sgp) {
+
+        Connection dbConnection = null;
+
+        Statement statement = null;
+        Statement statement2 = null;
+        Statement statement3 = null;
+
+        g.getSgp().tableRows();
+
+        try {
+
+            dbConnection = getDbConnection();
+
+            statement = dbConnection.createStatement();
+            statement2 = dbConnection.createStatement();
+            statement3 = dbConnection.createStatement();
+
+
+            String sql = ("SELECT * FROM  `Student` ORDER BY student_id");
+            String csql = ("SELECT * FROM `Course` ORDER BY c_id");
+            String gsql = ("SELECT * FROM `CourseGrade` ORDER BY course_id");
+
+            ResultSet rs = statement.executeQuery(sql);
+            ResultSet crs = statement2.executeQuery(csql);
+            ResultSet grs = statement3.executeQuery(gsql);
+
+            while (rs.next() && crs.next() && grs.next()) {
+                int id = rs.getInt("student_id");
+                String name = rs.getString("student_name");
+                String course = crs.getString("name");
+                String grade = grs.getString("grade");
+
+                g.getSgp().getModel().addRow(new Object[]{id, name, course, grade});
+            }
+
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
         }
     }
 
@@ -580,6 +677,83 @@ public class ConnectionHandling {
             System.out.println(s.getMessage());
         }
     }
+
+    public void calculateCourseGrade(){
+
+        Connection dbConnection = null;
+        Statement getPart = null;
+        Statement getPartGrade = null;
+        Statement getStudent = null;
+        Statement addGrade = null;
+
+        try {
+
+            dbConnection = getDbConnection();
+            getPart = dbConnection.createStatement();
+            getPartGrade = dbConnection.createStatement();
+            getStudent = dbConnection.createStatement();
+
+            String sqlParts = ("SELECT Course_name FROM `Part` ORDER BY part_id");
+            String sqlPartGrade = ("SELECT grade FROM `PartGrade` ORDER BY part_id");
+            String sqlWeight = ("SELECT Part_weight FROM `Part` ORDER BY part_id");
+
+            ResultSet parts = getPart.executeQuery(sqlParts);
+            ResultSet partGrade = getPartGrade.executeQuery(sqlPartGrade);
+            ResultSet weight = getStudent.executeQuery(sqlWeight);
+
+            while (partGrade.next() && weight.next() && parts.next()) {
+
+                //((PartGrade % 100) * PartWeight) + ((PartGrade % 100) * PartWeight) FOR every part.
+
+                String partGradeString = partGrade.getString("grade");
+                int partWeight = weight.getInt("Part_weight");
+                String part = parts.getString("Course_name");
+                int partGradeInt = 0;
+
+                //Change grades from String to Int for meth.
+                if (partGradeString.contains("A")){
+                    partGradeInt = 6;
+                } else if(partGradeString.contains("B")){
+                    partGradeInt = 5;
+                } else if(partGradeString.contains("C")){
+                    partGradeInt = 4;
+                } else if(partGradeString.contains("D")){
+                    partGradeInt = 3;
+                } else if(partGradeString.contains("E")){
+                    partGradeInt = 2;
+                } else {
+                    partGradeInt = 1;
+                }
+
+                int partGradeWeight = (partGradeInt/100)*partWeight;
+                int courseGrade = 0;
+
+                for (part){
+                    courseGrade = courseGrade + partWeight;
+
+                }
+
+
+
+                addGrade = dbConnection.createStatement();
+                String addCourseGrade = ("INSERT INTO `CourseGrade` (grade) VALUES (" + courseGrade + ");");
+
+
+//
+//                int id = rs.getInt("student_id");
+//                String name = rs.getString("student_name");
+//                String course = crs.getString("name");
+//                String grade = grs.getString("grade");
+
+//                g.getSgp().getModel().addRow(new Object[]{id, name, course, grade});
+            }
+
+
+        } catch (Exception e){
+             System.out.print("Couldn't calculate grade");
+        }
+    }
+
 
 
 /*
