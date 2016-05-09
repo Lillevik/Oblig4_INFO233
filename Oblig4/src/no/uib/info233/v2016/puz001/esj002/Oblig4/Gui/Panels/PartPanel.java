@@ -10,13 +10,13 @@ import java.awt.*;
 /**
  * Created 18.04.2016.
  * This class represents the parts of a course
+ * @author marius
  */
 public class PartPanel extends JPanel {
 
 
     //These are the fields of the IssuePanel class.
     private static final long serialVersionUID = 4161520540703687836L;
-    private LayoutManager layout = new BorderLayout(1, 1);
 
     //Labels
 
@@ -28,8 +28,6 @@ public class PartPanel extends JPanel {
 
     //Panels
     private ControlPanelPartPanel cppf = new ControlPanelPartPanel();
-    private TablePanelPF tp;
-
 
 
     //Models and tables
@@ -37,9 +35,6 @@ public class PartPanel extends JPanel {
     private DefaultTableModel studentModel = ModelFactory.createPartEvaluationModel();
     private JTable table = new JTable(model);
     private JTable studentTable = new JTable(studentModel);
-    private JScrollPane tablePane;
-    private JScrollPane studentPane;
-
 
 
     /**
@@ -50,10 +45,11 @@ public class PartPanel extends JPanel {
         setStudentTableRows();
         tableRows();
         table.getColumnModel().getColumn(3).setCellRenderer(ModelFactory.createCellRenderer());
+        LayoutManager layout = new BorderLayout(1, 1);
         setLayout(layout);
-        tablePane = new JScrollPane(table);
-        studentPane = new JScrollPane(studentTable);
-        tp = new TablePanelPF(tablePane, studentPane);
+        JScrollPane tablePane = new JScrollPane(table);
+        JScrollPane studentPane = new JScrollPane(studentTable);
+        TablePanelPF tp = new TablePanelPF(tablePane, studentPane);
         this.setLayout(layout);
         setupComponents();
         this.add(cppf, BorderLayout.WEST);
@@ -85,30 +81,50 @@ public class PartPanel extends JPanel {
         table.getColumnModel().getColumn(3).setCellRenderer(ModelFactory.createCellRenderer());
     }
 
+    /**
+     * This is a method for clearing the studentModel
+     * to prepare it for adding new rows.
+     */
     public void setStudentTableRows(){
         this.studentModel.setRowCount(0);
-        this.studentModel.setColumnCount(0);
-        this.studentModel.addColumn("Course Part ID");
-        this.studentModel.addColumn("Student ID");
-        this.studentModel.addColumn("Part Grade");
     }
 
+    /**
+     * This is a getter for the model field
+     * @return - The DefaultTableModel value from the model field
+     */
     public DefaultTableModel getModel() {
         return model;
     }
 
+    /**
+     * This is a getter for the cppf field
+     * @return - The ControlPanelPartPanel value from the cppf field
+     */
     public ControlPanelPartPanel getCp() {
         return cppf;
     }
 
+    /**
+     * This is a getter for the studentModel field
+     * @return - The DefaultTableModel value from the studentModel field
+     */
     public DefaultTableModel getStudentModel() {
         return studentModel;
     }
 
+    /**
+     * This is a getter for the table field
+     * @return - The JTable value from the table field
+     */
     public JTable getTable() {
         return this.table;
     }
 
+    /**
+     * This is a getter for the studentTable field
+     * @return - The JTable value from the studentTable field
+     */
     public JTable getStudentTable() {
         return studentTable;
     }

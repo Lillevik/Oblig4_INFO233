@@ -7,7 +7,7 @@ import java.awt.*;
  * Created by Marius on 22.04.16.
  * This class serves as a LoginPanel for the
  * program.
- * @Author Marius
+ * @author Marius
  */
 public class LoginPanel extends JPanel {
 
@@ -75,22 +75,42 @@ public class LoginPanel extends JPanel {
 
     }
 
+    /**
+     * This is a getter for the passwordField field
+     * @return - The JPasswordField value from the passwordField field
+     */
     public JPasswordField getPasswordField() {
         return passwordField;
     }
 
+    /**
+     * This is a getter for the userField field
+     * @return - The JTextField value from the userField field
+     */
     public JTextField getUserField() {
         return userField;
     }
 
+    /**
+     * This is a getter for the loginButton field
+     * @return - The JButton value from the loginButton field
+     */
     public JButton getLoginButton() {
         return loginButton;
     }
 
+    /**
+     * This is a getter for the registerButton field
+     * @return - The JButton value from the registerButton field
+     */
     public JButton getRegisterButton() {
         return registerButton;
     }
 
+    /**
+     * This is a getter for the loggedInLabel field
+     * @return - The JLabel value from the loggedInLabel field
+     */
     public JLabel getLoggedInLabel() {
         return loggedInLabel;
     }

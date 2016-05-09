@@ -1,4 +1,4 @@
-package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui;
+package no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -7,6 +7,9 @@ import java.io.Serializable;
 
 /**
  * Created by mariuslillevik on 10.03.16.
+ *
+ * This class is used for redirecting the outputStream to a custom textField
+ * @author Marius
  */
 
 public class CustomOutputStream extends OutputStream implements Serializable {
@@ -18,7 +21,8 @@ public class CustomOutputStream extends OutputStream implements Serializable {
 
 
     /**
-     * @Param JTextArea
+     * This is the constructor for the CustomOutputStream class
+     * @param textArea - The text area to output information
      */
     public CustomOutputStream(JTextArea textArea) {
 
@@ -26,6 +30,11 @@ public class CustomOutputStream extends OutputStream implements Serializable {
     }
 
 
+    /**
+     * This method writes a value to the textField
+     * @param b - The b value
+     * @throws IOException
+     */
     @Override
     public void write(int b) throws IOException {
         // redirects data to the text area
