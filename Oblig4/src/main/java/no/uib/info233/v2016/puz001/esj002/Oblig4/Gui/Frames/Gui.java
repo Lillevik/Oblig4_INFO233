@@ -37,6 +37,7 @@ public class Gui extends JFrame {
     private PartPanel pp = new PartPanel();
     private StudentGradesPanel sgp = new StudentGradesPanel();
 
+
     //Models and tables
     private DefaultTableModel model = ModelFactory.createCourseModel();
     private JTable table = new JTable(model);

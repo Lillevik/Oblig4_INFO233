@@ -756,7 +756,6 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
 
     public void calculateFinalGrade(int courseID, Connection conn){
         ArrayList<Student> students = getCoursePartsList(courseID, conn, getStudents(courseID, conn));
-        if(!students.isEmpty()) {
             for (Student student : students) {
                 double grade = 0;
 
@@ -785,8 +784,9 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
                     e.getMessage();
                 }
             }
-        }
     }
+
+
 
     public double changeStringGrade(String grade) {
         String s = "";
@@ -819,15 +819,15 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
     public String changeDoubleGrade(double grade) {
         if(grade <= 1.0 && grade >= 0.0){
             return "A";
-        } else if(grade <= 2.0  && grade >= 1.0){
+        } else if(grade <= 2.0  && grade >= 1.1){
             return "B";
-        } else if(grade <= 3.0  && grade >= 2.0){
+        } else if(grade <= 3.0  && grade >= 2.1){
             return "C";
-        } else if(grade <= 4.0  && grade >= 3.0){
+        } else if(grade <= 4.0  && grade >= 3.1){
             return "D";
-        } else if(grade <= 5.0  && grade >= 4.0){
+        } else if(grade <= 5.0  && grade >= 4.1){
             return "E";
-        } else if(grade <= 6.0  && grade >= 5.0){
+        } else if(grade <= 6.0  && grade >= 5.1){
             return "F";
         }
         return "Not working";

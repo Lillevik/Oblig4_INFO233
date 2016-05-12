@@ -27,5 +27,6 @@ public class Main {
         g.getPp().getModel().addTableModelListener(tc);
         g.getPp().getStudentModel().addTableModelListener(tc);
         controls.controlActions();
+
     }
 }
