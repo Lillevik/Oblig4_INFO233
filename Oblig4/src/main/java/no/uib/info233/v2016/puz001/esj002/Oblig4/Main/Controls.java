@@ -9,6 +9,7 @@ import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.StudentGradesPanel;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -61,6 +62,8 @@ public class Controls {
         changeToStudentGradesPanel();
         backButtonStudentGradePanel();
         addStudentsToTable();
+        goToCourseGradesPanel();
+        goBackFromCourseGradesPanel();
 
     }
 
@@ -357,6 +360,10 @@ public class Controls {
         });
     }
 
+    /**
+     * This method lets the user add students to the table
+     * through the user interface.
+     */
     public void addStudentsToTable(){
         g.getSgp().getAddStudent().addActionListener(new ActionListener() {
             @Override
@@ -369,11 +376,55 @@ public class Controls {
         });
     }
 
-    public void calculateCourseGrades(){
-        int row = g.getTable().getSelectedRow();
-        int courseId = Integer.parseInt(g.getTable().getValueAt(row, 0).toString());
+    /**
+     * method for switching to the CourseGradePanel
+     * which is the panel for displaying the final grades.
+     */
+    public void goToCourseGradesPanel(){
 
+        g.getCp().getCourseGrades().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Connection conn = ch.getDbConnection();
+                int selectedRow = g.getTable().getSelectedRow();
+                int courseId = Integer.parseInt(g.getTable().getValueAt(selectedRow, 0).toString());
+                ch.calculateFinalGrade(courseId, conn);
+                ch.selectGradesFromCourse(courseId, conn);
+                g.getCgp().getModel().fireTableDataChanged();
 
+                g.setContentPane(g.getCgp());
+                g.pack();
+            }
+        });
     }
+
+    /**
+     * returns the user to the main page from
+     * the courseGradePanel
+     */
+    public void goBackFromCourseGradesPanel(){
+        g.getCgp().getBackButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.setContentPane(g.getSpine());
+                g.pack();
+            }
+        });
+    }
+
+    /**
+     * this method lets the user search for courses in the
+     * courseGradePanel where the final grades are diplayed.
+     */
+    public void searchCourseFinalGrades(){
+        g.getCgp().getSearchButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+
 }
 

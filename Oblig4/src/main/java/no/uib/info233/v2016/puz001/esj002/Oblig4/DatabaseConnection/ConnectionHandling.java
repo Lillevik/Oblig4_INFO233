@@ -742,7 +742,6 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
 
                     PartEvaluation part = new PartEvaluation(partID, course_id, partName, weight, grade);
                     stud.getPartEvaluations().add(part);
-
                 }
 
             } catch (SQLException e) {
@@ -754,7 +753,7 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
 
 
 
-    public void calculateFinalGrade(int courseID, Connection conn){
+    public ArrayList<Student> calculateFinalGrade(int courseID, Connection conn){
         ArrayList<Student> students = getCoursePartsList(courseID, conn, getStudents(courseID, conn));
             for (Student student : students) {
                 double grade = 0;
@@ -769,6 +768,7 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
                 String finalGrade = changeDoubleGrade(grade);
                 System.out.println("Student_name: " + student.getName() + "  -  " + student.getId());
                 System.out.println("Final Grade: " + finalGrade);
+                student.setFinalGrade(finalGrade);
 
                 try {
                     Statement statement;
@@ -784,6 +784,32 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
                     e.getMessage();
                 }
             }
+        return students;
+    }
+
+    public void selectGradesFromCourse(int courseId, Connection conn){
+        Statement statement;
+        ResultSet rs;
+        Connection connection;
+        try{
+            String query = "SELECT Student.student_name, Course.name, CourseGrade.grade\n " +
+                    "FROM CourseGrade\n" +
+                    " JOIN Student ON CourseGrade.student_id = Student.student_id AND CourseGrade.course_id =" + courseId +" \n" +
+                    " JOIN Course ON Course.c_id =" + courseId + ";";
+            connection = conn;
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
+            g.getCgp().tableRows();
+            while(rs.next()){
+                String studentName = rs.getString("student_name");
+                String courseName = rs.getString("name");
+                String grade = rs.getString("grade");
+                g.getCgp().getModel().addRow(new Object[]{courseName, studentName, grade});
+            }
+            conn.close();
+        }catch (SQLException e){
+            e.getMessage();
+        }
     }
 
 

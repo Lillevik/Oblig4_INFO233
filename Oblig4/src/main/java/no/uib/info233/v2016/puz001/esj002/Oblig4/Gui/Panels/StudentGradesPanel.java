@@ -16,7 +16,6 @@ public class StudentGradesPanel extends JPanel{
     private String[] grades = {"A", "B", "C", "D", "E", "F"};
 
     private JPanel controls = new JPanel(new GridBagLayout());
-    private JPanel spine = new JPanel(layout);
 
     private JTextField studentName = new JTextField();
 
@@ -27,7 +26,7 @@ public class StudentGradesPanel extends JPanel{
     private JButton addStudent = new JButton("Add student");
     private JButton exit = new JButton("Back");
 
-    private DefaultTableModel model = ModelFactory.getStudentGradeModel();
+    private DefaultTableModel model = ModelFactory.getStudentsModel();
     private JTable table = new JTable(model);
     private JScrollPane tablePane;
     private TablePanel tp;

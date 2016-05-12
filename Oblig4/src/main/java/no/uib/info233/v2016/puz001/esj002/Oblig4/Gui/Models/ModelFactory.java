@@ -86,7 +86,7 @@ public class ModelFactory {
 
     };
 
-    private static DefaultTableModel studentGradeModel = new DefaultTableModel(){
+    private static DefaultTableModel studentsModel = new DefaultTableModel(){
 
         final Class<?>[] columnClasses = new Class<?>[]{Integer.class, String.class, String.class, Integer.class};
 
@@ -117,11 +117,7 @@ public class ModelFactory {
 
         @Override
         public boolean isCellEditable(int row, int column){
-            if(column == 2){
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         }
 
     };
@@ -130,12 +126,29 @@ public class ModelFactory {
    public static DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer()
 
     {
-
         @Override
         public void setValue(Object value) {
             int value1 = Integer.parseInt(value.toString());
             setText(value1 + "%");
     }
+    };
+
+    //This is a model used for displaying final grades
+    private static DefaultTableModel finalGradesModel = new DefaultTableModel(){
+
+        final Class<?>[] columnClasses = new Class<?>[]{String.class, String.class, String.class};
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return columnClasses[columnIndex];
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column){
+
+            return false;
+        }
+
     };
 
     /**
@@ -178,11 +191,20 @@ public class ModelFactory {
         return cellRenderer;
     }
 
-    public static DefaultTableModel getStudentGradeModel() {
-        return studentGradeModel;
+    /**
+     * This is a getter for the StudentsModel
+     * @return - The DefaultTableModel from the StudentsModel field
+     */
+    public static DefaultTableModel getStudentsModel() {
+        return studentsModel;
     }
 
-    public static DefaultTableModel getFinalGradeModel() {
-        return finalGradeModel;
+    /**
+     * This is a getter for the fianlGradesModel
+     * @return - The DefaultTableModel from the FinalGradesModel field
+     */
+    public static DefaultTableModel createFinalGradesModel() {
+        return finalGradesModel;
     }
+
 }
