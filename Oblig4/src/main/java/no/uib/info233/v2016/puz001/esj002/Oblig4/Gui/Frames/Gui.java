@@ -15,7 +15,6 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  */
 public class Gui extends JFrame {
 
-
     //These are the fields of the IssuePanel class.
     private static final long serialVersionUID = 4161520540703687836L;
     private LayoutManager layout = new BorderLayout(1, 1);
@@ -36,6 +35,7 @@ public class Gui extends JFrame {
     private ControlPanel cp = new ControlPanel();
     private PartPanel pp = new PartPanel();
     private StudentGradesPanel sgp = new StudentGradesPanel();
+    private CourseGradesPanel cgp = new CourseGradesPanel();
 
     //Models and tables
     private DefaultTableModel model = ModelFactory.createCourseModel();
@@ -82,7 +82,6 @@ public class Gui extends JFrame {
         courseNameField.setPreferredSize(new Dimension(150, 24));
         descriptionField.setPreferredSize(new Dimension(150, 24));
         professorField.setPreferredSize(new Dimension(150, 24));
-
 
         model.setRowCount(0);
         model.setColumnCount(0);
@@ -179,8 +178,21 @@ public class Gui extends JFrame {
         return asf;
     }
 
+    /**
+     * Getter for the studentGradesPanel.
+     * used for displaying and adding students.
+     * @return StudentsGradesPanel
+     */
     public StudentGradesPanel getSgp() {
         return sgp;
     }
 
+    /**
+     * getter for hte courseGradesPanel class.
+     * The class displays final grades.
+     * @return CourseGradesPanel
+     */
+    public CourseGradesPanel getCgp() {
+        return cgp;
+    }
 }

@@ -64,6 +64,8 @@ public class Controls {
         changeToStudentGradesPanel();
         backButtonStudentGradePanel();
         addStudentsToTable();
+        goToCourseGradesPanel();
+        goBackFromCourseGradesPanel();
 
     }
 
@@ -346,6 +348,10 @@ public class Controls {
         });
     }
 
+    /**
+     * This method lets the user add students to the table
+     * through the user interface.
+     */
     public void addStudentsToTable(){
         g.getSgp().getAddStudent().addActionListener(new ActionListener() {
             @Override
@@ -353,6 +359,48 @@ public class Controls {
                 ch.insertStudents(
                         g.getSgp().getStudentName().getText());
                 ch.listStudents(g.getSgp());
+
+            }
+        });
+    }
+
+    /**
+     * method for switching to the CourseGradePanel
+     * which is the panel for displaying the final grades.
+     */
+    public void goToCourseGradesPanel(){
+
+        g.getCp().getCourseGrades().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.setContentPane(g.getCgp());
+                g.pack();
+            }
+        });
+    }
+
+    /**
+     * returns the user to the main page from
+     * the courseGradePanel
+     */
+    public void goBackFromCourseGradesPanel(){
+        g.getCgp().getBackButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.setContentPane(g.getSpine());
+                g.pack();
+            }
+        });
+    }
+
+    /**
+     * this method lets the user search for courses in the
+     * courseGradePanel where the final grades are diplayed.
+     */
+    public void searchCourseFinalGrades(){
+        g.getCgp().getSearchButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
             }
         });
