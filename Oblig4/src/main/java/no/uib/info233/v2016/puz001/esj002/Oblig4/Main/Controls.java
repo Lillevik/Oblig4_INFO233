@@ -65,6 +65,7 @@ public class Controls {
         backButtonStudentGradePanel();
         addStudentsToTable();
         goToCourseGradesPanel();
+        goBackFromCourseGradesPanel();
 
     }
 
@@ -374,6 +375,33 @@ public class Controls {
             public void actionPerformed(ActionEvent e) {
                 g.setContentPane(g.getCgp());
                 g.pack();
+            }
+        });
+    }
+
+    /**
+     * returns the user to the main page from
+     * the courseGradePanel
+     */
+    public void goBackFromCourseGradesPanel(){
+        g.getCgp().getBackButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.setContentPane(g.getSpine());
+                g.pack();
+            }
+        });
+    }
+
+    /**
+     * this method lets the user search for courses in the
+     * courseGradePanel where the final grades are diplayed.
+     */
+    public void searchCourseFinalGrades(){
+        g.getCgp().getSearchButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }

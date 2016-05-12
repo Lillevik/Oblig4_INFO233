@@ -16,7 +16,7 @@ public class CourseGradesPanel extends JPanel {
 
     //Panels
     private JPanel coursePanel = new JPanel(new GridBagLayout());
-    private JPanel tablePanel = new JPanel(new GridBagLayout());
+    private JPanel tablePanel = new JPanel(new BorderLayout());
 
     //Labels
     private JLabel titleLabel = new JLabel("Search course:");
@@ -45,6 +45,8 @@ public class CourseGradesPanel extends JPanel {
         tableRows();
         this.setLayout(new BorderLayout(2, 2));
         this.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Final Grades")));
+        coursePanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Menu")));
+        tablePanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Table")));
         this.add(coursePanel, BorderLayout.WEST);
         this.add(tablePanel, BorderLayout.CENTER);
         this.setVisible(true);
