@@ -19,7 +19,7 @@ public class CourseGradesPanel extends JPanel {
     private JPanel tablePanel = new JPanel(new BorderLayout());
 
     //Labels
-    private JLabel titleLabel = new JLabel("Search course:");
+    private JLabel titleLabel = new JLabel("Final Grades");
 
     //Models
     private DefaultTableModel model = ModelFactory.getFinalGradesModel();
