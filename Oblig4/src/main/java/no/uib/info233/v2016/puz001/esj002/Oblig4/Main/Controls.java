@@ -64,6 +64,7 @@ public class Controls {
         changeToStudentGradesPanel();
         backButtonStudentGradePanel();
         addStudentsToTable();
+        goToCourseGradesPanel();
 
     }
 
@@ -346,6 +347,10 @@ public class Controls {
         });
     }
 
+    /**
+     * This method lets the user add students to the table
+     * through the user interface.
+     */
     public void addStudentsToTable(){
         g.getSgp().getAddStudent().addActionListener(new ActionListener() {
             @Override
@@ -354,6 +359,17 @@ public class Controls {
                         g.getSgp().getStudentName().getText());
                 ch.listStudents(g.getSgp());
 
+            }
+        });
+    }
+
+    public void goToCourseGradesPanel(){
+
+        g.getCp().getCourseGrades().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.setContentPane(g.getSgp());
+                g.pack();
             }
         });
     }

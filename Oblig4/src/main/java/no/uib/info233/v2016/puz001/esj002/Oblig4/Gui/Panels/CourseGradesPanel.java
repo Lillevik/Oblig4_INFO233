@@ -12,10 +12,11 @@ import java.util.ArrayList;
 /**
  * Created by Eirik on 04.05.2016.
  */
-public class CourseGradesPanel extends JFrame {
+public class CourseGradesPanel extends JPanel {
 
     //Panels
     private JPanel coursePanel = new JPanel(new GridBagLayout());
+    private JPanel tablePanel = new JPanel();
 
     //Labels
     private JLabel titleLabel = new JLabel("Search course:");
@@ -24,7 +25,6 @@ public class CourseGradesPanel extends JFrame {
     private DefaultTableModel model = ModelFactory.getFinalGradesModel();
     private JTable table = new JTable(model);
     private JScrollPane tablePane;
-    private TablePanel tp;
 
     //TextFields
     private JTextField searchField = new JTextField();
@@ -33,22 +33,37 @@ public class CourseGradesPanel extends JFrame {
     private JButton searchButton = new JButton("Search");
     private JButton backButton = new JButton("Back");
 
+    /**
+     * Constructor for the courseGradesPanel
+     * Initiates all the methods in the class and lets
+     * the class be imported to other classes.
+     */
     public CourseGradesPanel(){
-        super("Final Grades");
-        //this.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Final Grades")));
-        tablePane = new JScrollPane(table);
-        tp = new TablePanel(tablePane);
 
-        tableRows();
+        setupComponents();
         placeComponentsCourseGradePanel();
+        placeTableComponents();
+        tableRows();
         this.setLayout(new BorderLayout(2, 2));
-
+        this.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Final Grades")));
         this.add(coursePanel, BorderLayout.WEST);
-        this.add(tp, BorderLayout.CENTER);
-        setVisible(true);
-        pack();
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.add(tablePanel, BorderLayout.CENTER);
+        this.setVisible(true);
 
+    }
+
+    public void setupComponents(){
+        coursePanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("stuff")));
+        tablePanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("other stuff")));
+    }
+
+    /**
+     * Sets up the JTable in a JPanel
+     * making it visible
+     */
+    public void placeTableComponents(){
+        tablePane = new JScrollPane(table);
+        tablePanel.add(tablePane);
     }
 
     /**
@@ -79,6 +94,10 @@ public class CourseGradesPanel extends JFrame {
 
     }
 
+    /**
+     * Sets up the table, making it ready for input
+     * info and pasting it in the JTable.
+     */
     public void tableRows(){
 
         model.setRowCount(0);
@@ -88,9 +107,30 @@ public class CourseGradesPanel extends JFrame {
         model.addColumn("Grade");
     }
 
-    public static void main (String[]args){
+    /**
+     * getter for the search button. Letting
+     * the user search for courses in the table
+     * in the final grades panel.
+     * @return
+     */
+    public JButton getSearchButton() {
+        return searchButton;
+    }
 
-        CourseGradesPanel c = new CourseGradesPanel();
+    /**
+     * getter for the JButton BackButton, used to let the
+     * user exit the final grades panel.
+     * @return
+     */
+    public JButton getBackButton() {
+        return backButton;
+    }
 
+    /**
+     * Getter for the JTextField used to search for courses
+     * @return
+     */
+    public JTextField getSearchField() {
+        return searchField;
     }
 }

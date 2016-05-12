@@ -33,7 +33,7 @@ public class ControlPanel extends JPanel {
     private JButton addPartsButton = new JButton("Add course parts");
     private JButton deleteCourseButton = new JButton("Delete");
     private JButton viewStudents = new JButton("View Students");
-    private JButton courseGrades = new JButton("View course Grades");
+    private JButton courseGrades = new JButton("View Fianl Grades");
 
 
     /**

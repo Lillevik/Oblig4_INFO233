@@ -45,7 +45,7 @@ public class StudentGradesPanel extends JFrame{
         setupComponents();
         this.add(controls, BorderLayout.WEST);
         this.add(tp, BorderLayout.CENTER);
-        setVisible(true);
+        this.setVisible(true);
         pack();
 
     }
