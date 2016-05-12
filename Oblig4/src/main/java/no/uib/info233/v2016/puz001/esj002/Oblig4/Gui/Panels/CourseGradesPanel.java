@@ -16,7 +16,7 @@ public class CourseGradesPanel extends JPanel {
 
     //Panels
     private JPanel coursePanel = new JPanel(new GridBagLayout());
-    private JPanel tablePanel = new JPanel();
+    private JPanel tablePanel = new JPanel(new GridBagLayout());
 
     //Labels
     private JLabel titleLabel = new JLabel("Search course:");
@@ -40,9 +40,8 @@ public class CourseGradesPanel extends JPanel {
      */
     public CourseGradesPanel(){
 
-        setupComponents();
-        placeComponentsCourseGradePanel();
         placeTableComponents();
+        placeComponentsCourseGradePanel();
         tableRows();
         this.setLayout(new BorderLayout(2, 2));
         this.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Final Grades")));
@@ -50,11 +49,6 @@ public class CourseGradesPanel extends JPanel {
         this.add(tablePanel, BorderLayout.CENTER);
         this.setVisible(true);
 
-    }
-
-    public void setupComponents(){
-        coursePanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("stuff")));
-        tablePanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("other stuff")));
     }
 
     /**

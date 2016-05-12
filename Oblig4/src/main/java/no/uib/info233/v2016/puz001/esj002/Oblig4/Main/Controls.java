@@ -363,12 +363,16 @@ public class Controls {
         });
     }
 
+    /**
+     * method for switching to the CourseGradePanel
+     * which is the panel for displaying the final grades.
+     */
     public void goToCourseGradesPanel(){
 
         g.getCp().getCourseGrades().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                g.setContentPane(g.getSgp());
+                g.setContentPane(g.getCgp());
                 g.pack();
             }
         });
