@@ -4,14 +4,10 @@ package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Models.ModelFactory;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
+import javax.swing.border.TitledBorder;
 
-/**
- * Created by Eirik on 04.05.2016.
- */
 public class CourseGradesPanel extends JPanel {
 
     //Panels
@@ -22,9 +18,9 @@ public class CourseGradesPanel extends JPanel {
     private JLabel titleLabel = new JLabel("Final Grades");
 
     //Models
-    private DefaultTableModel model = ModelFactory.getFinalGradesModel();
+    private DefaultTableModel model = ModelFactory.createFinalGradesModel();
     private JTable table = new JTable(model);
-    private JScrollPane tablePane;
+    private JScrollPane tablePane = new JScrollPane(table);
 
     //TextFields
     private JTextField searchField = new JTextField();
@@ -40,7 +36,7 @@ public class CourseGradesPanel extends JPanel {
      */
     public CourseGradesPanel(){
 
-        placeTableComponents();
+        tablePanel.add(tablePane);
         placeComponentsCourseGradePanel();
         tableRows();
         this.setLayout(new BorderLayout(2, 2));
@@ -50,16 +46,6 @@ public class CourseGradesPanel extends JPanel {
         this.add(coursePanel, BorderLayout.WEST);
         this.add(tablePanel, BorderLayout.CENTER);
         this.setVisible(true);
-
-    }
-
-    /**
-     * Sets up the JTable in a JPanel
-     * making it visible
-     */
-    public void placeTableComponents(){
-        tablePane = new JScrollPane(table);
-        tablePanel.add(tablePane);
     }
 
     /**
@@ -88,6 +74,11 @@ public class CourseGradesPanel extends JPanel {
 
         searchField.setPreferredSize(new Dimension(100, 20));
 
+        model.setColumnCount(0);
+        model.addColumn("Course");
+        model.addColumn("StudentName");
+        model.addColumn("Grade");
+
     }
 
     /**
@@ -95,12 +86,8 @@ public class CourseGradesPanel extends JPanel {
      * info and pasting it in the JTable.
      */
     public void tableRows(){
-
         model.setRowCount(0);
-        model.setColumnCount(0);
-        model.addColumn("Course");
-        model.addColumn("StudentName");
-        model.addColumn("Grade");
+
     }
 
     /**
@@ -128,5 +115,13 @@ public class CourseGradesPanel extends JPanel {
      */
     public JTextField getSearchField() {
         return searchField;
+    }
+
+    public JTable getTable() {
+        return table;
+    }
+
+    public DefaultTableModel getModel() {
+        return model;
     }
 }

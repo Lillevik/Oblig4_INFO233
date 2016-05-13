@@ -15,6 +15,7 @@ public class Student {
     private int id;
     private String name;
     private ArrayList<PartEvaluation> partEvaluations = new ArrayList<>();
+    private String finalGrade = new String();
 
     /**
      * This is the constructor for the student class
@@ -65,5 +66,13 @@ public class Student {
      */
     public ArrayList<PartEvaluation> getPartEvaluations() {
         return partEvaluations;
+    }
+
+    public String getFinalGrade() {
+        return finalGrade;
+    }
+
+    public void setFinalGrade(String finalGrade) {
+        this.finalGrade = finalGrade;
     }
 }

@@ -106,11 +106,26 @@ public class ModelFactory {
 
     };
 
+    private static DefaultTableModel finalGradeModel = new DefaultTableModel(){
+
+        final Class<?>[] columnClasses = new Class<?>[]{String.class, String.class, String.class};
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return columnClasses[columnIndex];
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+
+    };
+
 
    public static DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer()
 
     {
-
         @Override
         public void setValue(Object value) {
             int value1 = Integer.parseInt(value.toString());
@@ -130,7 +145,8 @@ public class ModelFactory {
 
         @Override
         public boolean isCellEditable(int row, int column){
-            return column == 2;
+
+            return false;
         }
 
     };
@@ -187,7 +203,8 @@ public class ModelFactory {
      * This is a getter for the fianlGradesModel
      * @return - The DefaultTableModel from the FinalGradesModel field
      */
-    public static DefaultTableModel getFinalGradesModel() {
+    public static DefaultTableModel createFinalGradesModel() {
         return finalGradesModel;
     }
+
 }

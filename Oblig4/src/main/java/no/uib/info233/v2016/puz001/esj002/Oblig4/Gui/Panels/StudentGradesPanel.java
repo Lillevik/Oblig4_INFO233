@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * Created by Eirik on 04.05.2016.
  */
-public class StudentGradesPanel extends JFrame{
+public class StudentGradesPanel extends JPanel{
 
     private static final long serialVersionUID = 4161520540703687836L;
     private LayoutManager layout = new BorderLayout(1, 1);
@@ -36,7 +36,6 @@ public class StudentGradesPanel extends JFrame{
      * and makes it visible.
      */
     public StudentGradesPanel(){
-
         tableRows();
         tablePane = new JScrollPane(table);
         tp = new TablePanel(tablePane);
@@ -45,9 +44,7 @@ public class StudentGradesPanel extends JFrame{
         setupComponents();
         this.add(controls, BorderLayout.WEST);
         this.add(tp, BorderLayout.CENTER);
-        this.setVisible(true);
-        pack();
-
+        setVisible(true);
     }
 
     /**
@@ -85,8 +82,11 @@ public class StudentGradesPanel extends JFrame{
      * and lets the constructor get ahold of them with less code.
      */
     public void setupComponents(){
-
         placeComponentsGridBag(controls);
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Course");
+        model.addColumn("Grade");
     }
 
     /**
@@ -96,13 +96,7 @@ public class StudentGradesPanel extends JFrame{
      * by reusing some code where possible.
      */
     public void tableRows(){
-
         model.setRowCount(0);
-        model.setColumnCount(0);
-        model.addColumn("ID");
-        model.addColumn("Name");
-        model.addColumn("Course");
-        model.addColumn("Grade");
     }
 
     public JButton getExit() {

@@ -4,14 +4,12 @@ import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Course;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Student;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.ConnectionHandling;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.ConfirmationFrame;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.StudentGradesPanel;
 
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -308,8 +306,6 @@ public class Controls {
             ch.updatePart(weight, id, previousWeight);
             ch.fetchCourseParts(ds.getCourse().getName());
         });
-
-
     }
 
     /**
@@ -317,7 +313,24 @@ public class Controls {
      * ConfirmationPanel to confirm deletion.
      */
     public void deleteCourse(){
-        g.getCp().getDeleteCourseButton().addActionListener(e -> new ConfirmationFrame(ch, g));
+
+        g.getCp().getDeleteCourseButton().addActionListener(e ->{
+
+            String ObjButtons[] = {"Yes","No"};
+            int row = g.getTable().getSelectedRow();
+            String name = g.getTable().getValueAt(row, 1).toString();
+            String information = "Are you sure you want to delete the course " + name + "?" +
+                    "\n This will also delete all of its part evaluations" +
+                    "\n and the students taking the course.";
+
+
+        int PromptResult = JOptionPane.showOptionDialog(null,information,"Online Examination System",
+                JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+        if(PromptResult==JOptionPane.YES_OPTION) {
+            int id = Integer.parseInt(g.getTable().getValueAt(row, 0).toString());
+            ch.deleteCourse(id, name);
+        }
+    });
     }
 
     /**
@@ -327,9 +340,8 @@ public class Controls {
         g.getCp().getViewStudents().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                g.getSgp().setVisible(true);
+                g.setContentPane(g.getSgp());
                 g.pack();
-                ch.listStudents(g.getSgp());
             }
         });
     }
@@ -373,6 +385,13 @@ public class Controls {
         g.getCp().getCourseGrades().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Connection conn = ch.getDbConnection();
+                int selectedRow = g.getTable().getSelectedRow();
+                int courseId = Integer.parseInt(g.getTable().getValueAt(selectedRow, 0).toString());
+                ch.calculateFinalGrade(courseId, conn);
+                ch.selectGradesFromCourse(courseId, conn);
+                g.getCgp().getModel().fireTableDataChanged();
+
                 g.setContentPane(g.getCgp());
                 g.pack();
             }
@@ -405,5 +424,7 @@ public class Controls {
             }
         });
     }
+
+
 }
 
