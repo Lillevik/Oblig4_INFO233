@@ -129,8 +129,6 @@ public class ConnectionHandling {
      * the student has to manually be added to courses
      * through the course panels.
      *
-     * @param name
-     * @return
      */
     public String insertStudents(String name) {
 
@@ -173,7 +171,6 @@ public class ConnectionHandling {
      * with what course they are taking and
      * what grade they got, if they got a grade, in the course.
      * Its use to fill the table in studentGGradePanel.
-     * @param sgp
      */
     public void listStudents(StudentGradesPanel sgp) {
 
@@ -722,8 +719,13 @@ public class ConnectionHandling {
     }
 
 
-
-public ArrayList<Student> getStudents(int courseId, Connection conn){
+    /**
+     * This method returns the students in the Students table in the database
+     * @param courseId
+     * @param conn
+     * @return students
+     */
+    public ArrayList<Student> getStudents(int courseId, Connection conn){
 
         Connection dbConnection;
         Statement statement;

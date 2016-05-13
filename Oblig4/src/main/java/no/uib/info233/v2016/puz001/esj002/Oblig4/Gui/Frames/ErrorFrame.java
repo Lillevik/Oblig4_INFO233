@@ -12,6 +12,10 @@ public class ErrorFrame extends JOptionPane {
 
     private JPanel spine = new JPanel();
 
+    /**
+     * Constructor for the simple frame
+     * that is used to depoly the JOptionsPane
+     */
     public ErrorFrame(){
         add(spine);
         spine.setPreferredSize(new Dimension(100, 100));
