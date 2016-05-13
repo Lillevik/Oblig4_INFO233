@@ -13,27 +13,27 @@ import java.awt.*;
 public class ControlPanel extends JPanel {
 
     //Panels
-    private JPanel coursePanel = new JPanel(new GridBagLayout());
-    private JPanel buttonsPanel = new JPanel(new GridBagLayout());
-    private JPanel loggedInPanel = new JPanel(new GridBagLayout());
+    private final JPanel coursePanel = new JPanel(new GridBagLayout());
+    private final JPanel buttonsPanel = new JPanel(new GridBagLayout());
+    private final JPanel loggedInPanel = new JPanel(new GridBagLayout());
 
     //Labels
-    private JLabel titleLabel = new JLabel("Title: ");
-    private JLabel descriptionLabel = new JLabel("Description: ");
-    private JLabel loggedInAs = new JLabel("Not logged in: ");
+    private final JLabel titleLabel = new JLabel("Title: ");
+    private final JLabel descriptionLabel = new JLabel("Description: ");
+    private final JLabel loggedInAs = new JLabel("Not logged in: ");
 
 
     //TextFields
-    private JTextField titleField = new JTextField();
-    private JTextField descriptionField = new JTextField();
+    private final JTextField titleField = new JTextField();
+    private final JTextField descriptionField = new JTextField();
 
     //JButtons
-    private JButton addCourseButton = new JButton("Add course");
-    private JButton updateButton = new JButton("Update table");
-    private JButton addPartsButton = new JButton("Add course parts");
-    private JButton deleteCourseButton = new JButton("Delete");
-    private JButton viewStudents = new JButton("View Students");
-    private JButton courseGrades = new JButton("View Fianl Grades");
+    private final JButton addCourseButton = new JButton("Add course");
+    private final JButton updateButton = new JButton("Update table");
+    private final JButton addPartsButton = new JButton("Add course parts");
+    private final JButton deleteCourseButton = new JButton("Delete");
+    private final JButton viewStudents = new JButton("View Students");
+    private final JButton courseGrades = new JButton("View Fianl Grades");
 
 
     /**
@@ -57,7 +57,7 @@ public class ControlPanel extends JPanel {
      * This method places ans positions the components
      * in the CoursePanel using GridBagLayout
      */
-    public void placeComponentsCoursePanel(){
+    private void placeComponentsCoursePanel(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 
@@ -90,7 +90,7 @@ public class ControlPanel extends JPanel {
      * This method places ans positions the components
      * in the ButtonPanel using GridBagLayout
      */
-    public void placeComponentsButtonPanel(){
+    private void placeComponentsButtonPanel(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 
@@ -116,7 +116,7 @@ public class ControlPanel extends JPanel {
      * This method places ans positions the components
      * in the LoggedInPanel using GridBagLayout
      */
-    public void placeComponentsLoggedInPanel(){
+    private void placeComponentsLoggedInPanel(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 
@@ -129,7 +129,7 @@ public class ControlPanel extends JPanel {
      * This method sets up some components size
      * and adds a border to the 3 different panels.
      */
-    public void setupComponents(){
+    private void setupComponents(){
         this.titleField.setPreferredSize(new Dimension(150, 24));
         this.descriptionField.setPreferredSize(new Dimension(150, 24));
 
@@ -196,16 +196,16 @@ public class ControlPanel extends JPanel {
     }
 
     /**
-     * getter for the viewStudents button used to go to a new panel.
-     * @return viewStudents
+     * This is a getter for the viewStudents field
+     * @return - The JButton value from the viewStudents field
      */
     public JButton getViewStudents() {
         return viewStudents;
     }
 
     /**
-     * cThis is a getter for the view course grades button.
-     * @return courseGrades
+     * This is a getter for the deleteCourseButton field
+     * @return - The JButton value from the deleteCourseButton field
      */
     public JButton getCourseGrades() {
         return courseGrades;

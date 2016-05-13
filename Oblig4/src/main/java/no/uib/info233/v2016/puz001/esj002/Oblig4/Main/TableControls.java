@@ -15,10 +15,10 @@ import javax.swing.table.TableModel;
  *
  * @author puz001, esj002
  */
-public class TableControls implements TableModelListener {
+class TableControls implements TableModelListener {
 
-    private ConnectionHandling ch;
-    private DataStores ds;
+    private final ConnectionHandling ch;
+    private final DataStores ds;
 
     /**
      * This is the contructor for the class TableControls
@@ -84,6 +84,7 @@ public class TableControls implements TableModelListener {
                     int studentId = Integer.parseInt(model.getValueAt(row, 1).toString());
                     int partId = Integer.parseInt(model.getValueAt(row, 0).toString());
                     ch.updatePartCourseGrade(data.toString(), studentId, partId);
+                    ch.fetchStudentPart(ds.getCourse().getCurrentPartId());
                     JOptionPane.showMessageDialog(new JOptionPane(), "Successfully updated the grade to " + data.toString() + ".", "Info", JOptionPane.INFORMATION_MESSAGE);
 
                 } else {

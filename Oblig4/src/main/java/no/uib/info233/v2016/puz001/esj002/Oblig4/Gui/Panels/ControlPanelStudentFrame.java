@@ -13,25 +13,25 @@ import java.awt.*;
 public class ControlPanelStudentFrame extends JPanel {
 
     //Panels
-    private JPanel coursePanel = new JPanel(new GridBagLayout());
-    private JPanel buttonsPanel = new JPanel(new GridBagLayout());
-    private JPanel loggedInPanel = new JPanel(new GridBagLayout());
+    private final JPanel coursePanel = new JPanel(new GridBagLayout());
+    private final JPanel buttonsPanel = new JPanel(new GridBagLayout());
+    private final JPanel loggedInPanel = new JPanel(new GridBagLayout());
 
 
     //Labels
-    private JLabel nameLabel = new JLabel("Name : ");
-    private JLabel loggedInAs = new JLabel("Not logged in: ");
-    private JLabel results = new JLabel("Found students");
-    private JLabel addStudentInfo = new JLabel("Add selected students -> ");
+    private final JLabel nameLabel = new JLabel("Name : ");
+    private final JLabel loggedInAs = new JLabel("Not logged in: ");
+    private final JLabel results = new JLabel("Found students");
+    private final JLabel addStudentInfo = new JLabel("Add selected students -> ");
 
 
     //TextFields
-    private JTextField nameField = new JTextField();
+    private final JTextField nameField = new JTextField();
 
 
     //JButtons
-    private JButton searchButton = new JButton("Search");
-    private JButton addStudentsButton = new JButton("Add");
+    private final JButton searchButton = new JButton("Search");
+    private final JButton addStudentsButton = new JButton("Add");
 
 
     /**
@@ -55,7 +55,7 @@ public class ControlPanelStudentFrame extends JPanel {
      * This method places ans positions the components
      * in the CoursePanel using GridBagLayout
      */
-    public void placeComponentsCoursePanel(){
+    private void placeComponentsCoursePanel(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 
@@ -80,7 +80,7 @@ public class ControlPanelStudentFrame extends JPanel {
      * This method places ans positions the components
      * in the ButtonPanel using GridBagLayout
      */
-    public void placeComponentsButtonPanel(){
+    private void placeComponentsButtonPanel(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 
@@ -98,7 +98,7 @@ public class ControlPanelStudentFrame extends JPanel {
      * This method places ans positions the components
      * in the LoggedInPanel using GridBagLayout
      */
-    public void placeComponentsLoggedInPanel(){
+    private void placeComponentsLoggedInPanel(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 
@@ -111,7 +111,7 @@ public class ControlPanelStudentFrame extends JPanel {
      * This method sets up some components size
      * and adds a border to the 3 different panels.
      */
-    public void setupComponents(){
+    private void setupComponents(){
         this.nameField.setPreferredSize(new Dimension(150, 24));
 
         coursePanel.setBorder(BorderFactory.createTitledBorder(new TitledBorder("Students")));

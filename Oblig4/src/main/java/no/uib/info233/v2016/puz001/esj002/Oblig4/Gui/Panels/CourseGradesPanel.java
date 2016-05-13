@@ -17,23 +17,23 @@ import javax.swing.border.TitledBorder;
 public class CourseGradesPanel extends JPanel {
 
     //Panels
-    private JPanel coursePanel = new JPanel(new GridBagLayout());
-    private JPanel tablePanel = new JPanel(new BorderLayout());
+    private final JPanel coursePanel = new JPanel(new GridBagLayout());
+    private final JPanel tablePanel = new JPanel(new BorderLayout());
 
     //Labels
-    private JLabel titleLabel = new JLabel("Final Grades");
+    private final JLabel titleLabel = new JLabel("Final Grades");
 
     //Models
-    private DefaultTableModel model = ModelFactory.createFinalGradesModel();
-    private JTable table = new JTable(model);
-    private JScrollPane tablePane = new JScrollPane(table);
+    private final DefaultTableModel model = ModelFactory.createFinalGradesModel();
+    private final JTable table = new JTable(model);
+    private final JScrollPane tablePane = new JScrollPane(table);
 
     //TextFields
-    private JTextField searchField = new JTextField();
+    private final JTextField searchField = new JTextField();
 
     //JButtons
-    private JButton searchButton = new JButton("Search");
-    private JButton backButton = new JButton("Back");
+    private final JButton searchButton = new JButton("Search");
+    private final JButton backButton = new JButton("Back");
 
     /**
      * Constructor for the courseGradesPanel
@@ -58,7 +58,7 @@ public class CourseGradesPanel extends JPanel {
      * This method places the components of the coursePanel panel
      * into the coursePanel panel field.
      */
-    public void placeComponentsCourseGradePanel(){
+    private void placeComponentsCourseGradePanel(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 

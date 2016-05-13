@@ -12,12 +12,12 @@ import java.io.Serializable;
  * @author puz001, esj002
  */
 
-public class CustomOutputStream extends OutputStream implements Serializable {
+class CustomOutputStream extends OutputStream implements Serializable {
     /**
      * Fields for the Class CustomOutputStream
      */
     private static final long serialVersionUID = 1L;
-    private JTextArea textArea;
+    private final JTextArea textArea;
 
 
     /**

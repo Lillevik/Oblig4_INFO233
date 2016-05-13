@@ -19,19 +19,19 @@ public class PartPanel extends JPanel {
 
 
     //TextFields
-    private JTextField courseNameField = new JTextField();
-    private JTextField descriptionField = new JTextField();
+    private final JTextField courseNameField = new JTextField();
+    private final JTextField descriptionField = new JTextField();
 
 
     //Panels
-    private ControlPanelPartPanel cppf = new ControlPanelPartPanel();
+    private final ControlPanelPartPanel cppf = new ControlPanelPartPanel();
 
 
     //Models and tables
-    private DefaultTableModel model = ModelFactory.createPartModel();
-    private DefaultTableModel studentModel = ModelFactory.createPartEvaluationModel();
-    private JTable table = new JTable(model);
-    private JTable studentTable = new JTable(studentModel);
+    private final DefaultTableModel model = ModelFactory.createPartModel();
+    private final DefaultTableModel studentModel = ModelFactory.createPartEvaluationModel();
+    private final JTable table = new JTable(model);
+    private final JTable studentTable = new JTable(studentModel);
 
 
     /**
@@ -55,7 +55,7 @@ public class PartPanel extends JPanel {
     /**
      * This method sets up some components.
      */
-    public void setupComponents(){
+    private void setupComponents(){
         courseNameField.setPreferredSize(new Dimension(150, 24));
         descriptionField.setPreferredSize(new Dimension(150, 24));
         model.addColumn("Part Id");
@@ -118,15 +118,5 @@ public class PartPanel extends JPanel {
     public JTable getTable() {
         return this.table;
     }
-
-    /**
-     * This is a getter for the studentTable field
-     * @return - The JTable value from the studentTable field
-     */
-    public JTable getStudentTable() {
-        return studentTable;
-    }
-
-
 }
 

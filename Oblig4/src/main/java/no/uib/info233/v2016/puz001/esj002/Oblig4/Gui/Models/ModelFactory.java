@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class ModelFactory {
 
     //This is a model used for courses
-    private static DefaultTableModel courseModel = new DefaultTableModel(){
+    private static final DefaultTableModel courseModel = new DefaultTableModel(){
 
 
 
@@ -34,7 +34,7 @@ public class ModelFactory {
     };
 
     //This is a model used for displaying parts
-    private static DefaultTableModel partModel = new DefaultTableModel(){
+    private static final DefaultTableModel partModel = new DefaultTableModel(){
 
 
         final Class<?>[] columnClasses = new Class<?>[]{Integer.class, String.class, String.class, Integer.class};
@@ -52,7 +52,7 @@ public class ModelFactory {
     };
 
     //This is a model used for displaying part evalutations
-    private static DefaultTableModel partEvaluationModel = new DefaultTableModel(){
+    private static final DefaultTableModel partEvaluationModel = new DefaultTableModel(){
 
 
         final Class<?>[] columnClasses = new Class<?>[]{Integer.class, Integer.class, String.class};
@@ -70,7 +70,7 @@ public class ModelFactory {
     };
 
     //This is a model used for displaying students
-    private static DefaultTableModel studentModel = new DefaultTableModel(){
+    private static final DefaultTableModel studentModel = new DefaultTableModel(){
 
         final Class<?>[] columnClasses = new Class<?>[]{Integer.class, String.class, Boolean.class};
 
@@ -87,7 +87,7 @@ public class ModelFactory {
     };
 
     //This is a model used for displaying students on course.
-    private static DefaultTableModel studentsModel = new DefaultTableModel(){
+    private static final DefaultTableModel studentsModel = new DefaultTableModel(){
 
         final Class<?>[] columnClasses = new Class<?>[]{Integer.class, String.class, String.class, Integer.class};
 
@@ -98,34 +98,13 @@ public class ModelFactory {
 
         @Override
         public boolean isCellEditable(int row, int column){
-            if(column == 2){
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-    };
-
-    //This is a model for displaying the courses and students and their final grades
-    private static DefaultTableModel finalGradeModel = new DefaultTableModel(){
-
-        final Class<?>[] columnClasses = new Class<?>[]{String.class, String.class, String.class};
-
-        @Override
-        public Class<?> getColumnClass(int columnIndex) {
-            return columnClasses[columnIndex];
-        }
-
-        @Override
-        public boolean isCellEditable(int row, int column){
-            return false;
+            return column == 2;
         }
 
     };
 
 
-    public static DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer()
+    private static final DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer()
 
     {
         @Override
@@ -136,7 +115,7 @@ public class ModelFactory {
     };
 
     //This is a model used for displaying final grades
-    private static DefaultTableModel finalGradesModel = new DefaultTableModel(){
+    private static final DefaultTableModel finalGradesModel = new DefaultTableModel(){
 
         final Class<?>[] columnClasses = new Class<?>[]{String.class, String.class, String.class};
 

@@ -22,8 +22,8 @@ public class DataStores {
     }
 
     //These are the fields of the DataStores class
-    private Gui g;
-    private ArrayList<Integer> weightList = new ArrayList<>();
+    private final Gui g;
+    private final ArrayList<Integer> weightList = new ArrayList<>();
     private int currentValue = 0;
     private Course course;
     private User user;

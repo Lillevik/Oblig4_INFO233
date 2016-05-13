@@ -9,7 +9,7 @@ import java.awt.*;
  * Created by mariuslillevik on 10.03.16.
  * @author puz001, esj002
  */
-public class TablePanelPF extends JPanel {
+class TablePanelPF extends JPanel {
 
 
     /**

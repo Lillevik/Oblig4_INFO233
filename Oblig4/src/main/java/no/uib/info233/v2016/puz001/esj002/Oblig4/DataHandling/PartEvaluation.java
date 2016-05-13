@@ -6,20 +6,20 @@ package no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling;
  */
 public class PartEvaluation {
 
-    private int partId;
-    private int courseID;
-    private String partName;
-    private int partWeight;
-    private double grade;
+    private final int partId;
+    private final int courseID;
+    private final String partName;
+    private final int partWeight;
+    private final double grade;
 
     /**
      * constructor method for the PartEvaluation class.
      * used in calculating grades for courseParts.
-     * @param partId
-     * @param courseID
-     * @param partName
-     * @param partWeight
-     * @param grade
+     * @param partId - The partId for the PartEvaluation
+     * @param courseID - The courseID for the PartEvaluation
+     * @param partName - The partName for the PartEvaluation
+     * @param partWeight - The partWeight for the PartEvaluation
+     * @param grade - The grade for the PartEvaluation
      */
     public PartEvaluation(int partId, int courseID, String partName, int partWeight, double grade){
         this.partId = partId;

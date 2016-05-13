@@ -8,18 +8,25 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by goat on 11.05.16.
+ * Created by on 11.05.16.
+ * This is a test class for projects tests
  */
 public class ConnectionHandlingTest {
 
-    @Test
-    public void testChangeStringGrade() throws Exception {
-        Gui g = new Gui();
+    ConnectionHandling ch;
+    DataStores ds;
+    Gui g;
+    public void setUp(){
+        g = new Gui();
         g.setVisible(false);
-        DataStores ds = new DataStores(g);
-        ConnectionHandling ch = new ConnectionHandling(ds ,g);
-        String grade = "A";
+        ds = new DataStores(g);
+        ch = new ConnectionHandling(ds ,g);
+    }
 
+
+    @Test
+    public void testChangeStringGrade(){
+        String grade = "A";
         double exepcted = 1;
         double result = ch.changeStringGrade(grade);
 
@@ -27,7 +34,12 @@ public class ConnectionHandlingTest {
     }
 
     @Test
-    public void testChangeDoubleGrade() throws Exception {
+    public void testChangeDoubleGrade(){
+        double grade = 1;
+        String expected = "A";
+        String actual = ch.changeDoubleGrade(grade);
+
+        assertSame(expected, actual);
 
     }
 }

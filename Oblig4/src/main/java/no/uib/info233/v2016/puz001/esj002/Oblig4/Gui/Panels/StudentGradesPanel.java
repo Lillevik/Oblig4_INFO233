@@ -16,24 +16,22 @@ import java.awt.*;
  */
 public class StudentGradesPanel extends JPanel{
 
-    private static final long serialVersionUID = 4161520540703687836L;
-    private LayoutManager layout = new BorderLayout(1, 1);
-    private String[] grades = {"A", "B", "C", "D", "E", "F"};
+    private final LayoutManager layout = new BorderLayout(1, 1);
 
-    private JPanel controls = new JPanel(new GridBagLayout());
+    private final JPanel controls = new JPanel(new GridBagLayout());
 
-    private JTextField studentName = new JTextField();
+    private final JTextField studentName = new JTextField();
 
-    private JLabel nameLabel = new JLabel("Student name");
-    private JLabel header = new JLabel("View and add students here.");
+    private final JLabel nameLabel = new JLabel("Student name");
+    private final JLabel header = new JLabel("View and add students here.");
 
-    private JButton addStudent = new JButton("Add student");
-    private JButton exit = new JButton("Back");
+    private final JButton addStudent = new JButton("Add student");
+    private final JButton exit = new JButton("Back");
 
-    private DefaultTableModel model = ModelFactory.getStudentsModel();
-    private JTable table = new JTable(model);
-    private JScrollPane tablePane;
-    private TablePanel tp;
+    private final DefaultTableModel model = ModelFactory.getStudentsModel();
+    private final JTable table = new JTable(model);
+    private final JScrollPane tablePane;
+    private final TablePanel tp;
 
     /**
      * The constructor initiates all the components
@@ -84,7 +82,7 @@ public class StudentGradesPanel extends JPanel{
      * The setupComponents sets the specified components
      * and lets the constructor get ahold of them with less code.
      */
-    public void setupComponents(){
+    private void setupComponents(){
         placeComponentsGridBag(controls);
         model.addColumn("ID");
         model.addColumn("Name");
