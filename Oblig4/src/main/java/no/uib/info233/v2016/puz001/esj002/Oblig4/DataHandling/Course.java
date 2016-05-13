@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by marius on 24.04.2016.
+ * Created on 24.04.2016.
  *
  * This class was made to store data about a Course and is
  * used withing the dataStores class.
- * @author marius
+ * @author puz001, esj002
  */
 public class Course {
 

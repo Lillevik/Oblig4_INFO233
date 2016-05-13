@@ -7,7 +7,7 @@ import java.awt.*;
  * This is the registerPanel class which is used for
  * registering new Employees.
  *
- * @author marius
+ * @author puz001, esj002
  */
 public class RegisterPanel extends JPanel {
 

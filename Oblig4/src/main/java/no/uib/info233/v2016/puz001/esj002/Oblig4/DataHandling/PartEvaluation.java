@@ -1,7 +1,8 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling;
 
 /**
- * Created by goat on 09.05.16.
+ * Created on 09.05.16.
+ * @author puz001, esj002
  */
 public class PartEvaluation {
 

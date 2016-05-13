@@ -8,6 +8,12 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import javax.swing.border.TitledBorder;
 
+/**
+ * Created 12.05.16
+ * CourseGradePanel is a gui JPanel used to display
+ * the final grades for students and courses in a table.
+ * @author puz001, esj002
+ */
 public class CourseGradesPanel extends JPanel {
 
     //Panels

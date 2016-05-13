@@ -9,11 +9,11 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 /**
- * Created by marius on 25.04.2016.
+ * Created on 25.04.2016.
  *
  * This class is only used for adding a TableModelListener to the tables.
  *
- * @author marius
+ * @author puz001, esj002
  */
 public class TableControls implements TableModelListener {
 
