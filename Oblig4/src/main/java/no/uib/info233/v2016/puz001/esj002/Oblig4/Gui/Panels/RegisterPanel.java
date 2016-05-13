@@ -16,16 +16,17 @@ public class RegisterPanel extends JPanel {
     private JLabel passwordLabel= new JLabel("Password: ");
     private JLabel fullNameLabel= new JLabel("Full name: ");
 
+
     //JTextfields
     private JTextField userField = new JTextField();
     private JPasswordField passwordField = new JPasswordField();
     private JTextField fullNameField = new JTextField();
 
 
-
     //JButtons
     private JButton registerButton = new JButton("Register new user");
     private JButton cancelButton = new JButton("cancel");
+
 
     /**
      * The constructor of the RegisterPanel

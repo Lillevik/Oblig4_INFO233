@@ -11,7 +11,6 @@ import java.util.ArrayList;
  */
 public class Student {
 
-    //These are the fields of the student class
     private int id;
     private String name;
     private ArrayList<PartEvaluation> partEvaluations = new ArrayList<>();
@@ -68,10 +67,10 @@ public class Student {
         return partEvaluations;
     }
 
-    public String getFinalGrade() {
-        return finalGrade;
-    }
-
+    /**
+     * Setter for the final grade. used in inserting the grade.
+     * @param finalGrade
+     */
     public void setFinalGrade(String finalGrade) {
         this.finalGrade = finalGrade;
     }

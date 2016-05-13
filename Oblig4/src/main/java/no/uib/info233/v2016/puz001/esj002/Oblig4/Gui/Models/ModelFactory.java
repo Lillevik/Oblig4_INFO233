@@ -86,6 +86,7 @@ public class ModelFactory {
 
     };
 
+    //This is a model used for displaying students on course.
     private static DefaultTableModel studentsModel = new DefaultTableModel(){
 
         final Class<?>[] columnClasses = new Class<?>[]{Integer.class, String.class, String.class, Integer.class};
@@ -106,6 +107,7 @@ public class ModelFactory {
 
     };
 
+    //This is a model for displaying the courses and students and their final grades
     private static DefaultTableModel finalGradeModel = new DefaultTableModel(){
 
         final Class<?>[] columnClasses = new Class<?>[]{String.class, String.class, String.class};
@@ -123,7 +125,7 @@ public class ModelFactory {
     };
 
 
-   public static DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer()
+    public static DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer()
 
     {
         @Override

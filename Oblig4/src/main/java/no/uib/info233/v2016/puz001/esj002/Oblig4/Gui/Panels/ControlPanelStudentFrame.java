@@ -17,6 +17,7 @@ public class ControlPanelStudentFrame extends JPanel {
     private JPanel buttonsPanel = new JPanel(new GridBagLayout());
     private JPanel loggedInPanel = new JPanel(new GridBagLayout());
 
+
     //Labels
     private JLabel nameLabel = new JLabel("Name : ");
     private JLabel loggedInAs = new JLabel("Not logged in: ");
@@ -27,11 +28,10 @@ public class ControlPanelStudentFrame extends JPanel {
     //TextFields
     private JTextField nameField = new JTextField();
 
+
     //JButtons
     private JButton searchButton = new JButton("Search");
     private JButton addStudentsButton = new JButton("Add");
-
-
 
 
     /**

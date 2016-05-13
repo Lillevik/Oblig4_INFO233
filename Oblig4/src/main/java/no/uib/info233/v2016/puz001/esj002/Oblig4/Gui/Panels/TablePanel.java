@@ -14,7 +14,6 @@ import java.io.PrintStream;
  */
 public class TablePanel extends JPanel {
 
-
     /**
      * This is the constructor of the TablePanel class
      * which initialized the components the the program.
@@ -38,19 +37,12 @@ public class TablePanel extends JPanel {
         textArea.setLineWrap(true); // Wrap text
         textArea.setWrapStyleWord(true); // Wrap by word
 
-
         PrintStream printStream = new PrintStream(new CustomOutputStream(textArea));
         PrintStream standardOut = System.out;
 
-        //System.setOut(printStream);
-        //System.setErr(printStream); disabled so the users will not be confused
-
-        // Put the text area into a JScrollPane so it can be scrolled
         JScrollPane informationPanel = new JScrollPane(textArea);
-        // Always show vertical scroll bar
         informationPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        // Add the informationPanel to the bottom og the window
         this.add(informationPanel, BorderLayout.SOUTH);
     }
 }

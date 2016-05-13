@@ -12,6 +12,15 @@ public class PartEvaluation {
     private int partWeight;
     private double grade;
 
+    /**
+     * constructor method for the PartEvaluation class.
+     * used in calculating grades for courseParts.
+     * @param partId
+     * @param courseID
+     * @param partName
+     * @param partWeight
+     * @param grade
+     */
     public PartEvaluation(int partId, int courseID, String partName, int partWeight, double grade){
         this.partId = partId;
         this.courseID = courseID;
@@ -20,46 +29,28 @@ public class PartEvaluation {
         this.grade = grade;
     }
 
+    /**
+     * Getter for the grade variable.
+     * @return grade
+     */
     public double getGrade() {
         return grade;
     }
 
-    public void setGrade(double grade) {
-        this.grade = grade;
-    }
-
+    /**
+     * getter for the partWeight vriable.
+     * @return partWeight
+     */
     public int getPartWeight() {
         return partWeight;
     }
 
-    public void setPartWeight(int partWeight) {
-        this.partWeight = partWeight;
-    }
-
-    public String getPartName() {
-
-        return partName;
-    }
-
-    public void setPartName(String partName) {
-        this.partName = partName;
-    }
-
-    public int getCourseID() {
-
-        return courseID;
-    }
-
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
-    }
-
+    /**
+     * getter for the partID variable.
+     * @return partId
+     */
     public int getPartId() {
 
         return partId;
-    }
-
-    public void setPartId(int partId) {
-        this.partId = partId;
     }
 }
