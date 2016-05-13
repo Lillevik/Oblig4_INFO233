@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Created by goat on 23.04.16.
- * @author marius
+ * @author puz001, esj002
  */
 public class ControlPanelPartPanel extends JPanel{
 

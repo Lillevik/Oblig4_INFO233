@@ -16,6 +16,7 @@ import java.util.Properties;
  * Created 16.04.2016.
  * Class for importing database data and creating a connection
  * to the database bu authenticating using username and password
+ * @author puz001, esj002
  */
 public class ConnectionHandling {
 

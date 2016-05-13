@@ -8,7 +8,7 @@ import java.awt.*;
 /**
  * This is the controller class where all the actions listeners
  * are placed and initialized.
- * @author marius
+ * @author puz001, esj002
  */
 public class ControlPanel extends JPanel {
 

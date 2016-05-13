@@ -10,9 +10,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 /**
- * Created by marius on 24.04.2016.
+ * Created on 24.04.2016.
  * This class is a custom JFrame for adding students to a course
- * @author marius
+ * @author puz001, esj002
  */
 public class AddStudentsFrame extends JFrame{
 

@@ -7,7 +7,7 @@ import java.awt.*;
  * Created by Marius on 22.04.16.
  * This class serves as a LoginPanel for the
  * program.
- * @author Marius
+ * @author puz001, esj002
  */
 public class LoginPanel extends JPanel {
 

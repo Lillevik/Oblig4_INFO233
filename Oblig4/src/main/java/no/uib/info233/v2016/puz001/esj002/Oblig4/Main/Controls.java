@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * This class is adding actionListeners to almost all of the buttons that is
  * used withing the program itself
  *
- * @author marius
+ * @author puz001, esj002
  */
 public class Controls {
 
