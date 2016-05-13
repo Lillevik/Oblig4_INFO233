@@ -12,6 +12,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
  * Created 18.04.2016.
+ * @author puz001, esj002
  */
 public class Gui extends JFrame {
 

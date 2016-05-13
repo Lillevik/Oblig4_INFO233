@@ -3,11 +3,11 @@ package no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling;
 import java.util.ArrayList;
 
 /**
- * Created by marius on 25.04.2016.
+ * Created on 25.04.2016.
  *
  * This class was made to represent student values
  *
- * @author marius
+ * @author puz001, esj002
  */
 public class Student {
 

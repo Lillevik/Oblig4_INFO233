@@ -4,12 +4,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * Created by marius on 25.04.2016.
+ * Created 25.04.2016.
  *
  * This is a class for creating custom models.
  * It is used as a kind of factory
  *
- * @author marius
+ * @author puz001, esj002
  */
 public class ModelFactory {
 

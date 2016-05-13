@@ -7,7 +7,12 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 /**
- * Created by Eirik on 04.05.2016.
+ * Created  04.05.2016.
+ *
+ * StudentGradesPanel is a gui JPanel class for displaying and
+ * adding new students to the database in the "Student" table.
+ *
+ * @author puz001, esj002
  */
 public class StudentGradesPanel extends JPanel{
 

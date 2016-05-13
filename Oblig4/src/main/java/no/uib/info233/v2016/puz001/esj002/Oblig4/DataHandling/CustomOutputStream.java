@@ -6,10 +6,10 @@ import java.io.OutputStream;
 import java.io.Serializable;
 
 /**
- * Created by mariuslillevik on 10.03.16.
+ * Created On 10.03.16.
  *
  * This class is used for redirecting the outputStream to a custom textField
- * @author Marius
+ * @author puz001, esj002
  */
 
 public class CustomOutputStream extends OutputStream implements Serializable {

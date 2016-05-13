@@ -4,6 +4,7 @@ import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Course;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Student;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.ConnectionHandling;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.ErrorFrame;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.StudentGradesPanel;
 
@@ -18,13 +19,14 @@ import java.util.ArrayList;
  * This class is adding actionListeners to almost all of the buttons that is
  * used withing the program itself
  *
- * @author marius
+ * @author puz001, esj002
  */
 public class Controls {
 
     private Gui g;
     private ConnectionHandling ch;
     private DataStores ds;
+    private ErrorFrame errorFrame;
 
     /**
      * The constructor of the Controls class.
@@ -385,15 +387,23 @@ public class Controls {
         g.getCp().getCourseGrades().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Connection conn = ch.getDbConnection();
-                int selectedRow = g.getTable().getSelectedRow();
-                int courseId = Integer.parseInt(g.getTable().getValueAt(selectedRow, 0).toString());
-                ch.calculateFinalGrade(courseId, conn);
-                ch.selectGradesFromCourse(courseId, conn);
-                g.getCgp().getModel().fireTableDataChanged();
+                try {
+                    Connection conn = ch.getDbConnection();
+                    int selectedRow = g.getTable().getSelectedRow();
+                    int courseId = Integer.parseInt(g.getTable().getValueAt(selectedRow, 0).toString());
+                    ch.calculateFinalGrade(courseId, conn);
+                    ch.selectGradesFromCourse(courseId, conn);
+                    g.getCgp().getModel().fireTableDataChanged();
 
-                g.setContentPane(g.getCgp());
-                g.pack();
+                    g.setContentPane(g.getCgp());
+                    g.pack();
+                } catch (Exception e1){
+                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(errorFrame,
+                            e1.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
+
+                }
             }
         });
     }

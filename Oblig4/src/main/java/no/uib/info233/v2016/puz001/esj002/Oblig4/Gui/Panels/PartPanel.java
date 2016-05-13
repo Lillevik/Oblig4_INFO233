@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * Created 18.04.2016.
  * This class represents the parts of a course
- * @author marius
+ * @author puz001, esj002
  */
 public class PartPanel extends JPanel {
 

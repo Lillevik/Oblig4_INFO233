@@ -1,7 +1,8 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling;
 
 /**
- * Created by marius on 22.04.2016.
+ * Created on 22.04.2016.
+ * @author puz001, esj002
  */
 public class User {
 
