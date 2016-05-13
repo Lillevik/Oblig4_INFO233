@@ -28,11 +28,6 @@ public class CourseGradesPanel extends JPanel {
     private final JTable table = new JTable(model);
     private final JScrollPane tablePane = new JScrollPane(table);
 
-    //TextFields
-    private final JTextField searchField = new JTextField();
-
-    //JButtons
-    private final JButton searchButton = new JButton("Search");
     private final JButton backButton = new JButton("Back");
 
     /**
@@ -67,18 +62,9 @@ public class CourseGradesPanel extends JPanel {
         coursePanel.add(titleLabel, gc);
 
         gc.gridx = 0;
-        gc.gridy = 1;
-        coursePanel.add(searchField, gc);
-
-        gc.gridx = 0;
         gc.gridy = 2;
         coursePanel.add(backButton, gc);
 
-        gc.gridx = 1;
-        gc.gridy = 2;
-        coursePanel.add(searchButton, gc);
-
-        searchField.setPreferredSize(new Dimension(100, 20));
 
         model.setColumnCount(0);
         model.addColumn("Course");
@@ -96,15 +82,6 @@ public class CourseGradesPanel extends JPanel {
 
     }
 
-    /**
-     * getter for the search button. Letting
-     * the user search for courses in the table
-     * in the final grades panel.
-     * @return searchButton
-     */
-    public JButton getSearchButton() {
-        return searchButton;
-    }
 
     /**
      * getter for the JButton BackButton, used to let the
@@ -114,14 +91,7 @@ public class CourseGradesPanel extends JPanel {
     public JButton getBackButton() {
         return backButton;
     }
-
-    /**
-     * Getter for the JTextField used to search for courses
-     * @return searchField
-     */
-    public JTextField getSearchField() {
-        return searchField;
-    }
+    
 
     /**
      * getter for the table used in the panel

@@ -163,7 +163,10 @@ class Controls {
             int selectedRow = g.getTable().getSelectedRow();
 
             if(selectedRow == -1) {
-                System.out.println("Please select a course to add part evaluation for.");
+
+                    JOptionPane.showMessageDialog(new JOptionPane(),
+                            "Please select a course",
+                            "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 g.getPp().setStudentTableRows();
 
@@ -372,13 +375,20 @@ class Controls {
      */
     private void goToCourseGradesPanel(){
         g.getCp().getCourseGrades().addActionListener(e -> {
-            Connection conn = ch.getDbConnection();
+
             int selectedRow = g.getTable().getSelectedRow();
-            int courseId = Integer.parseInt(g.getTable().getValueAt(selectedRow, 0).toString());
-            if(ch.calculateFinalGrade(courseId, conn)){
-                ch.selectGradesFromCourse(courseId, conn);
-                g.setContentPane(g.getCgp());
-                g.pack();
+            if(selectedRow == -1){
+                JOptionPane.showMessageDialog(new JOptionPane(),
+                        "Please select a course",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                Connection conn = ch.getDbConnection();
+                int courseId = Integer.parseInt(g.getTable().getValueAt(selectedRow, 0).toString());
+                if (ch.calculateFinalGrade(courseId, conn)) {
+                    ch.selectGradesFromCourse(courseId, conn);
+                    g.setContentPane(g.getCgp());
+                    g.pack();
+                }
             }
         });
     }
