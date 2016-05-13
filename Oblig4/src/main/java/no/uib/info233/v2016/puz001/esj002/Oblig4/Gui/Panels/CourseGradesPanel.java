@@ -100,7 +100,7 @@ public class CourseGradesPanel extends JPanel {
      * getter for the search button. Letting
      * the user search for courses in the table
      * in the final grades panel.
-     * @return
+     * @return searchButton
      */
     public JButton getSearchButton() {
         return searchButton;
@@ -109,7 +109,7 @@ public class CourseGradesPanel extends JPanel {
     /**
      * getter for the JButton BackButton, used to let the
      * user exit the final grades panel.
-     * @return
+     * @return backButton
      */
     public JButton getBackButton() {
         return backButton;
@@ -117,16 +117,24 @@ public class CourseGradesPanel extends JPanel {
 
     /**
      * Getter for the JTextField used to search for courses
-     * @return
+     * @return searchField
      */
     public JTextField getSearchField() {
         return searchField;
     }
 
+    /**
+     * getter for the table used in the panel
+     * @return table
+     */
     public JTable getTable() {
         return table;
     }
 
+    /**
+     * getter for the model used in the table
+     * @return model
+     */
     public DefaultTableModel getModel() {
         return model;
     }

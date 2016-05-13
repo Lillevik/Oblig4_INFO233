@@ -195,10 +195,18 @@ public class ControlPanel extends JPanel {
         return deleteCourseButton;
     }
 
+    /**
+     * getter for the viewStudents button used to go to a new panel.
+     * @return viewStudents
+     */
     public JButton getViewStudents() {
         return viewStudents;
     }
 
+    /**
+     * cThis is a getter for the view course grades button.
+     * @return courseGrades
+     */
     public JButton getCourseGrades() {
         return courseGrades;
     }

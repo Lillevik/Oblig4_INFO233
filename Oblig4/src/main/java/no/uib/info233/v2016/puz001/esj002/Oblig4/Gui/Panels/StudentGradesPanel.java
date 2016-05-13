@@ -26,7 +26,6 @@ public class StudentGradesPanel extends JPanel{
 
     private JLabel nameLabel = new JLabel("Student name");
     private JLabel header = new JLabel("View and add students here.");
-    private JLabel desc = new JLabel("Syntax: 'Firstname Lastname'. " + "\n");
 
     private JButton addStudent = new JButton("Add student");
     private JButton exit = new JButton("Back");
@@ -55,7 +54,6 @@ public class StudentGradesPanel extends JPanel{
     /**
      * This is the method that sets up and add all the
      * components to the panel.
-     * @param panel
      */
     private void placeComponentsGridBag(JPanel panel) {
 
@@ -104,22 +102,42 @@ public class StudentGradesPanel extends JPanel{
         model.setRowCount(0);
     }
 
+    /**
+     * Getter for the exit button
+     * @return exit
+     */
     public JButton getExit() {
         return exit;
     }
 
+    /**
+     * getter for the add students button
+     * @return addStudent
+     */
     public JButton getAddStudent() {
         return addStudent;
     }
 
+    /**
+     * getter for the student name button
+     * @return studentName
+     */
     public JTextField getStudentName() {
         return studentName;
     }
 
+    /**
+     * Getter for the header jLabel
+     * @return header
+     */
     public JLabel getHeader() {
         return header;
     }
 
+    /**
+     * getter for the model used in the table
+     * @return model
+     */
     public DefaultTableModel getModel() {
         return model;
     }

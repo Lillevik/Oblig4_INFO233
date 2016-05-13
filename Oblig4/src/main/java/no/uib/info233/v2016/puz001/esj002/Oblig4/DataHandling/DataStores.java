@@ -44,7 +44,6 @@ public class DataStores {
      * This method calculates the current weigth
      * of for a course and sets the result to
      * the field currentValue.
-     * @return currentValue
      */
     public void calculateWeigth(){
         this.currentValue = 0;

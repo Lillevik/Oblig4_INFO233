@@ -14,21 +14,17 @@ import java.awt.*;
  */
 public class PartPanel extends JPanel {
 
-
     //These are the fields of the IssuePanel class.
     private static final long serialVersionUID = 4161520540703687836L;
 
-    //Labels
 
     //TextFields
     private JTextField courseNameField = new JTextField();
     private JTextField descriptionField = new JTextField();
 
 
-
     //Panels
     private ControlPanelPartPanel cppf = new ControlPanelPartPanel();
-
 
 
     //Models and tables

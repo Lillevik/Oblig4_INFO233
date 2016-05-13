@@ -11,12 +11,14 @@ import java.util.ArrayList;
  */
 public class ControlPanelPartPanel extends JPanel{
 
+
     //Panels
     private JPanel coursePanel = new JPanel(new GridBagLayout());
     private JPanel updatingPanel = new JPanel(new BorderLayout(1, 1));
     private JPanel loggedInPanel = new JPanel(new GridBagLayout());
     private JPanel updatePartPanel = new JPanel(new GridBagLayout());
     private JPanel buttonPanel = new JPanel(new GridBagLayout());
+
 
     //Labels
     private JLabel titleLabel = new JLabel("Part name: ");
@@ -27,13 +29,10 @@ public class ControlPanelPartPanel extends JPanel{
     private JLabel updateWeightLabel = new JLabel("Weight: ");
 
 
-
     //TextFields
     private JTextField titleField = new JTextField();
     private JTextField weightField = new JTextField();
     private JTextField updateWeightField = new JTextField();
-
-
 
 
     //JButtons

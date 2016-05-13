@@ -26,6 +26,11 @@ public class ConnectionHandling {
     private DataStores ds;
     private ErrorFrame errorFrame;
 
+    /**
+     * makes the connections
+     * @param ds
+     * @param g
+     */
     public ConnectionHandling(DataStores ds, Gui g) {
         this.g = g;
         this.ds = ds;
@@ -132,7 +137,7 @@ public class ConnectionHandling {
      * through the course panels.
      *
      * @param name - This method 
-     * @return
+     * @return name
      */
     public String insertStudents(String name) {
 
@@ -175,7 +180,6 @@ public class ConnectionHandling {
      * with what course they are taking and
      * what grade they got, if they got a grade, in the course.
      * Its use to fill the table in studentGGradePanel.
-     * @param sgp
      */
     public void listStudents(StudentGradesPanel sgp) {
 
@@ -730,7 +734,7 @@ public class ConnectionHandling {
      * added to a list and returned.
      * @param courseId - The course Id to fetch students from
      * @param conn - The connection to connecto to
-     * @return - A list containing all the students from the course.
+     * @return students - A list containing all the students from the course.
      */
     public ArrayList<Student> getStudents(int courseId, Connection conn){
 
