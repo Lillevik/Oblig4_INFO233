@@ -11,11 +11,9 @@ import java.util.ArrayList;
  */
 public class Student {
 
-    //These are the fields of the student class
     private int id;
     private String name;
-    private ArrayList<PartEvaluation> partEvaluations = new ArrayList<>();
-    private String finalGrade = new String();
+    private final ArrayList<PartEvaluation> partEvaluations = new ArrayList<>();
 
     /**
      * This is the constructor for the student class
@@ -37,14 +35,6 @@ public class Student {
     }
 
     /**
-     * This is a setter for the id field
-     * @param id - The new Integer value id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
      * This is a getter for the name field
      * @return - The String value of the name field
      */
@@ -53,26 +43,10 @@ public class Student {
     }
 
     /**
-     * This is a setter for the name field
-     * @param name - The new String value for the name field
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * This is a getter for the field parts
      * @return - The HashMap value for the field parts
      */
     public ArrayList<PartEvaluation> getPartEvaluations() {
         return partEvaluations;
-    }
-
-    public String getFinalGrade() {
-        return finalGrade;
-    }
-
-    public void setFinalGrade(String finalGrade) {
-        this.finalGrade = finalGrade;
     }
 }

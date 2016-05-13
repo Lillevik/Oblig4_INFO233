@@ -6,7 +6,6 @@ package no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling;
  */
 public class User {
 
-    //These are the fields for the User class
     private int id;
     private String name;
     private String fullName;

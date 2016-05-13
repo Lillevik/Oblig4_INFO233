@@ -12,20 +12,21 @@ import java.awt.*;
 public class RegisterPanel extends JPanel {
 
     //JLabels
-    private JLabel userLabel= new JLabel("Username: ");
-    private JLabel passwordLabel= new JLabel("Password: ");
-    private JLabel fullNameLabel= new JLabel("Full name: ");
+    private final JLabel userLabel= new JLabel("Username: ");
+    private final JLabel passwordLabel= new JLabel("Password: ");
+    private final JLabel fullNameLabel= new JLabel("Full name: ");
+
 
     //JTextfields
-    private JTextField userField = new JTextField();
-    private JPasswordField passwordField = new JPasswordField();
-    private JTextField fullNameField = new JTextField();
-
+    private final JTextField userField = new JTextField();
+    private final JPasswordField passwordField = new JPasswordField();
+    private final JTextField fullNameField = new JTextField();
 
 
     //JButtons
-    private JButton registerButton = new JButton("Register new user");
-    private JButton cancelButton = new JButton("cancel");
+    private final JButton registerButton = new JButton("Register new user");
+    private final JButton cancelButton = new JButton("cancel");
+
 
     /**
      * The constructor of the RegisterPanel
@@ -40,7 +41,7 @@ public class RegisterPanel extends JPanel {
      * This method sets up the components in the
      * RegisterPanel and places them using GridBagConstraints
      */
-    public void setupComponents(){
+    private void setupComponents(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 

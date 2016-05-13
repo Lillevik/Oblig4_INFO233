@@ -4,9 +4,7 @@ import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Course;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.Student;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection.ConnectionHandling;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.DataStores;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.ErrorFrame;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.StudentGradesPanel;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -21,12 +19,11 @@ import java.util.ArrayList;
  *
  * @author puz001, esj002
  */
-public class Controls {
+class Controls {
 
-    private Gui g;
-    private ConnectionHandling ch;
-    private DataStores ds;
-    private ErrorFrame errorFrame;
+    private final Gui g;
+    private final ConnectionHandling ch;
+    private final DataStores ds;
 
     /**
      * The constructor of the Controls class.
@@ -73,7 +70,7 @@ public class Controls {
      * This method adds a new Course if a course with
      * the same name does not allready exist.
      */
-    public void createCourse() {
+    private void createCourse() {
 
         g.getCp().getAddCourseButton().addActionListener(e -> {
             ch.insertNewCourse(
@@ -87,7 +84,7 @@ public class Controls {
      * This method fills the JTable in the spinePanel in gui
      * with all the courses from the database
      */
-    public void listCourses() {
+    private void listCourses() {
 
         g.getCp().getUpdateButton().addActionListener(e -> ch.listCourses());
     }
@@ -96,7 +93,7 @@ public class Controls {
      * This method authenticates the login towards the server
      * and changes the panel if the login is correct.
      */
-    public void login() {
+    private void login() {
         g.getLp().getLoginButton().addActionListener(e -> {
             //noinspection deprecation,deprecation
             ch.authenticateLogin(g.getLp().getUserField().getText(),
@@ -109,7 +106,7 @@ public class Controls {
     /**
      * This method simply switches to the register panel.
      */
-    public void changeToRegisterPanel(){
+    private void changeToRegisterPanel(){
         g.getLp().getRegisterButton().addActionListener(e -> {
             g.setContentPane(g.getRp());
             g.pack();
@@ -120,7 +117,7 @@ public class Controls {
      * This is the button that checks the server if a user
      * allready exists and adds a new Employee if it doesnt exist.
      */
-    public void registerNewUser(){
+    private void registerNewUser(){
         g.getRp().getRegisterButton().addActionListener(e -> {
             //noinspection deprecation
             ch.insertNewEmployee(g.getRp().getUserField().getText(),
@@ -137,7 +134,7 @@ public class Controls {
      * This is an actionListener for the JMenuItem Logout which
      * simply sends the user back to the login panel.
      */
-    public void switchUser(){
+    private void switchUser(){
         g.getLogout().addActionListener(e -> {
             g.getPp().setVisible(false);
             g.setContentPane(g.getLp());
@@ -149,7 +146,7 @@ public class Controls {
      * This is just a cancel button that returns the user to the
      * login panel from the registration panel.
      */
-    public void cancelRegistration(){
+    private void cancelRegistration(){
         g.getRp().getCancelButton().addActionListener(e -> {
             g.setContentPane(g.getLp());
             g.pack();
@@ -161,7 +158,7 @@ public class Controls {
      * selected. The frame is then opened and prsents the current selected
      * course from the course list.
      */
-    public void switchToPartFrame(){
+    private void switchToPartFrame(){
         g.getCp().getAddPartsButton().addActionListener(e -> {
             int selectedRow = g.getTable().getSelectedRow();
 
@@ -191,7 +188,7 @@ public class Controls {
      * This method adds a new CoursePart if the weight all
      * together is less than 100%.
      */
-    public void addNewPart(){
+    private void addNewPart(){
         g.getPp().getCp().getAddPartButton().addActionListener(e -> {
             String name = g.getPp().getCp().getTitleField().getText();
             int weight = Integer.parseInt(g.getPp().getCp().getWeight()
@@ -209,7 +206,7 @@ public class Controls {
      * This method lists all partEvaluations in the course
      * given in a parameter.
      */
-    public void listPartEvaluationGrades(){
+    private void listPartEvaluationGrades(){
         g.getPp().getTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -227,7 +224,7 @@ public class Controls {
      * This is an actionListener for the backButton which returns
      * the user to the previous panel
      */
-    public void backButtonPartPanel(){
+    private void backButtonPartPanel(){
         g.getPp().getCp().getBackButton().addActionListener(e -> {
             g.setContentPane(g.getSpine());
             g.pack();
@@ -239,7 +236,7 @@ public class Controls {
      * for adding students to a course of if the weight of all parts are
      * a 100% in total.
      */
-    public void addStudents(){
+    private void addStudents(){
         g.getPp().getCp().getAddStudentButton().addActionListener(e -> g.getPp().getCp().getAddStudentButton().addActionListener(e1 -> {
             if(ds.getCurrentValue() != 100){
                 System.out.println("All parts need to be 100% before adding students to the course.");
@@ -258,7 +255,7 @@ public class Controls {
      * This is an actionListener for the addStudentButton which adds
      * selected students from the studentsFrame to a given course.
      */
-    public void addStudentsToCourse(){
+    private void addStudentsToCourse(){
         g.getAsf().getCp().getAddStudentsButton().addActionListener(e -> {
             g.getAsf().getTable().setRowSelectionInterval(0, 0);
             ch.addStudentsToCourse();
@@ -269,7 +266,7 @@ public class Controls {
      * This is ac actionListener for the searchButton which searches
      * for a given user in a list.
      */
-    public void studentSearch(){
+    private void studentSearch(){
 
         g.getAsf().getCp().getSearchButton().addActionListener(e -> {
 
@@ -297,7 +294,7 @@ public class Controls {
      * This is an actionListener for the updatePart button in the partPanel
      * which updates a partWeight if it will not go over 100%.
      */
-    public void updatePartCourseWeight(){
+    private void updatePartCourseWeight(){
         g.getPp().getCp().getUpdatePart().addActionListener(e -> {
             int weight = Integer.parseInt(g.getPp().getCp().getUpdateWeightField().getText());
             int id = Integer.parseInt(g.getPp().getTable().getValueAt(g.getPp().getTable().getSelectedRow(), 0).toString());
@@ -314,7 +311,7 @@ public class Controls {
      * This is an actionListener for the deleteButton which will open a
      * ConfirmationPanel to confirm deletion.
      */
-    public void deleteCourse(){
+    private void deleteCourse(){
 
         g.getCp().getDeleteCourseButton().addActionListener(e ->{
 
@@ -338,13 +335,10 @@ public class Controls {
     /**
      * This method simply switches to the StudentGradesPanel.
      */
-    public void changeToStudentGradesPanel(){
-        g.getCp().getViewStudents().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                g.setContentPane(g.getSgp());
-                g.pack();
-            }
+    private void changeToStudentGradesPanel(){
+        g.getCp().getViewStudents().addActionListener(e -> {
+            g.setContentPane(g.getSgp());
+            g.pack();
         });
     }
 
@@ -352,13 +346,10 @@ public class Controls {
      * This method takes the user back from the StudentGradePanel
      * to the main spine panel.
      */
-    public void backButtonStudentGradePanel(){
-        g.getSgp().getExit().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                g.setContentPane(g.getSpine());
-                g.pack();
-            }
+    private void backButtonStudentGradePanel(){
+        g.getSgp().getExit().addActionListener(e -> {
+            g.setContentPane(g.getSpine());
+            g.pack();
         });
     }
 
@@ -366,11 +357,11 @@ public class Controls {
      * This method lets the user add students to the table
      * through the user interface.
      */
-    public void addStudentsToTable(){
+    private void addStudentsToTable(){
         g.getSgp().getAddStudent().addActionListener(e -> {
             ch.insertStudents(
                     g.getSgp().getStudentName().getText());
-            ch.listStudents(g.getSgp());
+            ch.listStudents();
 
         });
     }
@@ -379,7 +370,7 @@ public class Controls {
      * method for switching to the CourseGradePanel
      * which is the panel for displaying the final grades.
      */
-    public void goToCourseGradesPanel(){
+    private void goToCourseGradesPanel(){
         g.getCp().getCourseGrades().addActionListener(e -> {
             Connection conn = ch.getDbConnection();
             int selectedRow = g.getTable().getSelectedRow();
@@ -396,23 +387,11 @@ public class Controls {
      * returns the user to the main page from
      * the courseGradePanel
      */
-    public void goBackFromCourseGradesPanel(){
+    private void goBackFromCourseGradesPanel(){
         g.getCgp().getBackButton().addActionListener(e -> {
             g.setContentPane(g.getSpine());
             g.pack();
         });
     }
-
-    /**
-     * this method lets the user search for courses in the
-     * courseGradePanel where the final grades are diplayed.
-     */
-    public void searchCourseFinalGrades(){
-        g.getCgp().getSearchButton().addActionListener(e -> {
-
-        });
-    }
-
-
 }
 

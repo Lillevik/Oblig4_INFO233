@@ -1,14 +1,11 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames;
 
-import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.ControlPanel;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Models.ModelFactory;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
  * Created 18.04.2016.
@@ -18,39 +15,36 @@ public class Gui extends JFrame {
 
     //These are the fields of the IssuePanel class.
     private static final long serialVersionUID = 4161520540703687836L;
-    private LayoutManager layout = new BorderLayout(1, 1);
+    private final LayoutManager layout = new BorderLayout(1, 1);
 
     //TextFields
-    private JTextField courseNameField = new JTextField();
-    private JTextField descriptionField = new JTextField();
-    private JTextField professorField = new JTextField();
-
-    //Buttons
-    private JButton partButton = new JButton(("New part"));
+    private final JTextField courseNameField = new JTextField();
+    private final JTextField descriptionField = new JTextField();
+    private final JTextField professorField = new JTextField();
 
     //Panels
-    private JPanel spine = new JPanel(layout);
-    private LoginPanel lp = new LoginPanel();
-    private RegisterPanel rp = new RegisterPanel();
-    private TablePanel tp;
-    private ControlPanel cp = new ControlPanel();
-    private PartPanel pp = new PartPanel();
-    private StudentGradesPanel sgp = new StudentGradesPanel();
-    private CourseGradesPanel cgp = new CourseGradesPanel();
+    private final JPanel spine = new JPanel(layout);
+    private final LoginPanel lp = new LoginPanel();
+    private final RegisterPanel rp = new RegisterPanel();
+    private final TablePanel tp;
+    private final ControlPanel cp = new ControlPanel();
+    private final PartPanel pp = new PartPanel();
+    private final StudentGradesPanel sgp = new StudentGradesPanel();
+    private final CourseGradesPanel cgp = new CourseGradesPanel();
 
 
     //Models and tables
-    private DefaultTableModel model = ModelFactory.createCourseModel();
-    private JTable table = new JTable(model);
-    private JScrollPane tablePane;
+    private final DefaultTableModel model = ModelFactory.createCourseModel();
+    private final JTable table = new JTable(model);
+    private final JScrollPane tablePane;
 
     //Menu
-    private JMenuBar menuBar = new JMenuBar();
-    private JMenu file = new JMenu("File");
-    private JMenuItem logout = new JMenuItem("Logout");
+    private final JMenuBar menuBar = new JMenuBar();
+    private final JMenu file = new JMenu("File");
+    private final JMenuItem logout = new JMenuItem("Logout");
 
     //Frames
-    private AddStudentsFrame asf = new AddStudentsFrame();
+    private final AddStudentsFrame asf = new AddStudentsFrame();
 
 
     /**
@@ -80,7 +74,7 @@ public class Gui extends JFrame {
      * This method sets up the size of some of the components
      * and adds a menubar to the frame.
      */
-    public void setupComponents(){
+    private void setupComponents(){
         courseNameField.setPreferredSize(new Dimension(150, 24));
         descriptionField.setPreferredSize(new Dimension(150, 24));
         professorField.setPreferredSize(new Dimension(150, 24));

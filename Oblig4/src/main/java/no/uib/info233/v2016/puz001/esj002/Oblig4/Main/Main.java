@@ -8,7 +8,7 @@ import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
  * Created 19/04/16.
  * @author puz001, esj002
  */
-public class Main {
+class Main {
 
     /**
      * This is the main method which combines the classes and instantiates

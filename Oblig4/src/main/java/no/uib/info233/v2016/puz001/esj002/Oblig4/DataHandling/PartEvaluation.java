@@ -6,12 +6,21 @@ package no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling;
  */
 public class PartEvaluation {
 
-    private int partId;
-    private int courseID;
-    private String partName;
-    private int partWeight;
-    private double grade;
+    private final int partId;
+    private final int courseID;
+    private final String partName;
+    private final int partWeight;
+    private final double grade;
 
+    /**
+     * constructor method for the PartEvaluation class.
+     * used in calculating grades for courseParts.
+     * @param partId - The partId for the PartEvaluation
+     * @param courseID - The courseID for the PartEvaluation
+     * @param partName - The partName for the PartEvaluation
+     * @param partWeight - The partWeight for the PartEvaluation
+     * @param grade - The grade for the PartEvaluation
+     */
     public PartEvaluation(int partId, int courseID, String partName, int partWeight, double grade){
         this.partId = partId;
         this.courseID = courseID;
@@ -20,46 +29,28 @@ public class PartEvaluation {
         this.grade = grade;
     }
 
+    /**
+     * Getter for the grade variable.
+     * @return grade
+     */
     public double getGrade() {
         return grade;
     }
 
-    public void setGrade(double grade) {
-        this.grade = grade;
-    }
-
+    /**
+     * getter for the partWeight vriable.
+     * @return partWeight
+     */
     public int getPartWeight() {
         return partWeight;
     }
 
-    public void setPartWeight(int partWeight) {
-        this.partWeight = partWeight;
-    }
-
-    public String getPartName() {
-
-        return partName;
-    }
-
-    public void setPartName(String partName) {
-        this.partName = partName;
-    }
-
-    public int getCourseID() {
-
-        return courseID;
-    }
-
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
-    }
-
+    /**
+     * getter for the partID variable.
+     * @return partId
+     */
     public int getPartId() {
 
         return partId;
-    }
-
-    public void setPartId(int partId) {
-        this.partId = partId;
     }
 }

@@ -16,10 +16,9 @@ import java.awt.*;
  */
 public class AddStudentsFrame extends JFrame{
 
-    //These are the fields for the AddStudentsFrame class
-    private DefaultTableModel model = ModelFactory.createStudentModel();
-    private JTable table = new JTable(model);
-    private ControlPanelStudentFrame cp = new ControlPanelStudentFrame();
+    private final DefaultTableModel model = ModelFactory.createStudentModel();
+    private final JTable table = new JTable(model);
+    private final ControlPanelStudentFrame cp = new ControlPanelStudentFrame();
 
 
     /**

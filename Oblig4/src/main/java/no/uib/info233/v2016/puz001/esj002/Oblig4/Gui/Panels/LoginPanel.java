@@ -12,17 +12,17 @@ import java.awt.*;
 public class LoginPanel extends JPanel {
 
     //JLabels
-    private JLabel userLabel= new JLabel("Username: ");
-    private JLabel passwordLabel= new JLabel("Password: ");
-    private JLabel loggedInLabel = new JLabel(("Not logged in."));
+    private final JLabel userLabel= new JLabel("Username: ");
+    private final JLabel passwordLabel= new JLabel("Password: ");
+    private final JLabel loggedInLabel = new JLabel(("Not logged in."));
 
     //JTextfields
-    private JTextField userField = new JTextField();
-    private JPasswordField passwordField = new JPasswordField();
+    private final JTextField userField = new JTextField();
+    private final JPasswordField passwordField = new JPasswordField();
 
     //JButtons
-    private JButton loginButton = new JButton("Login");
-    private JButton registerButton = new JButton("Register");
+    private final JButton loginButton = new JButton("Login");
+    private final JButton registerButton = new JButton("Register");
 
     /**
      * Constructor for the panel
@@ -37,7 +37,7 @@ public class LoginPanel extends JPanel {
      * Sets up some of the components and places them all into
      * the panel using GridBagConstraints.
      */
-    public void setupComponents(){
+    private void setupComponents(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 

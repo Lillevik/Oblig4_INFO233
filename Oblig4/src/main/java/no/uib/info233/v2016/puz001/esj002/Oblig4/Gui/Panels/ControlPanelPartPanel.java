@@ -11,43 +11,42 @@ import java.util.ArrayList;
  */
 public class ControlPanelPartPanel extends JPanel{
 
+
     //Panels
-    private JPanel coursePanel = new JPanel(new GridBagLayout());
-    private JPanel updatingPanel = new JPanel(new BorderLayout(1, 1));
-    private JPanel loggedInPanel = new JPanel(new GridBagLayout());
-    private JPanel updatePartPanel = new JPanel(new GridBagLayout());
-    private JPanel buttonPanel = new JPanel(new GridBagLayout());
+    private final JPanel coursePanel = new JPanel(new GridBagLayout());
+    private final JPanel updatingPanel = new JPanel(new BorderLayout(1, 1));
+    private final JPanel loggedInPanel = new JPanel(new GridBagLayout());
+    private final JPanel updatePartPanel = new JPanel(new GridBagLayout());
+    private final JPanel buttonPanel = new JPanel(new GridBagLayout());
+
 
     //Labels
-    private JLabel titleLabel = new JLabel("Part name: ");
-    private JLabel weightLabel = new JLabel("Weight: ");
-    private JLabel loggedInAs = new JLabel("Not logged in: ");
-    private JLabel currentWeight = new JLabel("Total weight: ");
-    private JLabel spaceLabel = new JLabel("");
-    private JLabel updateWeightLabel = new JLabel("Weight: ");
-
+    private final JLabel titleLabel = new JLabel("Part name: ");
+    private final JLabel weightLabel = new JLabel("Weight: ");
+    private final JLabel loggedInAs = new JLabel("Not logged in: ");
+    private final JLabel currentWeight = new JLabel("Total weight: ");
+    private final JLabel spaceLabel = new JLabel("");
+    private final JLabel updateWeightLabel = new JLabel("Weight: ");
 
 
     //TextFields
-    private JTextField titleField = new JTextField();
-    private JTextField weightField = new JTextField();
-    private JTextField updateWeightField = new JTextField();
-
-
+    private final JTextField titleField = new JTextField();
+    private final JTextField weightField = new JTextField();
+    private final JTextField updateWeightField = new JTextField();
 
 
     //JButtons
-    private JButton addCourseButton = new JButton("Add part");
-    private JButton addStudentButton = new JButton("Add students");
-    private JButton backButton = new JButton("Back");
-    private JButton updatePart = new JButton("Update");
+    private final JButton addCourseButton = new JButton("Add part");
+    private final JButton addStudentButton = new JButton("Add students");
+    private final JButton backButton = new JButton("Back");
+    private final JButton updatePart = new JButton("Update");
 
 
     //Arrays
-    private ArrayList<String> percentage = new ArrayList<String>(){};
+    private final ArrayList<String> percentage = new ArrayList<String>(){};
 
     //J Combo box
-    private JComboBox weight;
+    private final JComboBox weight;
 
 
     /**
@@ -75,7 +74,7 @@ public class ControlPanelPartPanel extends JPanel{
      * This method places the components of the coursePanel panel
      * into the coursePanel panel field.
      */
-    public void placeComponentsCoursePanel(){
+    private void placeComponentsCoursePanel(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 
@@ -112,7 +111,7 @@ public class ControlPanelPartPanel extends JPanel{
      * This method places the components of the updatingPanel panel
      * into the updatingPanel panel field.
      */
-    public void placeComponentsUpdatingPanel(){
+    private void placeComponentsUpdatingPanel(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 
@@ -138,7 +137,7 @@ public class ControlPanelPartPanel extends JPanel{
      * This method places the components in the loggedInPanel panel
      * and adds them to the panel.
      */
-    public void placeComponentsLoggedInPanel(){
+    private void placeComponentsLoggedInPanel(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 
@@ -151,7 +150,7 @@ public class ControlPanelPartPanel extends JPanel{
      * This method places the components of the buttonPanel
      * and adds them to the panel.
      */
-    public void placeComponentsButtonPanel(){
+    private void placeComponentsButtonPanel(){
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.BASELINE;
 
@@ -172,7 +171,7 @@ public class ControlPanelPartPanel extends JPanel{
      * This method setsUpCertain components by customising
      * size and so on.
      */
-    public void setupComponents(){
+    private void setupComponents(){
         this.titleField.setPreferredSize(new Dimension(150, 24));
         this.weightField.setPreferredSize(new Dimension(150, 24));
         this.weight.setPreferredSize(new Dimension(150, 24));
@@ -187,7 +186,7 @@ public class ControlPanelPartPanel extends JPanel{
      * This method adds all the numbers from 20 - 100 to
      * the ArrayList percentage which is used in the JComboBox
      */
-    public void fillWeigthList(){
+    private void fillWeigthList(){
         for(int i = 20; i  < 101; i++){
             percentage.add(i + "%");
         }
