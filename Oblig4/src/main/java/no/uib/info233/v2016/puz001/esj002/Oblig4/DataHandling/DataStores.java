@@ -5,11 +5,11 @@ import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
 import java.util.ArrayList;
 
 /**
- * Created by marius on 23.04.2016.
+ * Created on 23.04.2016.
  * This Class stores data in lists and constants in order
  * to use this data while calculation different numbers and
  * to know which course is currently being edited.
- * @author Marius
+ * @author puz001, esj002
  */
 public class DataStores {
 
