@@ -1,5 +1,6 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection;
 
+import com.mysql.jdbc.SQLError;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.*;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.ErrorFrame;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
@@ -10,6 +11,7 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 
 /**
@@ -129,7 +131,7 @@ public class ConnectionHandling {
      * the student has to manually be added to courses
      * through the course panels.
      *
-     * @param name
+     * @param name - This method 
      * @return
      */
     public String insertStudents(String name) {
@@ -722,8 +724,15 @@ public class ConnectionHandling {
     }
 
 
-
-public ArrayList<Student> getStudents(int courseId, Connection conn){
+    /**
+     * This method selects all the students from a specific course
+     * where the courseId is given as a parameter. They are then
+     * added to a list and returned.
+     * @param courseId - The course Id to fetch students from
+     * @param conn - The connection to connecto to
+     * @return - A list containing all the students from the course.
+     */
+    public ArrayList<Student> getStudents(int courseId, Connection conn){
 
         Connection dbConnection;
         Statement statement;
@@ -757,14 +766,22 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
     }
 
 
-
-
+    /**
+     * This method fetches the partEvaluations for
+     * each student in the list and then adds them
+     * to a new list which is retured and and later
+     * used for calculating final grades.
+     * @param courseID - The course to get parts from
+     * @param conn - The connection to use
+     * @param students - A list of students.
+     * @return An ArrayList of students containing
+     * all the students on the course and their
+     * part evaluations.
+     */
     public ArrayList<Student> getCoursePartsList(int courseID, Connection conn, ArrayList<Student> students){
 
         Statement statement;
         ResultSet rs;
-
-
         for(Student stud : students) {
 
             try {
@@ -803,9 +820,31 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
     }
 
 
-
-    public ArrayList<Student> calculateFinalGrade(int courseID, Connection conn){
+    /**
+     * This method is where the actual grade calculation
+     * is happening. In this method all of the students
+     * from an ArrayList<Student> are fetched and calculated
+     * their final grade if none of the grades are missing,
+     * and/or the course is not missing any parts.
+     * @param courseID - The courseID to calculate grades from
+     * @param conn - The connection to use
+     * @return A boolean which is true only if the calculation was successfull.
+     */
+    public boolean calculateFinalGrade(int courseID, Connection conn){
+        ArrayList<PartEvaluation> partEvaluationsMisingGrade = new ArrayList<>();
         ArrayList<Student> students = getCoursePartsList(courseID, conn, getStudents(courseID, conn));
+        if(students.isEmpty()){
+            JOptionPane.showMessageDialog(errorFrame,
+                    "There are no parts/part grades for this course.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+
+            return false;
+        }else if(!students.isEmpty()){
+            for (Student stud : students){
+                partEvaluationsMisingGrade.addAll(stud.getPartEvaluations().stream().filter(part -> part.getGrade() == 0).collect(Collectors.toList()));
+            }
+        }
+        if(partEvaluationsMisingGrade.isEmpty()) {
             for (Student student : students) {
                 double grade = 0;
 
@@ -835,9 +874,37 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
                     e.getMessage();
                 }
             }
-        return students;
+            JOptionPane.showMessageDialog(errorFrame,
+                    "Successfully calculated/listed grades.",
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
+            return true;
+        }else if(!partEvaluationsMisingGrade.isEmpty()){
+            ArrayList<Integer> partIds = new ArrayList<>();
+            for (PartEvaluation part : partEvaluationsMisingGrade){
+                int partId = part.getPartId();
+                if(!partIds.contains(partId)){
+                    partIds.add(partId);
+                }
+
+            }
+
+            JOptionPane.showMessageDialog(errorFrame,
+                    "Missing Grade(s) where part ID = " + partIds.toString(),
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
+
+            return false;
+        }
+        return false;
     }
 
+    /**
+     * This method selects all the Final
+     * course grade from a course and
+     * lists them in a JTable in the
+     * CourseGradesPanel.
+     * @param courseId - The courseID to list grades from
+     * @param conn - The conenction to fetch the data from
+     */
     public void selectGradesFromCourse(int courseId, Connection conn){
         Statement statement;
         ResultSet rs;
@@ -868,7 +935,14 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
     }
 
 
-
+    /**
+     * This method takes a String as a parameter and
+     * returns a number depending on what grade the
+     * String contains. These valeus are then used
+     * while calculating the grades.
+     * @param grade - The grade to convert
+     * @return - The double value of the converted date
+     */
     public double changeStringGrade(String grade) {
         String s = "";
         if(grade != null){
@@ -897,6 +971,13 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
         return 0;
     }
 
+    /**
+     * This method converts final calculated grades
+     * from double value to a grade depending on the
+     * input.
+     * @param grade - The double values grade to convert
+     * @return - The converted String grade(A-F).
+     */
     public String changeDoubleGrade(double grade) {
         if(grade <= 1.0 && grade >= 0.0){
             return "A";
@@ -913,15 +994,6 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
         }
         return "Not working";
     }
-
-    public static void main(String[] args){
-        Gui g = new Gui();
-        g.setVisible(false);
-        ConnectionHandling ch = new ConnectionHandling(new DataStores(g), g);
-        ch.calculateFinalGrade(16, ch.getDbConnection());
-    }
-
-
 }
 
 

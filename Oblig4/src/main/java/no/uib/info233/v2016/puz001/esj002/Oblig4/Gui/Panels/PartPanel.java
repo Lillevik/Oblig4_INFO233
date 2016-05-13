@@ -28,7 +28,7 @@ public class PartPanel extends JPanel {
 
     //Panels
     private ControlPanelPartPanel cppf = new ControlPanelPartPanel();
-    private CourseGradesPanel cgp = new CourseGradesPanel();
+
 
 
     //Models and tables
@@ -52,7 +52,6 @@ public class PartPanel extends JPanel {
         setupComponents();
         this.add(cppf, BorderLayout.WEST);
         this.add(tp, BorderLayout.CENTER);
-        this.add(cgp, BorderLayout.EAST);
 
         setVisible(true);
     }
