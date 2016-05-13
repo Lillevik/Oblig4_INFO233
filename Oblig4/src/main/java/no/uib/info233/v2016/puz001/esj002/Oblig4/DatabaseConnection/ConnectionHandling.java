@@ -1,6 +1,7 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection;
 
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.*;
+import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.ErrorFrame;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.StudentGradesPanel;
 
@@ -20,6 +21,7 @@ public class ConnectionHandling {
 
     private Gui g;
     private DataStores ds;
+    private ErrorFrame errorFrame;
 
     public ConnectionHandling(DataStores ds, Gui g) {
         this.g = g;
@@ -35,8 +37,12 @@ public class ConnectionHandling {
     public Connection getDbConnection() {
         try {
             Class.forName(("com.mysql.jdbc.Driver"));
+
         } catch (ClassNotFoundException cnfe) {
-            System.out.println("Feil i lasting av jdbs-driver" + cnfe);
+
+            JOptionPane.showMessageDialog(errorFrame,
+                    "Feil i lasting av jdbs-driver" + cnfe,
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
 
 
@@ -53,9 +59,13 @@ public class ConnectionHandling {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(mySqlUrl, userInfo);
+
         } catch (SQLException e) {
-            System.out.println("Feil i oppkobling! Sjekk Konsoll");
+
             e.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         if (conn != null) {
@@ -101,7 +111,10 @@ public class ConnectionHandling {
 
             } catch (SQLException e) {
 
-                System.out.println(e.getMessage());
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(errorFrame,
+                        e.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
 
             }
         }
@@ -145,8 +158,10 @@ public class ConnectionHandling {
             dbConnection.close();
 
         } catch (SQLException e) {
-
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
 
         }
         return name;
@@ -196,7 +211,11 @@ public class ConnectionHandling {
             }
 
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            s.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    s.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
@@ -208,11 +227,9 @@ public class ConnectionHandling {
 
         Connection dbConnection;
         Statement statement;
-        //g.getModel().removeTableModelListener(tc);
         g.tableRows();
 
         try {
-
 
             dbConnection = getDbConnection();
             statement = dbConnection.createStatement();
@@ -229,14 +246,15 @@ public class ConnectionHandling {
                 g.getModel().addRow(new Object[]{id, name, description, professor});
             }
 
-
             statement.close();
             dbConnection.close();
 
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            s.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    s.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
-        //g.getModel().addTableModelListener(tc);
     }
 
     /**
@@ -252,7 +270,6 @@ public class ConnectionHandling {
         Connection dbConnection;
         Statement statement;
         try {
-
 
             dbConnection = getDbConnection();
             statement = dbConnection.createStatement();
@@ -278,7 +295,10 @@ public class ConnectionHandling {
             dbConnection.close();
 
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            s.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    s.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -318,7 +338,10 @@ public class ConnectionHandling {
 
             } catch (SQLException e) {
 
-                System.out.println(e.getMessage());
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(errorFrame,
+                        e.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
 
             }
         }
@@ -359,7 +382,10 @@ public class ConnectionHandling {
             dbConnection.close();
 
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            s.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    s.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -401,7 +427,10 @@ public class ConnectionHandling {
 
             return;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
 
         }
 
@@ -440,7 +469,10 @@ public class ConnectionHandling {
             dbConnection.close();
 
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            s.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    s.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -473,7 +505,10 @@ public class ConnectionHandling {
             dbConnection.close();
 
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            s.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    s.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -521,7 +556,10 @@ public class ConnectionHandling {
             dbConnection.close();
 
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            s.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    s.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -555,7 +593,10 @@ public class ConnectionHandling {
             dbConnection.close();
             System.out.println(query);
         } catch (SQLException s){
-            System.out.println(s.getMessage());
+            s.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    s.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
 
 
@@ -634,7 +675,10 @@ public class ConnectionHandling {
                 dbConnection.close();
             }
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            s.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    s.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -669,7 +713,10 @@ public class ConnectionHandling {
             dbConnection.close();
 
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            s.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    s.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -719,7 +766,6 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
 
         for(Student stud : students) {
 
-
             try {
                 String query = "SELECT Student.student_id, PartGrade.part_id, PartGrade.course_id, Part.part_name, PartGrade.grade, Part.part_weight\n" +
                         "    FROM Part\n" +
@@ -745,7 +791,11 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
                 }
 
             } catch (SQLException e) {
-                e.getMessage();
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(errorFrame,
+                        e.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+
             }
         }
         return students;
@@ -808,7 +858,11 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
             }
             conn.close();
         }catch (SQLException e){
-            e.getMessage();
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame,
+                    e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
