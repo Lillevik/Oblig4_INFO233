@@ -61,22 +61,6 @@ public class Course {
     }
 
     /**
-     * This is a getter for the description field
-     * @return - The String description field value
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * This is a getter for the professor field
-     * @return - The String professor field value
-     */
-    public String getProfessor() {
-        return professor;
-    }
-
-    /**
      * This is a getter for the partIds ArrayList field
      * @return - The ArrayList partIds field List
      */

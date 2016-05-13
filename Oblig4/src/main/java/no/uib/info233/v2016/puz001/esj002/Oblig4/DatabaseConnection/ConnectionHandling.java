@@ -131,7 +131,7 @@ public class ConnectionHandling {
      * the student has to manually be added to courses
      * through the course panels.
      *
-     * @param name - This method 
+     * @param name - This method
      * @return
      */
     public String insertStudents(String name) {

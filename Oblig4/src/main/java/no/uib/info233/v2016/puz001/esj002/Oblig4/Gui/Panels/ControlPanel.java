@@ -195,10 +195,19 @@ public class ControlPanel extends JPanel {
         return deleteCourseButton;
     }
 
+
+    /**
+     * This is a getter for the viewStudents field
+     * @return - The JButton value from the viewStudents field
+     */
     public JButton getViewStudents() {
         return viewStudents;
     }
 
+    /**
+     * This is a getter for the deleteCourseButton field
+     * @return - The JButton value from the deleteCourseButton field
+     */
     public JButton getCourseGrades() {
         return courseGrades;
     }
