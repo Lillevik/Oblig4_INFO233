@@ -1,5 +1,6 @@
 package no.uib.info233.v2016.puz001.esj002.Oblig4.DatabaseConnection;
 
+import com.mysql.jdbc.SQLError;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.DataHandling.*;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Frames.Gui;
 import no.uib.info233.v2016.puz001.esj002.Oblig4.Gui.Panels.StudentGradesPanel;
@@ -9,6 +10,7 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 
 /**
@@ -715,8 +717,6 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
 
         Statement statement;
         ResultSet rs;
-
-
         for(Student stud : students) {
 
 
@@ -753,8 +753,18 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
 
 
 
-    public ArrayList<Student> calculateFinalGrade(int courseID, Connection conn){
+    public boolean calculateFinalGrade(int courseID, Connection conn){
+        ArrayList<PartEvaluation> partEvaluationsMisingGrade = new ArrayList<>();
         ArrayList<Student> students = getCoursePartsList(courseID, conn, getStudents(courseID, conn));
+        if(students.isEmpty()){
+            System.out.println("There are no parts/part grades for this course.");
+            return false;
+        }else if(!students.isEmpty()){
+            for (Student stud : students){
+                partEvaluationsMisingGrade.addAll(stud.getPartEvaluations().stream().filter(part -> part.getGrade() == 0).collect(Collectors.toList()));
+            }
+        }
+        if(partEvaluationsMisingGrade.isEmpty()) {
             for (Student student : students) {
                 double grade = 0;
 
@@ -784,7 +794,14 @@ public ArrayList<Student> getStudents(int courseId, Connection conn){
                     e.getMessage();
                 }
             }
-        return students;
+            return true;
+        }else if(!partEvaluationsMisingGrade.isEmpty()){
+            for (PartEvaluation part : partEvaluationsMisingGrade){
+                System.out.print("Missing part Grade where part id = " + part.getPartId());
+            }
+            return false;
+        }
+        return false;
     }
 
     public void selectGradesFromCourse(int courseId, Connection conn){

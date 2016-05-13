@@ -365,14 +365,11 @@ public class Controls {
      * through the user interface.
      */
     public void addStudentsToTable(){
-        g.getSgp().getAddStudent().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ch.insertStudents(
-                        g.getSgp().getStudentName().getText());
-                ch.listStudents(g.getSgp());
+        g.getSgp().getAddStudent().addActionListener(e -> {
+            ch.insertStudents(
+                    g.getSgp().getStudentName().getText());
+            ch.listStudents(g.getSgp());
 
-            }
         });
     }
 
@@ -382,16 +379,12 @@ public class Controls {
      */
     public void goToCourseGradesPanel(){
 
-        g.getCp().getCourseGrades().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Connection conn = ch.getDbConnection();
-                int selectedRow = g.getTable().getSelectedRow();
-                int courseId = Integer.parseInt(g.getTable().getValueAt(selectedRow, 0).toString());
-                ch.calculateFinalGrade(courseId, conn);
+        g.getCp().getCourseGrades().addActionListener(e -> {
+            Connection conn = ch.getDbConnection();
+            int selectedRow = g.getTable().getSelectedRow();
+            int courseId = Integer.parseInt(g.getTable().getValueAt(selectedRow, 0).toString());
+            if(ch.calculateFinalGrade(courseId, conn)){
                 ch.selectGradesFromCourse(courseId, conn);
-                g.getCgp().getModel().fireTableDataChanged();
-
                 g.setContentPane(g.getCgp());
                 g.pack();
             }
@@ -403,12 +396,9 @@ public class Controls {
      * the courseGradePanel
      */
     public void goBackFromCourseGradesPanel(){
-        g.getCgp().getBackButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                g.setContentPane(g.getSpine());
-                g.pack();
-            }
+        g.getCgp().getBackButton().addActionListener(e -> {
+            g.setContentPane(g.getSpine());
+            g.pack();
         });
     }
 
@@ -417,11 +407,8 @@ public class Controls {
      * courseGradePanel where the final grades are diplayed.
      */
     public void searchCourseFinalGrades(){
-        g.getCgp().getSearchButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        g.getCgp().getSearchButton().addActionListener(e -> {
 
-            }
         });
     }
 
